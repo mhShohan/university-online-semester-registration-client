@@ -9,7 +9,11 @@ const App = () => {
   return (
     <>
       <CssBaseline />
-      {authenticated ? <RouterProvider router={mainRoutes} /> : <RouterProvider router={authRoutes} />}
+      {authenticated ? (
+        <RouterProvider router={mainRoutes} />
+      ) : (
+        <RouterProvider router={authRoutes} />
+      )}
     </>
   );
 };
