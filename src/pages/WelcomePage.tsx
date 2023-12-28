@@ -12,7 +12,7 @@ const WelcomePage = () => {
   return (
     <Container
       sx={{
-        height: '100vh',
+        minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -22,13 +22,14 @@ const WelcomePage = () => {
     >
       <Grid container>
         <Grid item xs={12} md={8}>
-          <Box>
+          <Box sx={{ margin: '2rem 0' }}>
             <img src={logo} alt="BSMRSTU LOGO" width={200} />
             <Typography variant="h4" sx={{ fontWeight: 900 }}>
               Academic Semester Registration
             </Typography>
             <Typography variant="h6" sx={{ fontWeight: 700 }}>
-              Bangabandhu Sheikh Mujibur Rahman Science and Technology University
+              Bangabandhu Sheikh Mujibur Rahman Science and Technology University, <br />{' '}
+              Gopalgang-8100
             </Typography>
           </Box>
         </Grid>
@@ -47,9 +48,10 @@ const WelcomePage = () => {
             sx={{
               width: '100%',
               border: '1px solid gray',
-              padding: '3rem 2rem',
+              padding: '3rem',
               borderRadius: '8px',
-              textAlign: 'center'
+              textAlign: 'center',
+              margin: '2rem 0'
             }}
           >
             <Button
@@ -57,8 +59,8 @@ const WelcomePage = () => {
               variant="contained"
               sx={{
                 width: '100%',
-                margin: '.8rem 0',
-                padding: '.5rem'
+                margin: '.6rem 0',
+                padding: '.6rem'
               }}
             >
               Login as a Student
@@ -68,8 +70,8 @@ const WelcomePage = () => {
               variant="contained"
               sx={{
                 width: '100%',
-                margin: '.8rem 0',
-                padding: '.5rem'
+                margin: '.6rem 0',
+                padding: '.6rem'
               }}
             >
               Register new Student Account
@@ -82,8 +84,8 @@ const WelcomePage = () => {
               variant="contained"
               sx={{
                 width: '100%',
-                margin: '.8rem 0',
-                padding: '.5rem'
+                margin: '.6rem 0',
+                padding: '.6rem'
               }}
             >
               Login as an Admin

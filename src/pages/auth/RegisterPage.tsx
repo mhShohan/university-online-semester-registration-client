@@ -1,5 +1,7 @@
+import { Container } from '@mui/material';
+
 const RegisterPage = () => {
-  return <div>RegisterPage</div>;
+  return <Container sx={{ height: '100vh' }}>RegisterPage</Container>;
 };
 
 export default RegisterPage;
