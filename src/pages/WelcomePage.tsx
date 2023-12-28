@@ -61,7 +61,7 @@ const WelcomePage = () => {
                 padding: '.5rem'
               }}
             >
-              Login as Student
+              Login as a Student
             </Button>
             <Button
               onClick={() => handleNavigate('/register')}
@@ -72,7 +72,7 @@ const WelcomePage = () => {
                 padding: '.5rem'
               }}
             >
-              Create Student Account
+              Register new Student Account
             </Button>
             <Divider>
               <Chip label="OR" />
@@ -86,7 +86,7 @@ const WelcomePage = () => {
                 padding: '.5rem'
               }}
             >
-              Login as Admin
+              Login as an Admin
             </Button>
           </Box>
         </Grid>
