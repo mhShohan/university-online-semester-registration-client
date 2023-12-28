@@ -7,14 +7,14 @@ const App = () => {
   const authenticated = false;
 
   return (
-    <div style={{ backgroundColor: 'lightcyan' }}>
+    <main style={{ backgroundColor: 'lightcyan' }}>
       <CssBaseline />
       {authenticated ? (
         <RouterProvider router={mainRoutes} />
       ) : (
         <RouterProvider router={publicRoutes} />
       )}
-    </div>
+    </main>
   );
 };
 

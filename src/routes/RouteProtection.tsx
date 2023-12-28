@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
-interface PrivateRoutesProps {
+interface RouteProtectionProps {
   children: React.ReactNode;
 }
 
-const PrivateRoute = ({ children }: PrivateRoutesProps) => {
+const RouteProtection = ({ children }: RouteProtectionProps) => {
   const { user, loading } = { user: true, loading: false };
 
   const location = useLocation();
@@ -19,4 +19,4 @@ const PrivateRoute = ({ children }: PrivateRoutesProps) => {
   return <Navigate to="/login" state={{ from: location }} />;
 };
 
-export default PrivateRoute;
+export default RouteProtection;
