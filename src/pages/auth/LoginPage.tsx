@@ -1,26 +1,32 @@
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+
+// mui
 import {
   Box,
   Button,
   Container,
-  FilledInput,
   FormControl,
   IconButton,
   InputAdornment,
   InputLabel,
+  OutlinedInput,
   TextField,
   Typography
 } from '@mui/material';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors }
-  // } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
+
+  const login = () => {};
 
   return (
     <Container sx={{ height: '100vh' }}>
@@ -40,7 +46,7 @@ const LoginPage = () => {
             border: '1px solid gray',
             borderRadius: '8px'
           }}
-          // onSubmit={handleSubmit(login)}
+          onSubmit={handleSubmit(login)}
         >
           <Typography
             variant="h5"
@@ -53,26 +59,27 @@ const LoginPage = () => {
           >
             Login as a student
           </Typography>
-          <TextField
-            fullWidth
-            variant="filled"
-            // color={errors['email'] ? 'error' : 'primary'}
-            size="small"
-            label="Email Address"
-            // {...register('email', { required: true })}
-          />
 
-          <FormControl
-            variant="filled"
+          <TextField
+            {...register('email', { required: true })}
+            color={errors['email'] ? 'error' : 'primary'}
+            label="Email Address"
+            id="outlined-start-adornment"
             size="small"
-            fullWidth
-            // color={errors['password'] ? 'error' : 'primary'}
-          >
-            <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
-            <FilledInput
-              id="filled-adornment-password"
+            sx={{ width: '100%', marginTop: '.6rem' }}
+          />
+          <FormControl sx={{ width: '100%', marginTop: '.6rem' }} variant="outlined" size="small">
+            <InputLabel
+              htmlFor="outlined-adornment-password"
+              color={errors['password'] ? 'error' : 'primary'}
+            >
+              Password
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              {...register('password', { required: true })}
+              color={errors['password'] ? 'error' : 'primary'}
               type={showPassword ? 'text' : 'password'}
-              // {...register('password', { required: true })}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -85,6 +92,7 @@ const LoginPage = () => {
                   </IconButton>
                 </InputAdornment>
               }
+              label="Password"
             />
           </FormControl>
 
@@ -106,8 +114,11 @@ const LoginPage = () => {
           </Box>
         </form>
         <Box sx={{ marginTop: '2rem' }}>
-          <Link to="/">
-            <Button variant="contained">Go back</Button>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <Button variant="contained" sx={{ display: 'flex', alignItems: 'center' }}>
+              <ArrowBackIosIcon style={{ fontSize: '1rem' }} />
+              Go back
+            </Button>
           </Link>
         </Box>
       </Box>
