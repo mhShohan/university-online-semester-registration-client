@@ -9,10 +9,18 @@ const SideBarLink = ({ link, pathname }: { link: ILink; pathname: string }) => {
     <Link to={link.link} style={{ textDecoration: 'none' }}>
       <ListItem disablePadding isActive={pathname === link.link}>
         <ListItemButton>
-          <ListItemIcon>
+          <ListItemIcon
+            sx={{
+              '&.MuiListItemIcon-root': {
+                marginLeft: '1rem',
+                maxWidth: '35px',
+                minWidth: '35px'
+              }
+            }}
+          >
             <link.icon />
           </ListItemIcon>
-          <ListItemText primary={link.name} />
+          <ListItemText primary={link.name.toUpperCase()} />
         </ListItemButton>
       </ListItem>
     </Link>

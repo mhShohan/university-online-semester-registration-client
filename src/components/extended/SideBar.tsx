@@ -10,7 +10,7 @@ export const ListItem = styled(MuiListItem)<IListItem>(({ theme, isActive }) => 
   borderBottom: `1px solid ${theme.palette.primary.light}`,
   background: isActive ? theme.palette.primary.light : theme.palette.primary.main,
   '&:hover': {
-    background: theme.palette.primary.dark,
+    background: theme.palette.secondary.dark,
     '& .MuiSvgIcon-root': {
       fill: theme.palette.primary.light
     },

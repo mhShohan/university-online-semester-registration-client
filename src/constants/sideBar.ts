@@ -7,12 +7,13 @@ export interface ILink {
   id: number;
   name: string;
   link: string;
+  visibleTo: string[];
   icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>;
 }
 
 export const sideBarData: Array<ILink> = [
-  { id: 1, name: 'Dashboard', link: '/', icon: InboxIcon },
-  { id: 2, name: 'Teams', link: '/teams', icon: Add },
-  { id: 3, name: 'Tasks', link: '/tasks', icon: InboxIcon },
-  { id: 4, name: 'Profile', link: '/profile', icon: InboxIcon },
+  { id: 1, name: 'Dashboard', link: '/', icon: InboxIcon, visibleTo: ['student'] },
+  { id: 2, name: 'Teams', link: '/teams', icon: Add, visibleTo: ['student'] },
+  { id: 3, name: 'Tasks', link: '/tasks', icon: InboxIcon, visibleTo: ['student'] },
+  { id: 4, name: 'Profile', link: '/profile', icon: InboxIcon, visibleTo: ['student'] },
 ];

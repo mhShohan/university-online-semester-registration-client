@@ -1,15 +1,17 @@
 import * as React from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 // mui
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/material/styles';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Button, IconButton, Typography } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 
 // project import
 import { sideBarData } from '../constants/sideBar';
@@ -30,54 +32,77 @@ export default function SideBar(props: Props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const theme = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  /**
+   * Logout handler - remove accessToken from localStorage
+   */
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    navigate(0);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const drawer = (
-    <div>
-      {/* @TODO */}
-      <Toolbar sx={{ color: '#fff' }}>{location.pathname}</Toolbar>
-      <Divider />
-      <List sx={{ padding: 0 }}>
-        {sideBarData.map((item) => (
-          <SideBarLink link={item} key={item.id} pathname={location.pathname} />
-        ))}
-      </List>
-      <Divider />
-    </div>
+    <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
+      <Box>
+        <DashboardLogo pathname={location.pathname} />
+        <Divider />
+        <List sx={{ padding: 0 }}>
+          {sideBarData.map((item) => (
+            <SideBarLink link={item} key={item.id} pathname={location.pathname} />
+          ))}
+        </List>
+      </Box>
+      <Box display="flex" justifyContent="center" marginBottom="1rem">
+        <Button
+          variant="contained"
+          onClick={handleLogout}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+            backgroundColor: theme.palette.secondary.dark
+          }}
+        >
+          <LogoutIcon sx={{ fontSize: '1rem' }} />
+          Logout
+        </Button>
+        <Divider />
+      </Box>
+    </Box>
   );
-
-  /**
-   * Logout handler - remove accessToken from localStorage
-   */
-  // const handleLogout = () => {
-  //   localStorage.removeItem('accessToken');
-  //   navigate(0);
-  // };
 
   // Remove this const when copying and pasting into your project.
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` }
         }}
-      ></AppBar>
+      >
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{ display: { sm: 'none' } }}
+        >
+          <MenuIcon />
+        </IconButton>
+      </AppBar>
       <Box
         component="nav"
         sx={{
           width: { sm: drawerWidth },
-          flexShrink: { sm: 0 },
-          '& .MuiDrawer-paper': {
-            backgroundColor: theme.palette.primary.main
-          }
+          flexShrink: { sm: 0 }
         }}
         aria-label="mailbox folders"
       >
@@ -92,7 +117,11 @@ export default function SideBar(props: Props) {
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
+            '& .MuiDrawer-paper': {
+              backgroundColor: theme.palette.primary.main,
+              boxSizing: 'border-box',
+              width: drawerWidth
+            }
           }}
         >
           {drawer}
@@ -101,7 +130,11 @@ export default function SideBar(props: Props) {
           variant="permanent"
           sx={{
             display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
+            '& .MuiDrawer-paper': {
+              backgroundColor: theme.palette.primary.main,
+              boxSizing: 'border-box',
+              width: drawerWidth
+            }
           }}
           open
         >
@@ -115,3 +148,24 @@ export default function SideBar(props: Props) {
     </Box>
   );
 }
+
+const DashboardLogo = ({ pathname }: { pathname: string }) => {
+  let logo = 'logo';
+
+  if (pathname === '/') {
+    logo = 'Dashboard';
+  } else {
+    logo = pathname.split('/').pop() as string;
+  }
+
+  return (
+    <Toolbar>
+      <Typography
+        variant="h5"
+        sx={{ color: '#fff', textTransform: 'uppercase', textAlign: 'center' }}
+      >
+        {logo}
+      </Typography>
+    </Toolbar>
+  );
+};
