@@ -1,20 +1,21 @@
 import { RouterProvider } from 'react-router-dom';
 import mainRoutes from './routes/mainRoutes';
 import publicRoutes from './routes/publicRoutes';
-import { CssBaseline } from '@mui/material';
+import { Box, CssBaseline, useTheme } from '@mui/material';
 
 const App = () => {
+  const theme = useTheme();
   const authenticated = false;
 
   return (
-    <main style={{ backgroundColor: 'lightcyan' }}>
+    <Box component="main" sx={{ backgroundColor: theme.palette.primary.light }}>
       <CssBaseline />
       {authenticated ? (
         <RouterProvider router={mainRoutes} />
       ) : (
         <RouterProvider router={publicRoutes} />
       )}
-    </main>
+    </Box>
   );
 };
 
