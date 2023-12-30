@@ -13,13 +13,15 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
-  Typography
+  Typography,
+  useTheme
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const theme = useTheme();
   const {
     register,
     handleSubmit,
@@ -43,7 +45,7 @@ const LoginPage = () => {
           style={{
             maxWidth: '400px',
             padding: '2rem 3rem',
-            border: '1px solid gray',
+            border: `1px solid ${theme.palette.primary.main}`,
             borderRadius: '8px'
           }}
           onSubmit={handleSubmit(login)}

@@ -1,9 +1,10 @@
-import { Box, Button, Chip, Container, Divider, Grid, Typography } from '@mui/material';
+import { Box, Button, Chip, Container, Divider, Grid, Typography, useTheme } from '@mui/material';
 import logo from '../assets/bsmrstu.svg';
 import { useNavigate } from 'react-router-dom';
 
 const WelcomePage = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const handleNavigate = (link: string) => {
     navigate(link);
@@ -47,7 +48,7 @@ const WelcomePage = () => {
           <Box
             sx={{
               width: '100%',
-              border: '1px solid gray',
+              border: `1px solid ${theme.palette.primary.main}`,
               padding: '3rem',
               borderRadius: '8px',
               textAlign: 'center',
