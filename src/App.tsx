@@ -5,7 +5,7 @@ import { Box, CssBaseline, useTheme } from '@mui/material';
 
 const App = () => {
   const theme = useTheme();
-  const authenticated = true;
+  const authenticated = false;
 
   return (
     <Box component="main" sx={{ backgroundColor: theme.palette.primary.light }}>
