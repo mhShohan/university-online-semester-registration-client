@@ -108,7 +108,7 @@ const LoginPage = () => {
           </Button>
           <Box style={{ textAlign: 'center', marginTop: '10px' }}>
             <Typography variant="body1">
-              Have an Account?{' '}
+              Have no Account?{' '}
               <Link to="/register" style={{ textDecoration: 'none' }}>
                 Register Here!
               </Link>
