@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/index.ts';
 import { ThemeProvider } from '@mui/material';
 import theme from './theme/index.ts';
+import 'sweetalert2/src/sweetalert2.scss';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
