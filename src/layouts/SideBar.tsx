@@ -16,30 +16,21 @@ import MenuIcon from '@mui/icons-material/Menu';
 // project import
 import { sideBarData } from '../constants/sideBar';
 import SideBarLink from '../components/SideBarLink';
+import { useAppDispatch } from '../store/hook';
+import { logoutUser } from '../store/services/authSlice';
 
 const drawerWidth = 240;
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
-  window?: () => Window;
-}
-
-export default function SideBar(props: Props) {
-  const { window } = props;
+export default function SideBar() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const theme = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  /**
-   * Logout handler - remove accessToken from localStorage
-   */
   const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    navigate(0);
+    dispatch(logoutUser());
+    navigate('/');
   };
 
   const handleDrawerToggle = () => {
@@ -76,9 +67,6 @@ export default function SideBar(props: Props) {
     </Box>
   );
 
-  // Remove this const when copying and pasting into your project.
-  const container = window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar
@@ -108,7 +96,6 @@ export default function SideBar(props: Props) {
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}

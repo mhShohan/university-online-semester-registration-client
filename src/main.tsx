@@ -1,18 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
 import { Provider } from 'react-redux';
-import { store } from './store/index.ts';
-import { ThemeProvider } from '@mui/material';
-import theme from './theme/index.ts';
+import { PersistGate } from 'redux-persist/integration/react';
 import 'sweetalert2/src/sweetalert2.scss';
+
+//mui
+import { ThemeProvider } from '@mui/material';
+
+//project imports
+import App from './App';
+import { persistor, store } from './store/store.ts';
+import theme from './theme/index.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>
 );

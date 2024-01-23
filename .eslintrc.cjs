@@ -18,6 +18,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    'react/react-in-jsx-scope': 'off'
+    'react/react-in-jsx-scope': 'off',
+    'react-refresh/only-export-components': 0
   },
 };

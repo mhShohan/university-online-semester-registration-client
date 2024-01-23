@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { FieldValues, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 
 // mui
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {
   Box,
   Button,
@@ -16,30 +18,59 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
+//project import
+import toastMessage from '../../lib/toastMessage';
+import { useStudentLoginMutation } from '../../store/features/authApi';
+import { useAppDispatch } from '../../store/hook';
+import { setLoggedInUser } from '../../store/services/authSlice';
 
 const LoginPage = () => {
+  const [studentLogin] = useStudentLoginMutation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const theme = useTheme();
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      emailOrStudentId: '17EEE145',
+      password: 'pass123'
+    }
+  });
 
-  const login = () => {};
+  const handleLogin = async (data: FieldValues) => {
+    try {
+      const res = await studentLogin(data).unwrap();
+
+      if (res.statusCode === 200) {
+        dispatch(setLoggedInUser(res.data));
+        navigate('/');
+
+        toastMessage({
+          text: 'Successfully Login!',
+          icon: 'success'
+        });
+
+        return;
+      }
+      toastMessage({ icon: 'error', text: 'Login Failed!' });
+    } catch (error: any) {
+      toastMessage({ icon: 'error', title: 'Login Failed!', text: error?.data?.message });
+    }
+  };
 
   return (
     <Container sx={{ height: '100vh' }}>
       <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          height: '100%'
-        }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100%"
+        flexDirection="column"
       >
         <form
           style={{
@@ -48,7 +79,7 @@ const LoginPage = () => {
             border: `1px solid ${theme.palette.primary.main}`,
             borderRadius: '8px'
           }}
-          onSubmit={handleSubmit(login)}
+          onSubmit={handleSubmit(handleLogin)}
         >
           <Typography
             variant="h5"
@@ -63,9 +94,10 @@ const LoginPage = () => {
           </Typography>
 
           <TextField
-            {...register('email', { required: true })}
-            color={errors['email'] ? 'error' : 'primary'}
-            label="Email Address"
+            {...register('emailOrStudentId', { required: true })}
+            color={errors['emailOrStudentId'] ? 'error' : 'primary'}
+            type="text"
+            label="Email Address or Student ID"
             id="outlined-start-adornment"
             size="small"
             sx={{ width: '100%', marginTop: '.6rem' }}

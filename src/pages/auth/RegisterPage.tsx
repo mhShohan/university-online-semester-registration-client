@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { FieldValues, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 
 // mui
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {
   Box,
   Button,
@@ -17,12 +18,16 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
+//project import
+import toastMessage from '../../lib/toastMessage';
+import { useStudentRegistrationMutation } from '../../store/features/authApi';
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [studentRegistration] = useStudentRegistrationMutation();
+  const navigate = useNavigate();
   const theme = useTheme();
   const {
     register,
@@ -30,28 +35,48 @@ const RegisterPage = () => {
     formState: { errors }
   } = useForm();
 
-  const registerNewStudent = (data: Record<string, undefined>) => {
-    if (data.password !== data.confirmPassword) {
-      Swal.fire({
-        icon: 'error',
-        text: 'Password and Confirm password must be same!'
-      });
+  const registerNewStudent = async (data: FieldValues) => {
+    try {
+      if (data.password !== data.confirmPassword) {
+        toastMessage({
+          icon: 'error',
+          text: 'Password and Confirm password must be same!'
+        });
 
-      return;
+        return;
+      }
+
+      const res = await studentRegistration(data).unwrap();
+
+      if (res.statusCode === 201) {
+        navigate('/');
+        toastMessage({
+          icon: 'success',
+          title: 'New Student Registered successfully!',
+          text: 'Login Now'
+        });
+
+        return;
+      } else {
+        toastMessage({ icon: 'error', title: 'Student registration failed!' });
+      }
+    } catch (error: any) {
+      toastMessage({
+        icon: 'error',
+        title: 'Student registration failed!',
+        text: error?.data?.message
+      });
     }
-    console.log(data);
   };
 
   return (
     <Container sx={{ height: '100vh' }}>
       <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          height: '100%'
-        }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100%"
+        flexDirection="column"
       >
         <form
           style={{
