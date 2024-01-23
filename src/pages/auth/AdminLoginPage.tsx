@@ -3,6 +3,8 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
 //mui
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {
   Box,
   Button,
@@ -16,11 +18,11 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import Swal from 'sweetalert2';
-import { useAppDispatch } from '../../store/hook';
+
+// project import
+import toastMessage from '../../lib/toastMessage';
 import { useAdminLoginMutation } from '../../store/features/authApi';
+import { useAppDispatch } from '../../store/hook';
 import { setLoggedInUser } from '../../store/services/authSlice';
 
 const AdminLoginPage = () => {
@@ -48,7 +50,7 @@ const AdminLoginPage = () => {
         dispatch(setLoggedInUser(res.data));
         navigate('/');
 
-        Swal.fire({
+        toastMessage({
           text: 'Successfully Login!',
           icon: 'success'
         });
@@ -56,9 +58,9 @@ const AdminLoginPage = () => {
         return;
       }
 
-      Swal.fire({ icon: 'error', text: 'Login Failed!' });
+      toastMessage({ icon: 'error', text: 'Login Failed!' });
     } catch (error: any) {
-      Swal.fire({ icon: 'error', title: 'Login Failed!', text: error?.data?.message });
+      toastMessage({ icon: 'error', title: 'Login Failed!', text: error?.data?.message });
     }
   };
 

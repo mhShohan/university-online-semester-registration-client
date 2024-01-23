@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 // mui
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {
   Box,
   Button,
@@ -17,8 +18,9 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
+//project import
+import toastMessage from '../../lib/toastMessage';
 import { useStudentRegistrationMutation } from '../../store/features/authApi';
 
 const RegisterPage = () => {
@@ -36,7 +38,7 @@ const RegisterPage = () => {
   const registerNewStudent = async (data: FieldValues) => {
     try {
       if (data.password !== data.confirmPassword) {
-        Swal.fire({
+        toastMessage({
           icon: 'error',
           text: 'Password and Confirm password must be same!'
         });
@@ -48,19 +50,18 @@ const RegisterPage = () => {
 
       if (res.statusCode === 201) {
         navigate('/');
-        Swal.fire({
+        toastMessage({
           icon: 'success',
           title: 'New Student Registered successfully!',
           text: 'Login Now'
         });
+
         return;
       } else {
-        Swal.fire({ icon: 'error', title: 'Student registration failed!' });
+        toastMessage({ icon: 'error', title: 'Student registration failed!' });
       }
     } catch (error: any) {
-      console.log(error);
-
-      Swal.fire({
+      toastMessage({
         icon: 'error',
         title: 'Student registration failed!',
         text: error?.data?.message
