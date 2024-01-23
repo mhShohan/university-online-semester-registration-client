@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 //mui
 import {
@@ -18,23 +18,59 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import Swal from 'sweetalert2';
+import { useAppDispatch } from '../../store/hook';
+import { useAdminLoginMutation } from '../../store/features/authApi';
+import { setLoggedInUser } from '../../store/services/authSlice';
 
 const AdminLoginPage = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [adminLogin] = useAdminLoginMutation();
   const [showPassword, setShowPassword] = useState(false);
   const theme = useTheme();
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: 'superAdmin@gmail.com',
+      password: 'pass123'
+    }
+  });
 
-  const handleLogin = (data: FieldValues) => {
-    console.log(data);
+  const handleLogin = async (data: FieldValues) => {
+    try {
+      const res = await adminLogin(data).unwrap();
+
+      if (res.statusCode === 200) {
+        dispatch(setLoggedInUser(res.data));
+        navigate('/');
+
+        Swal.fire({
+          text: 'Successfully Login!',
+          icon: 'success'
+        });
+
+        return;
+      }
+
+      Swal.fire({ icon: 'error', text: 'Login Failed!' });
+    } catch (error: any) {
+      Swal.fire({ icon: 'error', title: 'Login Failed!', text: error?.data?.message });
+    }
   };
 
   return (
     <Container sx={{ height: '100vh' }}>
-      <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100%"
+        flexDirection="column"
+      >
         <form
           style={{
             maxWidth: '400px',

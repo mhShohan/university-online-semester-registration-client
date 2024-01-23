@@ -45,27 +45,30 @@ const LoginPage = () => {
     try {
       const res = await studentLogin(data).unwrap();
 
-      dispatch(setLoggedInUser(res.data));
-      navigate('/');
-      Swal.fire({
-        text: 'Successfully Login!',
-        icon: 'success'
-      });
-    } catch (error) {
-      console.log(error);
+      if (res.statusCode === 200) {
+        dispatch(setLoggedInUser(res.data));
+        navigate('/');
+        Swal.fire({
+          text: 'Successfully Login!',
+          icon: 'success'
+        });
+
+        return;
+      }
+      Swal.fire({ icon: 'error', text: 'Login Failed!' });
+    } catch (error: any) {
+      Swal.fire({ icon: 'error', title: 'Login Failed!', text: error?.data?.message });
     }
   };
 
   return (
     <Container sx={{ height: '100vh' }}>
       <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          height: '100%'
-        }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100%"
+        flexDirection="column"
       >
         <form
           style={{
