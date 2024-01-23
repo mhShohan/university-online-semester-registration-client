@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 // mui
@@ -19,10 +19,13 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useStudentRegistrationMutation } from '../../store/features/authApi';
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [studentRegistration] = useStudentRegistrationMutation();
+  const navigate = useNavigate();
   const theme = useTheme();
   const {
     register,
@@ -30,16 +33,39 @@ const RegisterPage = () => {
     formState: { errors }
   } = useForm();
 
-  const registerNewStudent = (data: FieldValues) => {
-    if (data.password !== data.confirmPassword) {
+  const registerNewStudent = async (data: FieldValues) => {
+    try {
+      if (data.password !== data.confirmPassword) {
+        Swal.fire({
+          icon: 'error',
+          text: 'Password and Confirm password must be same!'
+        });
+
+        return;
+      }
+
+      const res = await studentRegistration(data).unwrap();
+
+      if (res.statusCode === 201) {
+        navigate('/');
+        Swal.fire({
+          icon: 'success',
+          title: 'New Student Registered successfully!',
+          text: 'Login Now'
+        });
+        return;
+      } else {
+        Swal.fire({ icon: 'error', title: 'Student registration failed!' });
+      }
+    } catch (error: any) {
+      console.log(error);
+
       Swal.fire({
         icon: 'error',
-        text: 'Password and Confirm password must be same!'
+        title: 'Student registration failed!',
+        text: error?.data?.message
       });
-
-      return;
     }
-    console.log(data);
   };
 
   return (

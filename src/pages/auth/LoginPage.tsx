@@ -36,7 +36,7 @@ const LoginPage = () => {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      emailOrStudentId: 'john.doe@example.com',
+      emailOrStudentId: '17EEE145',
       password: 'pass123'
     }
   });

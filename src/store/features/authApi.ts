@@ -18,7 +18,7 @@ const authApi = baseApi.injectEndpoints({
     }),
     studentRegistration: builder.mutation({
       query: (payload) => ({
-        url: '/students/register',
+        url: '/students',
         method: 'POST',
         body: payload
       })
