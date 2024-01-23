@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 //mui
@@ -28,19 +28,13 @@ const AdminLoginPage = () => {
     formState: { errors }
   } = useForm();
 
-  const login = () => {};
+  const handleLogin = (data: FieldValues) => {
+    console.log(data);
+  };
 
   return (
     <Container sx={{ height: '100vh' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          height: '100%'
-        }}
-      >
+      <Box display="flex" justifyContent="center" alignItems="center" height="100%">
         <form
           style={{
             maxWidth: '400px',
@@ -48,7 +42,7 @@ const AdminLoginPage = () => {
             border: `1px solid ${theme.palette.primary.main}`,
             borderRadius: '8px'
           }}
-          onSubmit={handleSubmit(login)}
+          onSubmit={handleSubmit(handleLogin)}
         >
           <Typography
             variant="h5"

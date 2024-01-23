@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -30,7 +30,7 @@ const RegisterPage = () => {
     formState: { errors }
   } = useForm();
 
-  const registerNewStudent = (data: Record<string, undefined>) => {
+  const registerNewStudent = (data: FieldValues) => {
     if (data.password !== data.confirmPassword) {
       Swal.fire({
         icon: 'error',

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { FieldValues, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 
 // mui
 import {
@@ -18,17 +18,43 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useStudentLoginMutation } from '../../store/features/authApi';
+import { setLoggedInUser } from '../../store/services/authSlice';
+import { useAppDispatch } from '../../store/hook';
+import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 const LoginPage = () => {
+  const [studentLogin] = useStudentLoginMutation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const theme = useTheme();
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      emailOrStudentId: 'john.doe@example.com',
+      password: 'pass123'
+    }
+  });
 
-  const login = () => {};
+  const handleLogin = async (data: FieldValues) => {
+    try {
+      const res = await studentLogin(data).unwrap();
+
+      dispatch(setLoggedInUser(res.data));
+      navigate('/');
+      Swal.fire({
+        text: 'Successfully Login!',
+        icon: 'success'
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Container sx={{ height: '100vh' }}>
@@ -48,7 +74,7 @@ const LoginPage = () => {
             border: `1px solid ${theme.palette.primary.main}`,
             borderRadius: '8px'
           }}
-          onSubmit={handleSubmit(login)}
+          onSubmit={handleSubmit(handleLogin)}
         >
           <Typography
             variant="h5"
@@ -63,9 +89,10 @@ const LoginPage = () => {
           </Typography>
 
           <TextField
-            {...register('email', { required: true })}
-            color={errors['email'] ? 'error' : 'primary'}
-            label="Email Address"
+            {...register('emailOrStudentId', { required: true })}
+            color={errors['emailOrStudentId'] ? 'error' : 'primary'}
+            type="text"
+            label="Email Address or Student ID"
             id="outlined-start-adornment"
             size="small"
             sx={{ width: '100%', marginTop: '.6rem' }}
