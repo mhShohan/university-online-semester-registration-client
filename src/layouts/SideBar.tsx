@@ -1,7 +1,10 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 // mui
+import LogoutIcon from '@mui/icons-material/Logout';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Button, IconButton, Typography } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -9,25 +12,27 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/material/styles';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { Button, IconButton, Typography } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 
 // project import
-import { sideBarData } from '../constants/sideBar';
 import SideBarLink from '../components/SideBarLink';
-import { useAppDispatch } from '../store/hook';
-import { logoutUser } from '../store/services/authSlice';
+import { userRole } from '../constants';
+import { studentSidebarItems } from '../routes/student.path';
+import { superAdminSidebarItems } from '../routes/superAdmin.path';
+import { useAppDispatch, useAppSelector } from '../store/hook';
+import { getCurrentUserRole, logoutUser } from '../store/services/authSlice';
 
 const drawerWidth = 240;
 
 export default function SideBar() {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const role = useAppSelector(getCurrentUserRole);
   const theme = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  let sidebarItem;
 
+  // logout
   const handleLogout = () => {
     dispatch(logoutUser());
     navigate('/');
@@ -37,13 +42,27 @@ export default function SideBar() {
     setMobileOpen(!mobileOpen);
   };
 
+  //sidebar view based on role
+  switch (role) {
+    case userRole.STUDENT:
+      sidebarItem = studentSidebarItems;
+      break;
+
+    case userRole.SUPER_ADMIN:
+      sidebarItem = superAdminSidebarItems;
+      break;
+
+    default:
+      break;
+  }
+
   const drawer = (
     <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
       <Box>
         <DashboardLogo pathname={location.pathname} />
         <Divider />
         <List sx={{ padding: 0 }}>
-          {sideBarData.map((item) => (
+          {sidebarItem?.map((item) => (
             <SideBarLink link={item} key={item.id} pathname={location.pathname} />
           ))}
         </List>

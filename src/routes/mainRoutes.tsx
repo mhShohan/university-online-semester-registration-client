@@ -1,13 +1,13 @@
-import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import withSuspense from '../components/HOC/withSuspense';
 
 //project import
 import SideBar from '../layouts/SideBar';
-const Homepage = withSuspense(lazy(() => import('../pages/Homepage')));
+import { studentRoute } from './student.path';
+import { superAdminRoute } from './superAdmin.path';
 
 const mainRoutes = createBrowserRouter([
-  { path: '/', element: <SideBar />, children: [{ path: '/', element: <Homepage /> }] }
+  { path: '/', element: <SideBar />, children: superAdminRoute },
+  { path: '/', element: <SideBar />, children: studentRoute }
 ]);
 
 export default mainRoutes;
