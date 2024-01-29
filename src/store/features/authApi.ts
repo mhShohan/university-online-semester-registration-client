@@ -1,4 +1,4 @@
-import { baseApi } from "./baseApi";
+import { baseApi } from './baseApi';
 
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -22,12 +22,9 @@ const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: payload
       })
-    }),
+    })
   })
-})
+});
 
-export const {
-  useAdminLoginMutation,
-  useStudentLoginMutation,
-  useStudentRegistrationMutation
-} = authApi
+export const { useAdminLoginMutation, useStudentLoginMutation, useStudentRegistrationMutation } =
+  authApi;

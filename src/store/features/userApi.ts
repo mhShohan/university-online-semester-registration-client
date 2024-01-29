@@ -1,14 +1,14 @@
-import { baseApi } from "./baseApi";
+import { baseApi } from './baseApi';
 
 const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getSelfProfile: builder.query({
       query: () => ({
         url: '/users/self',
-        method: 'GET',
+        method: 'GET'
       })
-    }),
-  }),
-})
+    })
+  })
+});
 
-export const { useGetSelfProfileQuery } = userApi
+export const { useGetSelfProfileQuery } = userApi;
