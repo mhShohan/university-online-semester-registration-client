@@ -7,6 +7,7 @@ interface IListItem extends ListItemProps {
 
 export const ListItem = styled(MuiListItem)<IListItem>(({ theme, isActive }) => ({
   transition: 'all ease 300ms',
+  padding: '.1rem 1rem',
   borderBottom: `1px solid ${theme.palette.primary.light}`,
   background: isActive ? theme.palette.primary.light : theme.palette.primary.main,
   '&:hover': {

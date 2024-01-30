@@ -148,8 +148,10 @@ export default function SideBar() {
         </Drawer>
       </Box>
       <Box component="main" sx={{ flexGrow: 1, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
-        <Toolbar />
-        <Outlet />
+        {/* <Toolbar /> */}
+        <Box sx={{ padding: '2rem', minHeight: '100vh' }}>
+          <Outlet />
+        </Box>
       </Box>
     </Box>
   );
