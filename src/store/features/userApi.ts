@@ -6,7 +6,8 @@ const userApi = baseApi.injectEndpoints({
       query: () => ({
         url: '/users/self',
         method: 'GET'
-      })
+      }),
+      providesTags: ['user']
     })
   })
 });
