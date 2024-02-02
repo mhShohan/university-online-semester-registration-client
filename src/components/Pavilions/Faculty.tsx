@@ -1,17 +1,36 @@
-import { Box, Button, TextField, useTheme } from '@mui/material';
 import { FieldValues, useForm } from 'react-hook-form';
+
+// mui
+import { Box, Button, TextField, useTheme } from '@mui/material';
+
+//project import
+import toastMessage from '../../lib/toastMessage';
+import { useAddNewFacultyMutation } from '../../store/features/facultyApi';
 import AllFaculties from './AllFaculties';
 
 const Faculty = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm();
   const theme = useTheme();
+  const [addFaculty] = useAddNewFacultyMutation();
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
+  /**
+   * Form Submission
+   */
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      const res = await addFaculty(data).unwrap();
+      if (res.statusCode === 201) {
+        reset();
+        toastMessage({ icon: 'success', text: res.message });
+      }
+    } catch (error: any) {
+      toastMessage({ icon: 'error', text: error.data.message });
+    }
   };
 
   return (

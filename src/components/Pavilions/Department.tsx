@@ -1,3 +1,6 @@
+import { FieldValues, useForm } from 'react-hook-form';
+
+// mui
 import {
   Box,
   Button,
@@ -9,19 +12,38 @@ import {
   TextField,
   useTheme
 } from '@mui/material';
-import { FieldValues, useForm } from 'react-hook-form';
+
+//project imports
+import toastMessage from '../../lib/toastMessage';
+import { useAddNewDepartmentMutation } from '../../store/features/departmentApi';
+import { useAppSelector } from '../../store/hook';
+import { getFaculties } from '../../store/services/pavilionSlice';
 import AllDepartments from './AllDepartment';
 
 const Department = () => {
+  const faculties = useAppSelector(getFaculties);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm();
   const theme = useTheme();
+  const [addDepartment] = useAddNewDepartmentMutation();
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
+  /**
+   * Form Submission
+   */
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      const res = await addDepartment(data).unwrap();
+      if (res.statusCode === 201) {
+        reset();
+        toastMessage({ icon: 'success', text: res.message });
+      }
+    } catch (error: any) {
+      toastMessage({ icon: 'error', text: error.data.message });
+    }
   };
 
   return (
@@ -79,9 +101,11 @@ const Department = () => {
                 {...register('facultyId', { required: true })}
                 color={errors['facultyId'] ? 'error' : 'primary'}
               >
-                <MenuItem value={'h'}>Faculty of Engineering</MenuItem>
-                <MenuItem value={'20'}>Twenty</MenuItem>
-                <MenuItem value={'30'}>Thirty</MenuItem>
+                {faculties?.map((item) => (
+                  <MenuItem key={item._id} value={item._id}>
+                    {item.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>

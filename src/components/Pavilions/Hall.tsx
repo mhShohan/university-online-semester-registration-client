@@ -1,17 +1,36 @@
-import { Box, Button, TextField, useTheme } from '@mui/material';
 import { FieldValues, useForm } from 'react-hook-form';
+
+// mui
+import { Box, Button, TextField, useTheme } from '@mui/material';
+
+//project import
 import AllHalls from './AllHalls';
+import { useAddNewHallMutation } from '../../store/features/hallApi';
+import toastMessage from '../../lib/toastMessage';
 
 const Hall = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm();
   const theme = useTheme();
+  const [addHall] = useAddNewHallMutation();
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
+  /**
+   * Form Submission
+   */
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      const res = await addHall(data).unwrap();
+      if (res.statusCode === 201) {
+        reset();
+        toastMessage({ icon: 'success', text: res.message });
+      }
+    } catch (error: any) {
+      toastMessage({ icon: 'error', text: error.data.message });
+    }
   };
 
   return (

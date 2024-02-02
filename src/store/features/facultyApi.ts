@@ -20,4 +20,4 @@ const facultyApi = baseApi.injectEndpoints({
   })
 });
 
-export const { useGetAllFacultiesQuery } = facultyApi;
+export const { useGetAllFacultiesQuery, useAddNewFacultyMutation } = facultyApi;

@@ -8,7 +8,7 @@ const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: payload
       }),
-      invalidatesTags: ['user']
+      invalidatesTags: ['user', 'faculty', 'department', 'hall']
     }),
     adminLogin: builder.mutation({
       query: (payload) => ({
@@ -16,7 +16,7 @@ const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: payload
       }),
-      invalidatesTags: ['user']
+      invalidatesTags: ['user', 'faculty', 'department', 'hall']
     }),
     studentRegistration: builder.mutation({
       query: (payload) => ({
@@ -24,7 +24,7 @@ const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: payload
       }),
-      invalidatesTags: ['user']
+      invalidatesTags: ['user', 'faculty', 'department', 'hall']
     })
   })
 });
