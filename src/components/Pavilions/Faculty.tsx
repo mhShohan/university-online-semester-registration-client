@@ -1,5 +1,6 @@
 import { Box, Button, TextField, useTheme } from '@mui/material';
 import { FieldValues, useForm } from 'react-hook-form';
+import AllFaculties from './AllFaculties';
 
 const Faculty = () => {
   const {
@@ -17,7 +18,12 @@ const Faculty = () => {
     <Box height="calc(100vh - 4rem)">
       <form
         style={{
-          padding: '2.55rem 2rem',
+          padding: '0 2rem',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '200px',
           border: `1px solid ${theme.palette.primary.main}`,
           borderRadius: '8px'
         }}
@@ -42,6 +48,7 @@ const Faculty = () => {
           Add New Faculty
         </Button>
       </form>
+      <AllFaculties />
     </Box>
   );
 };

@@ -9,6 +9,7 @@ import { ThemeProvider } from '@mui/material';
 
 //project imports
 import App from './App';
+import './styles/scrollBar.css';
 import { persistor, store } from './store/store.ts';
 import theme from './theme/index.ts';
 

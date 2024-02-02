@@ -10,6 +10,7 @@ import {
   useTheme
 } from '@mui/material';
 import { FieldValues, useForm } from 'react-hook-form';
+import AllDepartments from './AllDepartment';
 
 const Department = () => {
   const {
@@ -27,7 +28,12 @@ const Department = () => {
     <Box height="calc(100vh - 4rem)">
       <form
         style={{
-          padding: '1rem 2rem',
+          padding: '0 2rem',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '200px',
           border: `1px solid ${theme.palette.primary.main}`,
           borderRadius: '8px'
         }}
@@ -90,6 +96,7 @@ const Department = () => {
           Add New Department
         </Button>
       </form>
+      <AllDepartments />
     </Box>
   );
 };
