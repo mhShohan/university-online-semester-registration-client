@@ -14,6 +14,8 @@ import { useAppSelector } from '../../store/hook';
 
 //project import
 import { getDepartments, getFaculties } from '../../store/services/pavilionSlice';
+import { useAddNewCourseMutation } from '../../store/features/courseApi';
+import toastMessage from '../../lib/toastMessage';
 
 interface CreateCourseModalProps {
   modalOpen: boolean;
@@ -25,10 +27,12 @@ export default function CreateCourseModal({ modalOpen, setModalOpen }: CreateCou
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const departments = useAppSelector(getDepartments);
   const faculties = useAppSelector(getFaculties);
+  const [addNewCourse] = useAddNewCourseMutation();
 
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors }
   } = useForm();
 
@@ -36,10 +40,20 @@ export default function CreateCourseModal({ modalOpen, setModalOpen }: CreateCou
     setModalOpen(false);
   };
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      const res = await addNewCourse({ ...data, credit: Number(data.credit) }).unwrap();
+      if (res.statusCode === 201) {
+        reset();
+        handleClose();
+        toastMessage({ icon: 'success', text: res.message });
+      }
+    } catch (error: any) {
+      console.log(error);
 
-    // handleClose();
+      handleClose();
+      toastMessage({ icon: 'error', text: error.data.message });
+    }
   };
 
   return (
@@ -67,7 +81,7 @@ export default function CreateCourseModal({ modalOpen, setModalOpen }: CreateCou
             </Grid>
             <Grid item xs={4} sx={{ paddingLeft: '.2rem' }}>
               <TextField
-                type="text"
+                type="number"
                 label="Course Credit"
                 id="outlined-start-adornment"
                 size="small"
@@ -174,8 +188,8 @@ export default function CreateCourseModal({ modalOpen, setModalOpen }: CreateCou
                   {...register('type', { required: true })}
                   color={errors['type'] ? 'error' : 'primary'}
                 >
-                  <MenuItem value="Honours">Honours</MenuItem>
-                  <MenuItem value="Masters">Masters</MenuItem>
+                  <MenuItem value="HONOURS">Honours</MenuItem>
+                  <MenuItem value="MASTERS">Masters</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
