@@ -1,4 +1,5 @@
 import { RouterProvider } from 'react-router-dom';
+import { Toaster } from 'sonner';
 
 //mui
 import { Box, CssBaseline, useTheme } from '@mui/material';
@@ -16,6 +17,7 @@ const App = () => {
   return (
     <Box component="main" sx={{ backgroundColor: theme.palette.primary.light }}>
       <CssBaseline />
+      <Toaster />
       <RouterProvider router={user ? mainRoutes : publicRoutes} />
     </Box>
   );

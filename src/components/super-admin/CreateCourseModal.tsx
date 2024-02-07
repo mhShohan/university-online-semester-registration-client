@@ -1,3 +1,7 @@
+import * as React from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
+
+// mui import
 import { FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -6,8 +10,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import * as React from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useAppSelector } from '../../store/hook';
+
+//project import
+import { getDepartments, getFaculties } from '../../store/services/pavilionSlice';
 
 interface CreateCourseModalProps {
   modalOpen: boolean;
@@ -17,6 +23,8 @@ interface CreateCourseModalProps {
 export default function CreateCourseModal({ modalOpen, setModalOpen }: CreateCourseModalProps) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const departments = useAppSelector(getDepartments);
+  const faculties = useAppSelector(getFaculties);
 
   const {
     handleSubmit,
@@ -30,6 +38,7 @@ export default function CreateCourseModal({ modalOpen, setModalOpen }: CreateCou
 
   const onSubmit = (data: FieldValues) => {
     console.log(data);
+
     // handleClose();
   };
 
@@ -105,7 +114,11 @@ export default function CreateCourseModal({ modalOpen, setModalOpen }: CreateCou
                   {...register('facultyId', { required: true })}
                   color={errors['facultyId'] ? 'error' : 'primary'}
                 >
-                  <MenuItem value={'item._id'}>item.name</MenuItem>
+                  {faculties?.map((item) => (
+                    <MenuItem key={item._id} value={item._id}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>
@@ -142,7 +155,13 @@ export default function CreateCourseModal({ modalOpen, setModalOpen }: CreateCou
                   label="Faculty"
                   {...register('departmentId', { required: true })}
                   color={errors['departmentId'] ? 'error' : 'primary'}
-                ></Select>
+                >
+                  {departments?.map((item) => (
+                    <MenuItem key={item._id} value={item._id}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Grid>
             <Grid item xs={6} sx={{ paddingLeft: '.2rem' }}>
