@@ -37,7 +37,7 @@ const AdminLoginPage = () => {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      email: 'superAdmin@gmail.com',
+      email: 'admin@gmail.com',
       password: 'pass123'
     }
   });

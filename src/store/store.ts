@@ -13,6 +13,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import pavilionSlice from './services/pavilionSlice';
+import modalSlice from './services/modalSlice';
 
 const persistConfig = {
   key: 'auth',
@@ -25,6 +26,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     pavilion: pavilionSlice,
+    modal: modalSlice,
     [baseApi.reducerPath]: baseApi.reducer
   },
   middleware: (getDefaultMiddleware) =>

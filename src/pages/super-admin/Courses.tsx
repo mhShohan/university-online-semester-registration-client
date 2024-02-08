@@ -27,16 +27,16 @@ const initState = { limit: 10, page: 1, department: '', year: '', semester: '' }
 
 const Courses = () => {
   const [query, setQuery] = useState(initState);
+  const [modalOpen, setModalOpen] = useState(false);
+
   const { data: departments, isLoading: departmentLoading } = useGetAllDepartmentsQuery(undefined);
   const { data: faculties, isLoading: facultyLoading } = useGetAllFacultiesQuery(undefined);
-  const { data: courses, isLoading: coursesLoading } = useGetAllCoursesQuery(query);
+  const { data: courses, isLoading: coursesLoading, isFetching } = useGetAllCoursesQuery(query);
   const dispatch = useAppDispatch();
 
   const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setQuery((prev) => ({ ...prev, page: value }));
   };
-
-  const [modalOpen, setModalOpen] = useState(false);
 
   const handleClickOpen = () => {
     setModalOpen(true);
@@ -47,15 +47,15 @@ const Courses = () => {
     dispatch(setFaculties(faculties?.data));
   }, [departmentLoading, departments?.data, dispatch, faculties?.data, facultyLoading]);
 
-  useEffect(() => {
-    console.log(query);
-  }, [query]);
-
   if (coursesLoading && departmentLoading && facultyLoading) return <Loader fullPage={true} />;
 
   return (
     <Box width="100%" overflow="auto">
-      <Paper sx={{ bgcolor: 'transparent', padding: '1rem' }}>
+      <Paper
+        sx={{ padding: '1rem', backgroundColor: 'transparent' }}
+        elevation={20}
+        variant="outlined"
+      >
         <Grid container justifyContent="center" alignItems="center">
           <Grid
             item
@@ -134,11 +134,16 @@ const Courses = () => {
           </Grid>
         </Grid>
       </Paper>
-      <CreateCourseModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
       <br />
-      <CourseTable data={courses?.data} />
+      <CreateCourseModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      <CourseTable data={courses?.data} isFetching={isFetching} />
       <Box sx={{ padding: '1rem' }} display="flex" justifyContent="center">
-        <Pagination count={3} variant="outlined" page={query.page} onChange={handlePageChange} />
+        <Pagination
+          count={courses?.meta?.totalPage}
+          variant="outlined"
+          page={query.page}
+          onChange={handlePageChange}
+        />
       </Box>
     </Box>
   );

@@ -20,6 +20,7 @@ import { studentSidebarItems } from '../routes/student.path';
 import { superAdminSidebarItems } from '../routes/superAdmin.path';
 import { useAppDispatch, useAppSelector } from '../store/hook';
 import { getCurrentUserRole, logoutUser } from '../store/services/authSlice';
+import { adminSidebarItems } from '../routes/admin.path';
 
 const drawerWidth = 240;
 
@@ -46,6 +47,10 @@ export default function SideBar() {
   switch (role) {
     case userRole.STUDENT:
       sidebarItem = studentSidebarItems;
+      break;
+
+    case userRole.ADMIN:
+      sidebarItem = adminSidebarItems;
       break;
 
     case userRole.SUPER_ADMIN:
