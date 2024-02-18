@@ -51,11 +51,7 @@ const Courses = () => {
 
   return (
     <Box width="100%" overflow="auto">
-      <Paper
-        sx={{ padding: '1rem', backgroundColor: 'transparent' }}
-        elevation={20}
-        variant="outlined"
-      >
+      <Paper sx={{ padding: '1rem', backgroundColor: 'transparent' }} variant="outlined">
         <Grid container justifyContent="center" alignItems="center">
           <Grid
             item

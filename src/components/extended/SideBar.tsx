@@ -2,14 +2,14 @@ import { ListItemProps, ListItem as MuiListItem } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 interface IListItem extends ListItemProps {
-  isActive: boolean;
+  isactive: boolean;
 }
 
-export const ListItem = styled(MuiListItem)<IListItem>(({ theme, isActive }) => ({
+export const ListItem = styled(MuiListItem)<IListItem>(({ theme, isactive }) => ({
   transition: 'all ease 300ms',
   padding: '.1rem 1rem',
   borderBottom: `1px solid ${theme.palette.primary.light}`,
-  background: isActive ? theme.palette.primary.light : theme.palette.primary.main,
+  background: isactive ? theme.palette.primary.light : theme.palette.primary.main,
   '&:hover': {
     background: theme.palette.secondary.dark,
     '& .MuiSvgIcon-root': {
@@ -20,10 +20,10 @@ export const ListItem = styled(MuiListItem)<IListItem>(({ theme, isActive }) => 
     }
   },
   '& .MuiSvgIcon-root': {
-    fill: isActive ? theme.palette.primary.dark : theme.palette.primary.light
+    fill: isactive ? theme.palette.primary.dark : theme.palette.primary.light
   },
   '& .MuiTypography-root': {
-    color: isActive ? theme.palette.primary.dark : theme.palette.primary.light,
+    color: isactive ? theme.palette.primary.dark : theme.palette.primary.light,
     fontWeight: '600'
   }
 }));
