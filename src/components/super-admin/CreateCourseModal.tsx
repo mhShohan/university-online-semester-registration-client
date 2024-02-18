@@ -83,6 +83,7 @@ export default function CreateCourseModal({ modalOpen, setModalOpen }: CreateCou
               <TextField
                 type="number"
                 label="Course Credit"
+                inputProps={{ step: 0.01 }}
                 id="outlined-start-adornment"
                 size="small"
                 {...register('credit', { required: true })}
@@ -102,39 +103,6 @@ export default function CreateCourseModal({ modalOpen, setModalOpen }: CreateCou
                 sx={{ marginTop: '.6rem' }}
                 fullWidth
               />
-            </Grid>
-            <Grid item xs={6} sx={{ paddingRight: '.2rem' }}>
-              <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
-                <InputLabel htmlFor="semester">Semester</InputLabel>
-                <Select
-                  labelId="semester"
-                  id="semester"
-                  label="Semester"
-                  {...register('semester', { required: true })}
-                  color={errors['semester'] ? 'error' : 'primary'}
-                >
-                  <MenuItem value="1st">1st</MenuItem>
-                  <MenuItem value="2nd">2nd</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={6} sx={{ paddingLeft: '.2rem' }}>
-              <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
-                <InputLabel htmlFor="facultyId">Faculty</InputLabel>
-                <Select
-                  labelId="facultyId"
-                  id="facultyId"
-                  label="Faculty"
-                  {...register('facultyId', { required: true })}
-                  color={errors['facultyId'] ? 'error' : 'primary'}
-                >
-                  {faculties?.map((item) => (
-                    <MenuItem key={item._id} value={item._id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
             </Grid>
             <Grid item xs={6} sx={{ paddingLeft: '.2rem' }}>
               <FormControl
@@ -157,6 +125,40 @@ export default function CreateCourseModal({ modalOpen, setModalOpen }: CreateCou
                   <MenuItem value="3rd">3rd</MenuItem>
                   <MenuItem value="4th">4th</MenuItem>
                   <MenuItem value="5th">5th</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} sx={{ paddingRight: '.2rem' }}>
+              <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
+                <InputLabel htmlFor="facultyId">Faculty</InputLabel>
+                <Select
+                  labelId="facultyId"
+                  id="facultyId"
+                  label="Faculty"
+                  {...register('facultyId', { required: true })}
+                  color={errors['facultyId'] ? 'error' : 'primary'}
+                >
+                  {faculties?.map((item) => (
+                    <MenuItem key={item._id} value={item._id}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={6} sx={{ paddingLeft: '.2rem' }}>
+              <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
+                <InputLabel htmlFor="semester">Semester</InputLabel>
+                <Select
+                  labelId="semester"
+                  id="semester"
+                  label="Semester"
+                  {...register('semester', { required: true })}
+                  color={errors['semester'] ? 'error' : 'primary'}
+                >
+                  <MenuItem value="1st">1st</MenuItem>
+                  <MenuItem value="2nd">2nd</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -188,6 +190,7 @@ export default function CreateCourseModal({ modalOpen, setModalOpen }: CreateCou
                   {...register('type', { required: true })}
                   color={errors['type'] ? 'error' : 'primary'}
                 >
+                  <MenuItem value="BSc ENGINEERING">BSc ENGINEERING</MenuItem>
                   <MenuItem value="HONOURS">Honours</MenuItem>
                   <MenuItem value="MASTERS">Masters</MenuItem>
                 </Select>

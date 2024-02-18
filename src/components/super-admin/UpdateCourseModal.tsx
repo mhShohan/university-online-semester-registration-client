@@ -85,6 +85,7 @@ export default function UpdateCourseModal({ modalOpen, setModalOpen }: CreateCou
                 label="Course Credit"
                 id="outlined-start-adornment"
                 size="small"
+                inputProps={{ step: 0.01 }}
                 defaultValue={updateModalData?.credit}
                 {...register('credit')}
                 sx={{ marginTop: '.6rem' }}
@@ -103,22 +104,26 @@ export default function UpdateCourseModal({ modalOpen, setModalOpen }: CreateCou
                 fullWidth
               />
             </Grid>
-            <Grid item xs={6} sx={{ paddingRight: '.2rem' }}>
+            <Grid item xs={6} sx={{ paddingLeft: '.2rem' }}>
               <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
-                <InputLabel htmlFor="semester">Semester</InputLabel>
+                <InputLabel htmlFor="year">Year</InputLabel>
                 <Select
-                  labelId="semester"
-                  id="semester"
-                  label="Semester"
-                  defaultValue={updateModalData?.semester}
-                  {...register('semester')}
+                  labelId="year"
+                  id="year"
+                  label="Year"
+                  defaultValue={updateModalData?.year}
+                  {...register('year')}
                 >
                   <MenuItem value="1st">1st</MenuItem>
                   <MenuItem value="2nd">2nd</MenuItem>
+                  <MenuItem value="3rd">3rd</MenuItem>
+                  <MenuItem value="4th">4th</MenuItem>
+                  <MenuItem value="5th">5th</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6} sx={{ paddingLeft: '.2rem' }}>
+
+            <Grid item xs={6} sx={{ paddingRight: '.2rem' }}>
               <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
                 <InputLabel htmlFor="facultyId">Faculty</InputLabel>
                 <Select
@@ -138,19 +143,16 @@ export default function UpdateCourseModal({ modalOpen, setModalOpen }: CreateCou
             </Grid>
             <Grid item xs={6} sx={{ paddingLeft: '.2rem' }}>
               <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
-                <InputLabel htmlFor="year">Year</InputLabel>
+                <InputLabel htmlFor="semester">Semester</InputLabel>
                 <Select
-                  labelId="year"
-                  id="year"
-                  label="Year"
-                  defaultValue={updateModalData?.year}
-                  {...register('year')}
+                  labelId="semester"
+                  id="semester"
+                  label="Semester"
+                  defaultValue={updateModalData?.semester}
+                  {...register('semester')}
                 >
                   <MenuItem value="1st">1st</MenuItem>
                   <MenuItem value="2nd">2nd</MenuItem>
-                  <MenuItem value="3rd">3rd</MenuItem>
-                  <MenuItem value="4th">4th</MenuItem>
-                  <MenuItem value="5th">5th</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -182,6 +184,7 @@ export default function UpdateCourseModal({ modalOpen, setModalOpen }: CreateCou
                   defaultValue={updateModalData?.type}
                   {...register('type')}
                 >
+                  <MenuItem value="BSc ENGINEERING">BSc ENGINEERING</MenuItem>
                   <MenuItem value="HONOURS">Honours</MenuItem>
                   <MenuItem value="MASTERS">Masters</MenuItem>
                 </Select>
