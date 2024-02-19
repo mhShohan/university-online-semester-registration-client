@@ -2,7 +2,7 @@
 import { Box, Typography, useTheme } from '@mui/material';
 
 // project imports
-import { useGetAllDepartmentsQuery } from '../../store/features/departmentApi';
+import { useGetAllDepartmentsQuery } from '../../store/features/super-admin/departmentApi';
 import PavilionLoader from './PavilionLoader';
 import { useAppDispatch } from '../../store/hook';
 import { setDepartments } from '../../store/services/pavilionSlice';

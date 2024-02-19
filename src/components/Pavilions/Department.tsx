@@ -15,7 +15,7 @@ import {
 
 //project imports
 import toastMessage from '../../lib/toastMessage';
-import { useAddNewDepartmentMutation } from '../../store/features/departmentApi';
+import { useAddNewDepartmentMutation } from '../../store/features/super-admin/departmentApi';
 import { useAppSelector } from '../../store/hook';
 import { getFaculties } from '../../store/services/pavilionSlice';
 import AllDepartments from './AllDepartment';

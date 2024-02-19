@@ -5,7 +5,7 @@ import { Box, Button, TextField, useTheme } from '@mui/material';
 
 //project import
 import toastMessage from '../../lib/toastMessage';
-import { useAddNewFacultyMutation } from '../../store/features/facultyApi';
+import { useAddNewFacultyMutation } from '../../store/features/super-admin/facultyApi';
 import AllFaculties from './AllFaculties';
 
 const Faculty = () => {

@@ -18,8 +18,8 @@ import Loader from '../../components/Loader';
 import CourseTable from '../../components/super-admin/CourseTable';
 import CreateCourseModal from '../../components/super-admin/CreateCourseModal';
 import { useGetAllCoursesQuery } from '../../store/features/courseApi';
-import { useGetAllDepartmentsQuery } from '../../store/features/departmentApi';
-import { useGetAllFacultiesQuery } from '../../store/features/facultyApi';
+import { useGetAllDepartmentsQuery } from '../../store/features/super-admin/departmentApi';
+import { useGetAllFacultiesQuery } from '../../store/features/super-admin/facultyApi';
 import { useAppDispatch } from '../../store/hook';
 import { setDepartments, setFaculties } from '../../store/services/pavilionSlice';
 

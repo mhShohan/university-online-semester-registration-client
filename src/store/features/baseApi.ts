@@ -42,7 +42,7 @@ const customBaseQuery: BaseQueryFn<FetchArgs, BaseQueryApi, DefinitionType> = as
 
 export const baseApi = createApi({
   reducerPath: 'baseApi',
-  tagTypes: ['user', 'faculty', 'department', 'hall', 'course'],
+  tagTypes: ['user', 'faculty', 'department', 'hall', 'course', 'admin'],
   baseQuery: customBaseQuery,
   endpoints: () => ({})
 });

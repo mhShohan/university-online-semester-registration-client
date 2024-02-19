@@ -2,7 +2,7 @@
 import { Box, Typography, useTheme } from '@mui/material';
 
 // project import
-import { useGetAllHallsQuery } from '../../store/features/hallApi';
+import { useGetAllHallsQuery } from '../../store/features/super-admin/hallApi';
 import PavilionLoader from './PavilionLoader';
 import { useAppDispatch } from '../../store/hook';
 import { setHalls } from '../../store/services/pavilionSlice';
