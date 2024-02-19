@@ -5,7 +5,7 @@ import { Box, Button, TextField, useTheme } from '@mui/material';
 
 //project import
 import AllHalls from './AllHalls';
-import { useAddNewHallMutation } from '../../store/features/hallApi';
+import { useAddNewHallMutation } from '../../store/features/super-admin/hallApi';
 import toastMessage from '../../lib/toastMessage';
 
 const Hall = () => {

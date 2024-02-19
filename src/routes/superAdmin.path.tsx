@@ -12,11 +12,13 @@ const Courses = withSuspense(lazy(() => import('../pages/super-admin/Courses')))
 const SuperAdminDashboard = withSuspense(
   lazy(() => import('../pages/super-admin/SuperAdminDashboard'))
 );
+const ManageAdmin = withSuspense(lazy(() => import('../pages/super-admin/ManageAdmin')));
 
 const superAdminPath: TRouteSideBarPath[] = [
   { id: 1, name: 'Dashboard', path: '/dashboard', element: <SuperAdminDashboard /> },
   { id: 2, name: 'Pavilions', path: '/pavilions', element: <Pavilions /> },
-  { id: 3, name: 'Courses', path: '/courses', element: <Courses /> }
+  { id: 3, name: 'Courses', path: '/courses', element: <Courses /> },
+  { id: 4, name: 'Manage Admin', path: '/admins', element: <ManageAdmin /> }
 ];
 
 const superAdminRoutePath = mapPathToRoutes(superAdminPath);
