@@ -11,7 +11,7 @@ const StudentDashboard = withSuspense(lazy(() => import('../pages/student/Studen
 const StudentProfile = withSuspense(lazy(() => import('../pages/student/StudentProfile')));
 
 const studentPath: TRouteSideBarPath[] = [
-  { id: 1, name: 'Dashboard', path: '/dashboard', element: <StudentDashboard /> },
+  { id: 1, name: 'Dashboard', path: '/', element: <StudentDashboard /> },
   { id: 2, name: 'Profile', path: '/profile', element: <StudentProfile /> }
 ];
 

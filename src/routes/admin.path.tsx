@@ -8,11 +8,11 @@ import mapPathToSidebarItem from '../utils/mapPathToSidebarItem';
 import { createBrowserRouter } from 'react-router-dom';
 import SideBar from '../layouts/SideBar';
 const Pavilions = withSuspense(lazy(() => import('../pages/super-admin/Pavilions')));
-const Courses = withSuspense(lazy(() => import('../pages/super-admin/Courses')));
+const Courses = withSuspense(lazy(() => import('../pages/Courses')));
 const AdminDashboard = withSuspense(lazy(() => import('../pages/admin/AdminDashboard')));
 
 const adminPath: TRouteSideBarPath[] = [
-  { id: 1, name: 'Dashboard', path: '/dashboard', element: <AdminDashboard /> },
+  { id: 1, name: 'Dashboard', path: '/', element: <AdminDashboard /> },
   { id: 2, name: 'Pavilions', path: '/pavilions', element: <Pavilions /> },
   { id: 3, name: 'Courses', path: '/courses', element: <Courses /> }
 ];

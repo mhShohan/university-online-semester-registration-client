@@ -13,6 +13,7 @@ import { useAppSelector } from './store/hook';
 import { getCurrentToken } from './store/services/authSlice';
 import decodeToken from './utils/decodeToken';
 import { superAdminRoutes } from './routes/superAdmin.path';
+import { departmentOperatorRoutes } from './routes/departmentOperator.path';
 
 const App = () => {
   const theme = useTheme();
@@ -28,6 +29,10 @@ const App = () => {
 
     case userRole.STUDENT:
       router = studentRoutes;
+      break;
+
+    case userRole.DEPARTMENT_OPERATOR:
+      router = departmentOperatorRoutes;
       break;
 
     case userRole.SUPER_ADMIN:

@@ -14,20 +14,23 @@ import {
 } from '@mui/material';
 
 // project import
-import Loader from '../../components/Loader';
-import CourseTable from '../../components/super-admin/CourseTable';
-import CreateCourseModal from '../../components/super-admin/CreateCourseModal';
-import { useGetAllCoursesQuery } from '../../store/features/courseApi';
-import { useGetAllDepartmentsQuery } from '../../store/features/super-admin/departmentApi';
-import { useGetAllFacultiesQuery } from '../../store/features/super-admin/facultyApi';
-import { useAppDispatch } from '../../store/hook';
-import { setDepartments, setFaculties } from '../../store/services/pavilionSlice';
+import Loader from '../components/Loader';
+import CourseTable from '../components/super-admin/CourseTable';
+import CreateCourseModal from '../components/super-admin/CreateCourseModal';
+import { useGetAllCoursesQuery } from '../store/features/courseApi';
+import { useGetAllDepartmentsQuery } from '../store/features/super-admin/departmentApi';
+import { useGetAllFacultiesQuery } from '../store/features/super-admin/facultyApi';
+import { useAppDispatch, useAppSelector } from '../store/hook';
+import { setDepartments, setFaculties } from '../store/services/pavilionSlice';
+import { getCurrentUser } from '../store/services/authSlice';
+import { userRole } from '../constants';
 
 const initState = { limit: 10, page: 1, department: '', year: '', semester: '' };
 
 const Courses = () => {
   const [query, setQuery] = useState(initState);
   const [modalOpen, setModalOpen] = useState(false);
+  const user = useAppSelector(getCurrentUser);
 
   const { data: departments, isLoading: departmentLoading } = useGetAllDepartmentsQuery(undefined);
   const { data: faculties, isLoading: facultyLoading } = useGetAllFacultiesQuery(undefined);
@@ -53,18 +56,13 @@ const Courses = () => {
     <Box width="100%" overflow="auto">
       <Paper sx={{ padding: '1rem', backgroundColor: 'transparent' }} variant="outlined">
         <Grid container justifyContent="center" alignItems="center">
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={6}
-            lg={3}
-            sx={{ paddingRight: '.2rem', paddingTop: '.5rem' }}
-          >
-            <Button variant="contained" onClick={handleClickOpen}>
-              Create Course
-            </Button>
-          </Grid>
+          {user?.role === userRole.DEPARTMENT_OPERATOR && (
+            <Grid item xs={12} md={6} lg={3} sx={{ paddingRight: '.2rem', paddingTop: '.5rem' }}>
+              <Button variant="contained" onClick={handleClickOpen}>
+                Create Course
+              </Button>
+            </Grid>
+          )}
           <Grid item xs={12} sm={12} md={6} lg={4} sx={{ paddingRight: '.2rem' }}>
             <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
               <InputLabel htmlFor="departmentId">Filter by Department</InputLabel>

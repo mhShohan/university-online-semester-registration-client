@@ -21,6 +21,7 @@ import { superAdminSidebarItems } from '../routes/superAdmin.path';
 import { useAppDispatch, useAppSelector } from '../store/hook';
 import { getCurrentUserRole, logoutUser } from '../store/services/authSlice';
 import { adminSidebarItems } from '../routes/admin.path';
+import { departmentOperatorSidebarItems } from '../routes/departmentOperator.path';
 
 const drawerWidth = 240;
 
@@ -51,6 +52,10 @@ export default function SideBar() {
 
     case userRole.ADMIN:
       sidebarItem = adminSidebarItems;
+      break;
+
+    case userRole.DEPARTMENT_OPERATOR:
+      sidebarItem = departmentOperatorSidebarItems;
       break;
 
     case userRole.SUPER_ADMIN:

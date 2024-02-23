@@ -18,17 +18,19 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 //project import
 import { ICourse } from '../../types';
 import UpdateCourseModal from './UpdateCourseModal';
-import { useAppDispatch } from '../../store/hook';
+import { useAppDispatch, useAppSelector } from '../../store/hook';
 import { setUpdateCourseModal } from '../../store/services/modalSlice';
+import { getCurrentUserRole } from '../../store/services/authSlice';
+import { userRole } from '../../constants';
 
-export default function CourseTable({
-  data,
-  isFetching
-}: {
+interface CourseTableProps {
   data: ICourse[];
   isFetching: boolean;
-}) {
+}
+
+export default function CourseTable({ data, isFetching }: CourseTableProps) {
   const [modalOpen, setModalOpen] = useState(false);
+  const role = useAppSelector(getCurrentUserRole);
   const dispatch = useAppDispatch();
 
   const handleClickOpen = (data: ICourse) => {
@@ -85,6 +87,7 @@ export default function CourseTable({
                         padding: 0
                       }}
                       onClick={() => handleClickOpen(row)}
+                      disabled={role !== userRole.DEPARTMENT_OPERATOR}
                     >
                       <EditNoteIcon sx={{ fontSize: '2.2rem' }} />
                     </Button>
