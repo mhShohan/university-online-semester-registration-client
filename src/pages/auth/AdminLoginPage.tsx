@@ -51,11 +51,6 @@ const AdminLoginPage = () => {
         dispatch(setLoggedInUser(res.data));
         navigate('/');
 
-        toastMessage({
-          text: 'Successfully Login!',
-          icon: 'success'
-        });
-
         return;
       }
 

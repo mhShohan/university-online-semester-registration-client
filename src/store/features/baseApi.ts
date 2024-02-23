@@ -12,7 +12,7 @@ import { logoutUser } from '../services/authSlice';
 import config from '../../config';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: config.baseUrl,
+  baseUrl: config.localUrl,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
 
