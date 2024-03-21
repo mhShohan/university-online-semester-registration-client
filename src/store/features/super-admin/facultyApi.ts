@@ -16,7 +16,7 @@ const facultyApi = baseApi.injectEndpoints({
         body: payload
       }),
       invalidatesTags: ['faculty']
-    }),
+    })
   })
 });
 

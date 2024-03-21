@@ -5,17 +5,17 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #9EC8B9;
+  box-shadow: inset 0 0 5px #9ec8b9;
   border-radius: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #1B4242;
+  background: #1b4242;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #1B4242;
+  background: #1b4242;
 }

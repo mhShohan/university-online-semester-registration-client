@@ -24,7 +24,7 @@ const adminApi = baseApi.injectEndpoints({
         body: payload
       }),
       invalidatesTags: ['admin']
-    }),
+    })
   })
 });
 

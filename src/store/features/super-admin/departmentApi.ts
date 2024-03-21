@@ -16,7 +16,7 @@ const departmentApi = baseApi.injectEndpoints({
         body: payload
       }),
       invalidatesTags: ['department']
-    }),
+    })
   })
 });
 

@@ -1,4 +1,4 @@
-import { baseApi } from "./baseApi";
+import { baseApi } from './baseApi';
 
 const courseApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -25,9 +25,9 @@ const courseApi = baseApi.injectEndpoints({
         body: payload
       }),
       invalidatesTags: ['course']
-    }),
+    })
   })
-})
+});
 
-
-export const { useGetAllCoursesQuery, useAddNewCourseMutation, useUpdateCourseMutation } = courseApi
+export const { useGetAllCoursesQuery, useAddNewCourseMutation, useUpdateCourseMutation } =
+  courseApi;

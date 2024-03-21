@@ -16,7 +16,7 @@ const hallApi = baseApi.injectEndpoints({
         body: payload
       }),
       invalidatesTags: ['hall']
-    }),
+    })
   })
 });
 
