@@ -17,7 +17,7 @@ interface ITimePicker {
   sx?: SxProps;
 }
 
-const CustomHookPHTimePicker = ({
+const CustomHookTimePicker = ({
   name,
   label,
   size = 'small',
@@ -63,4 +63,4 @@ const CustomHookPHTimePicker = ({
   );
 };
 
-export default CustomHookPHTimePicker;
+export default CustomHookTimePicker;

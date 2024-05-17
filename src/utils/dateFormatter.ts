@@ -12,6 +12,16 @@ function stringToMonth(inputDate: string) {
   return `${day} ${monthNames[month]}, ${year}`;
 }
 
-const dateFormatter = { stringToMonth }
+const dateToString = (inputDate: string) => {
+  const date = new Date(inputDate);
+
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return `${year}-${month <= 9 ? '0' + month : month}-${day}`;
+}
+
+const dateFormatter = { stringToMonth, dateToString }
 
 export default dateFormatter

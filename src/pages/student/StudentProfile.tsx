@@ -4,6 +4,7 @@ import blankProPic from '../../assets/blankProPic.png';
 import { DataGrid } from '@mui/x-data-grid';
 import Loader from '../../components/Loader';
 import dateFormatter from '../../utils/dateFormatter';
+import { Link } from 'react-router-dom';
 
 const StudentProfile = () => {
   const { data: profileData, isLoading } = useGetSelfProfileOfStudentQuery(undefined);
@@ -36,7 +37,9 @@ const StudentProfile = () => {
               <Typography variant="h3" sx={{ fontWeight: '700' }}>
                 {data?.name}
               </Typography>
-              <Button variant="contained">Edit Profile</Button>
+              <Link to="/profile/update-profile">
+                <Button variant="contained">Edit Profile</Button>
+              </Link>
             </Stack>
             <Grid container>
               <SingleItem name="student Id" value={data?.studentId} />

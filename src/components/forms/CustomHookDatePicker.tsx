@@ -36,10 +36,10 @@ const CustomHookDatePicker = ({
             <DesktopDatePicker
               label={label}
               timezone="system"
-              disablePast
+              disablePast={false}
               {...field}
               onChange={(date) => onChange(date)}
-              value={value || Date.now()}
+              value={value}
               slotProps={{
                 textField: {
                   required: required,

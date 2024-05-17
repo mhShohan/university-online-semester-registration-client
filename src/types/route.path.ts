@@ -5,6 +5,7 @@ export type TRouteSideBarPath = {
   name: string;
   path: string;
   element: ReactNode;
+  visible?: boolean;
 };
 
 export type TRoute = {

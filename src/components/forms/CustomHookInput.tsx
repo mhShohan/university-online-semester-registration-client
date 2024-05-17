@@ -12,6 +12,7 @@ type TInputProps = {
   sx?: SxProps;
   placeholder?: string;
   required?: boolean;
+  disabled?: boolean;
 };
 
 const CustomHookInput = ({
@@ -21,6 +22,7 @@ const CustomHookInput = ({
   size = 'small',
   fullWidth = true,
   sx,
+  disabled = false,
   required
 }: TInputProps) => {
   const { control } = useFormContext();
@@ -36,6 +38,7 @@ const CustomHookInput = ({
           type={type}
           variant="outlined"
           size={size}
+          disabled={disabled}
           fullWidth={fullWidth}
           placeholder={label}
           required={required}
