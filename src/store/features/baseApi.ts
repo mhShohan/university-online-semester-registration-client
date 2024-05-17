@@ -10,6 +10,7 @@ import {
 import { RootState } from '../store';
 import { logoutUser } from '../services/authSlice';
 import config from '../../config';
+import tagTypesList from '../../constants/tagTypes';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: config.localUrl,
@@ -42,7 +43,7 @@ const customBaseQuery: BaseQueryFn<FetchArgs, BaseQueryApi, DefinitionType> = as
 
 export const baseApi = createApi({
   reducerPath: 'baseApi',
-  tagTypes: ['user', 'faculty', 'department', 'hall', 'course', 'admin'],
+  tagTypes: tagTypesList,
   baseQuery: customBaseQuery,
   endpoints: () => ({})
 });
