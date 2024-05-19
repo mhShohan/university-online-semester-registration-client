@@ -13,7 +13,7 @@ import config from '../../config';
 import tagTypesList from '../../constants/tagTypes';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: config.localUrl,
+  baseUrl: config.cloudUrl,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
 
