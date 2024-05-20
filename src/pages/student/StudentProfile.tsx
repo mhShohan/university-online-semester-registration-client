@@ -28,19 +28,20 @@ const StudentProfile = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <Stack direction="column" height="100%" justifyContent="center">
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              sx={{ padding: '.5rem 1rem' }}
-            >
+            <Stack direction="row" justifyContent="space-between" alignItems="center" pl={2}>
               <Typography variant="h3" sx={{ fontWeight: '700' }}>
                 {data?.name}
               </Typography>
-              <Link to="/profile/update-profile">
-                <Button variant="contained">Edit Profile</Button>
-              </Link>
+              {data?.status !== 'ACTIVE' && (
+                <Link to="/profile/update-profile">
+                  <Button variant="contained">Edit Profile</Button>
+                </Link>
+              )}
             </Stack>
+            <Typography pl={2}>
+              <strong>Status: </strong>
+              {data?.status}
+            </Typography>
             <Grid container>
               <SingleItem name="student Id" value={data?.studentId} />
               <SingleItem name="Email" value={data?.email} />

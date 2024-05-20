@@ -10,7 +10,26 @@ const studentApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.student]
     }),
+    updateStudentProfile: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: '/students/' + id,
+        method: 'PATCH',
+        body: payload
+      }),
+      invalidatesTags: [tagTypes.student]
+    }),
+    accountVerifyRequest: builder.mutation({
+      query: () => ({
+        url: '/students/verify',
+        method: 'POST'
+      }),
+      invalidatesTags: [tagTypes.student]
+    }),
   })
 });
 
-export const { useGetSelfProfileOfStudentQuery } = studentApi;
+export const {
+  useGetSelfProfileOfStudentQuery,
+  useUpdateStudentProfileMutation,
+  useAccountVerifyRequestMutation
+} = studentApi;

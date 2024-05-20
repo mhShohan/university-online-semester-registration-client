@@ -1,4 +1,3 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs from 'dayjs';
 import { FieldValues } from 'react-hook-form';
 
@@ -7,25 +6,58 @@ import Loader from '../../components/Loader';
 import CustomHookDatePicker from '../../components/forms/CustomHookDatePicker';
 import CustomHookForm from '../../components/forms/CustomHookForm';
 import CustomHookInput from '../../components/forms/CustomHookInput';
-import { useGetSelfProfileOfStudentQuery } from '../../store/features/student/student.api';
+import {
+  useGetSelfProfileOfStudentQuery,
+  useUpdateStudentProfileMutation
+} from '../../store/features/student/student.api';
 import dateFormatter from '../../utils/dateFormatter';
-import { updateProfileSchema } from '../../validationSchema/updateProfile.schema';
 
 // mui
 import { Box, Button, Grid, Typography } from '@mui/material';
 import CustomHookSelectField from '../../components/forms/CustomHookSelectField';
 import academicSession from '../../constants/academicSession';
+import toastMessage from '../../lib/toastMessage';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateStudentPage = () => {
+  const navigate = useNavigate();
   const { data: profileData, isLoading } = useGetSelfProfileOfStudentQuery(undefined);
+  const [updateStudentProfile, { isLoading: isUpdating }] = useUpdateStudentProfileMutation();
 
   if (isLoading) return <Loader fullPage={true} />;
 
   const data = { ...profileData?.data };
+  const studentId = data?._id;
   data.dateOfBirth = dayjs(new Date(data?.dateOfBirth || new Date('1990-01-01')).toISOString());
+  data.ssc = data?.educationalQualifications.find((item: any) => {
+    return item.name === 'Secondary School Certificate';
+  });
+  data.hsc = data?.educationalQualifications.find((item: any) => {
+    return item.name === 'Higher Secondary Certificate';
+  });
 
-  const onSubmit = (data: FieldValues) => {
-    const { ssc, hsc, dateOfBirth, ...rest } = data;
+  const removeFields = [
+    'avatar',
+    'educationalQualifications',
+    'department',
+    'departmentId',
+    'departmentShortName',
+    'faculty',
+    'facultyId',
+    'hall',
+    'hallId',
+    'isVerified',
+    'status',
+    '_id',
+    'password'
+  ];
+
+  for (const key of removeFields) {
+    delete data[key];
+  }
+
+  const handleProfileUpdate = async (fields: FieldValues) => {
+    const { ssc, hsc, dateOfBirth, ...rest } = fields;
 
     const educationalQualifications = [
       { name: 'Secondary School Certificate', ...ssc },
@@ -37,15 +69,27 @@ const UpdateStudentPage = () => {
       dateOfBirth: dateFormatter.dateToString(dateOfBirth),
       educationalQualifications
     };
-    console.log(payload);
+
+    try {
+      const res = await updateStudentProfile({ id: studentId, payload }).unwrap();
+
+      if (res?.success) {
+        toastMessage({ icon: 'success', title: 'Profile updated successfully' });
+      }
+      navigate('/profile');
+    } catch (error) {
+      toastMessage({ icon: 'error', title: 'Failed to update profile' });
+    }
   };
+
+  if (isUpdating) return <Loader fullPage={true} />;
 
   return (
     <Box>
       <CustomHookForm
-        onSubmit={onSubmit}
+        onSubmit={handleProfileUpdate}
         defaultValues={data}
-        resolver={zodResolver(updateProfileSchema)}
+        // resolver={zodResolver(updateProfileSchema)}
       >
         <Typography
           variant="h5"
@@ -149,6 +193,9 @@ const UpdateStudentPage = () => {
         </Typography>
         <Grid container>
           <Grid item xs={12} md={4} p={1}>
+            <CustomHookInput name="hsc.name" label="Exam Name" disabled />
+          </Grid>
+          <Grid item xs={12} md={4} p={1}>
             <CustomHookInput name="hsc.institute" label="Institute" />
           </Grid>
           <Grid item xs={12} md={4} p={1}>
@@ -173,6 +220,9 @@ const UpdateStudentPage = () => {
           Educational Qualifications (Secondary School Certificate)
         </Typography>
         <Grid container>
+          <Grid item xs={12} md={4} p={1}>
+            <CustomHookInput name="ssc.name" label="Exam Name" disabled />
+          </Grid>
           <Grid item xs={12} md={4} p={1}>
             <CustomHookInput name="ssc.institute" label="Institute" />
           </Grid>

@@ -26,17 +26,19 @@ export const updateProfileSchema = z.object({
     zipCode: z.string({ required_error: 'Zip Code is required' })
   }),
   hsc: z.object({
+    name: z.string({ required_error: 'Exam name is required' }),
     institute: z.string({ required_error: 'Institute is required' }),
     board: z.string({ required_error: 'Board is required' }),
     passingYear: z.string({ required_error: 'Passing Year is required' }),
     roll: z.string({ required_error: 'Roll is required' }),
-    GPA: z.string({ required_error: 'GPA is required' })
+    GPA: z.number({ required_error: 'GPA is required' })
   }),
   ssc: z.object({
+    name: z.string({ required_error: 'Exam name is required' }),
     institute: z.string({ required_error: 'Institute is required' }),
     board: z.string({ required_error: 'Board is required' }),
     passingYear: z.string({ required_error: 'Passing Year is required' }),
     roll: z.string({ required_error: 'Roll is required' }),
-    GPA: z.string({ required_error: 'GPA is required' })
+    GPA: z.number({ required_error: 'GPA is required' })
   })
 });

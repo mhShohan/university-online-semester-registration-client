@@ -23,7 +23,7 @@ const CustomHookInput = ({
   fullWidth = true,
   sx,
   disabled = false,
-  required
+  required = true
 }: TInputProps) => {
   const { control } = useFormContext();
   return (
