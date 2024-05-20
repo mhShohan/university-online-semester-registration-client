@@ -194,7 +194,7 @@ const StudentDetails = () => {
             <CustomHookSelectField
               name="status"
               label="Status"
-              items={['ACTIVE', 'BLOCK']}
+              items={['ACTIVE', 'BLOCK', 'REJECTED']}
               sx={{ maxWidth: '200px' }}
             />
             <Button type="submit" variant="contained">

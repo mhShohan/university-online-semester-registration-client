@@ -28,6 +28,7 @@ import { useStudentRegistrationMutation } from '../../store/features/authApi';
 import { useGetAllDepartmentsQuery } from '../../store/features/super-admin/departmentApi';
 import { useGetAllFacultiesQuery } from '../../store/features/super-admin/facultyApi';
 import { useGetAllHallsQuery } from '../../store/features/super-admin/hallApi';
+import Loader from '../../components/Loader';
 
 type TItem = {
   _id: string;
@@ -41,7 +42,7 @@ const RegisterPage = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [studentRegistration] = useStudentRegistrationMutation();
+  const [studentRegistration, { isLoading }] = useStudentRegistrationMutation();
   const navigate = useNavigate();
   const theme = useTheme();
   const {
@@ -83,6 +84,8 @@ const RegisterPage = () => {
       });
     }
   };
+
+  if (isLoading) return <Loader fullPage={true} />;
 
   return (
     <Container sx={{ height: '100vh' }}>
