@@ -69,7 +69,7 @@ export default function SideBar() {
   const drawer = (
     <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
       <Box>
-        <DashboardLogo pathname={location.pathname} />
+        <DashboardLogo name="BSMRSTU" />
         <Divider />
         <List sx={{ padding: 0 }}>
           {sidebarItem?.map((item) => (
@@ -167,22 +167,19 @@ export default function SideBar() {
   );
 }
 
-const DashboardLogo = ({ pathname }: { pathname: string }) => {
-  let logo = 'logo';
-
-  if (pathname === '/') {
-    logo = 'Dashboard';
-  } else {
-    logo = pathname.split('/').pop() as string;
-  }
-
+const DashboardLogo = ({ name }: { name: string }) => {
   return (
     <Toolbar>
       <Typography
         variant="h5"
-        sx={{ color: '#fff', textTransform: 'uppercase', textAlign: 'center' }}
+        sx={{
+          color: 'primary.light',
+          textTransform: 'uppercase',
+          fontWeight: '700',
+          textAlign: 'center'
+        }}
       >
-        {logo}
+        {name}
       </Typography>
     </Toolbar>
   );

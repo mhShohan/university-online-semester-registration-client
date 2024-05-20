@@ -6,6 +6,7 @@ export const tagTypes = {
   course: 'course',
   admin: 'admin',
   student: 'student',
+  operator: 'operator',
 } as const
 
 const tagTypesList = Object.values(tagTypes);
