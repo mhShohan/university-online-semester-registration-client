@@ -57,31 +57,14 @@ const Courses = () => {
       <Paper sx={{ padding: '1rem', backgroundColor: 'transparent' }} variant="outlined">
         <Grid container justifyContent="center" alignItems="center">
           {user?.role === userRole.DEPARTMENT_OPERATOR && (
-            <Grid item xs={12} md={6} lg={3} sx={{ paddingRight: '.2rem', paddingTop: '.5rem' }}>
+            <Grid item xs={12} md={6} lg={2} sx={{ paddingRight: '.2rem', paddingTop: '.5rem' }}>
               <Button variant="contained" onClick={handleClickOpen}>
                 Create Course
               </Button>
             </Grid>
           )}
+
           <Grid item xs={12} sm={12} md={6} lg={4} sx={{ paddingRight: '.2rem' }}>
-            <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
-              <InputLabel htmlFor="departmentId">Filter by Department</InputLabel>
-              <Select
-                labelId="departmentId"
-                id="departmentId"
-                label="Filter by Department"
-                value={query.department}
-                onChange={(e) => setQuery((prev) => ({ ...prev, department: e.target.value }))}
-              >
-                {departments?.data?.map((item: any) => (
-                  <MenuItem key={item._id} value={item._id}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={2} sx={{ paddingRight: '.2rem' }}>
             <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
               <InputLabel htmlFor="year">Filter by Year</InputLabel>
               <Select
@@ -99,7 +82,7 @@ const Courses = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={2} sx={{ paddingRight: '.2rem' }}>
+          <Grid item xs={12} sm={12} md={6} lg={4} sx={{ paddingRight: '.2rem' }}>
             <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
               <InputLabel htmlFor="semester">Filter by Semester</InputLabel>
               <Select

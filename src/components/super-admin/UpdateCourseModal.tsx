@@ -13,10 +13,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useAppDispatch, useAppSelector } from '../../store/hook';
 
 //project import
-import { getDepartments, getFaculties } from '../../store/services/pavilionSlice';
 import toastMessage from '../../lib/toastMessage';
-import { getUpdateCourseModalData, removeUpdateCourseModal } from '../../store/services/modalSlice';
 import { useUpdateCourseMutation } from '../../store/features/courseApi';
+import { getUpdateCourseModalData, removeUpdateCourseModal } from '../../store/services/modalSlice';
 
 interface CreateCourseModalProps {
   modalOpen: boolean;
@@ -26,8 +25,6 @@ interface CreateCourseModalProps {
 export default function UpdateCourseModal({ modalOpen, setModalOpen }: CreateCourseModalProps) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const departments = useAppSelector(getDepartments);
-  const faculties = useAppSelector(getFaculties);
   const updateModalData = useAppSelector(getUpdateCourseModalData);
   const [updateCourse] = useUpdateCourseMutation();
   const dispatch = useAppDispatch();
@@ -123,24 +120,6 @@ export default function UpdateCourseModal({ modalOpen, setModalOpen }: CreateCou
               </FormControl>
             </Grid>
 
-            <Grid item xs={6} sx={{ paddingRight: '.2rem' }}>
-              <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
-                <InputLabel htmlFor="facultyId">Faculty</InputLabel>
-                <Select
-                  labelId="facultyId"
-                  id="facultyId"
-                  label="Faculty"
-                  defaultValue={updateModalData?.facultyId}
-                  {...register('facultyId')}
-                >
-                  {faculties?.map((item) => (
-                    <MenuItem key={item._id} value={item._id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
             <Grid item xs={6} sx={{ paddingLeft: '.2rem' }}>
               <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
                 <InputLabel htmlFor="semester">Semester</InputLabel>
@@ -156,24 +135,7 @@ export default function UpdateCourseModal({ modalOpen, setModalOpen }: CreateCou
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6} sx={{ paddingRight: '.2rem' }}>
-              <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
-                <InputLabel htmlFor="departmentId">Department</InputLabel>
-                <Select
-                  labelId="departmentId"
-                  id="departmentId"
-                  label="Department"
-                  defaultValue={updateModalData?.departmentId}
-                  {...register('departmentId')}
-                >
-                  {departments?.map((item) => (
-                    <MenuItem key={item._id} value={item._id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
+
             <Grid item xs={6} sx={{ paddingLeft: '.2rem' }}>
               <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
                 <InputLabel htmlFor="type">Category</InputLabel>

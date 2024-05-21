@@ -1,10 +1,12 @@
-import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
 import { useGetSelfProfileOfStudentQuery } from '../../store/features/student/student.api';
 import blankProPic from '../../assets/blankProPic.png';
 import { DataGrid } from '@mui/x-data-grid';
 import Loader from '../../components/Loader';
 import dateFormatter from '../../utils/dateFormatter';
 import { Link } from 'react-router-dom';
+import CustomHookFileUploader from '../../components/forms/CustomHookFileUploader';
+import CustomHookForm from '../../components/forms/CustomHookForm';
 
 const StudentProfile = () => {
   const { data: profileData, isLoading } = useGetSelfProfileOfStudentQuery(undefined);
@@ -18,13 +20,20 @@ const StudentProfile = () => {
       {/* Profile Info */}
       <Grid container>
         <Grid item xs={12} md={4}>
-          <Box sx={{ padding: '.5rem 1rem' }}>
-            <img
-              src={blankProPic}
-              alt="profile"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          </Box>
+          <Stack justifyContent="center" alignItems="center" p={2}>
+            <Box sx={{ padding: '.5rem 1rem' }}>
+              <img
+                src={blankProPic}
+                alt="profile"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </Box>
+            {!data?.isVerified && (
+              <CustomHookForm onSubmit={() => console.log('y')}>
+                <CustomHookFileUploader name="file" label="Change Your Photo" />
+              </CustomHookForm>
+            )}
+          </Stack>
         </Grid>
         <Grid item xs={12} md={8}>
           <Stack direction="column" height="100%" justifyContent="center">
@@ -56,19 +65,19 @@ const StudentProfile = () => {
 
       {/* Personal Details */}
       <Stack my={2}>
+        <Divider />
         <Typography
           variant="h5"
           sx={{
             padding: '.2rem 1rem',
             fontWeight: '600',
             textTransform: 'uppercase',
-            borderBottom: '1px solid #000',
-            textAlign: 'center',
-            marginBottom: '.3rem'
+            textAlign: 'center'
           }}
         >
           Personal Details
         </Typography>
+        <Divider />
         <Grid container>
           <SingleItem md={4} name="Father Name" value={data?.fatherName} />
           <SingleItem md={4} name="Mother Name" value={data?.motherName} />
@@ -85,19 +94,19 @@ const StudentProfile = () => {
 
       {/* Present Address Details */}
       <Stack my={2}>
+        <Divider />
         <Typography
           variant="h5"
           sx={{
             padding: '.2rem 1rem',
             fontWeight: '600',
             textTransform: 'uppercase',
-            borderBottom: '1px solid #000',
-            textAlign: 'center',
-            marginBottom: '.3rem'
+            textAlign: 'center'
           }}
         >
           Present Address
         </Typography>
+        <Divider />
         <Grid container>
           <SingleItem md={4} name="village" value={data?.presentAddress?.village} />
           <SingleItem md={4} name="sub District" value={data?.presentAddress?.subDistrict} />
@@ -109,19 +118,19 @@ const StudentProfile = () => {
 
       {/* permanentAddress Details */}
       <Stack my={2}>
+        <Divider />
         <Typography
           variant="h5"
           sx={{
             padding: '.2rem 1rem',
             fontWeight: '600',
             textTransform: 'uppercase',
-            borderBottom: '1px solid #000',
-            textAlign: 'center',
-            marginBottom: '.3rem'
+            textAlign: 'center'
           }}
         >
           Permanent Address
         </Typography>
+        <Divider />
         <Grid container>
           <SingleItem md={4} name="village" value={data?.permanentAddress?.village} />
           <SingleItem md={4} name="sub District" value={data?.permanentAddress?.subDistrict} />
@@ -132,19 +141,19 @@ const StudentProfile = () => {
       </Stack>
 
       <Stack my={2}>
+        <Divider />
         <Typography
           variant="h5"
           sx={{
             padding: '.2rem 1rem',
             fontWeight: '600',
             textTransform: 'uppercase',
-            borderBottom: '1px solid #000',
-            textAlign: 'center',
-            marginBottom: '.3rem'
+            textAlign: 'center'
           }}
         >
           Educational Qualifications
         </Typography>
+        <Divider />
 
         <Box my={1}>
           <DataGrid
