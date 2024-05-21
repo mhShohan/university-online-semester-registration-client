@@ -7,6 +7,8 @@ export const tagTypes = {
   admin: 'admin',
   student: 'student',
   operator: 'operator',
+  registrationData: 'registrationData',
+  status: 'status',
 } as const
 
 const tagTypesList = Object.values(tagTypes);

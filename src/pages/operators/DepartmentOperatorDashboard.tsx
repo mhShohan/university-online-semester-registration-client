@@ -4,22 +4,44 @@ import { Link } from 'react-router-dom';
 import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
 
 // project import
-import { useGetReviewStudentsQuery } from '../../store/features/operator/operator.api';
+import {
+  useCheckRegistrationStatusQuery,
+  useGetReviewStudentsQuery
+} from '../../store/features/operator/operator.api';
 import Loader from '../../components/Loader';
+import dateFormatter from '../../utils/dateFormatter';
 
 const DepartmentOperatorDashboard = () => {
   const { data: reviewStudents, isLoading } = useGetReviewStudentsQuery(undefined);
+  const { data: checkRegistrationData, isLoading: isChecking } =
+    useCheckRegistrationStatusQuery(undefined);
 
-  if (isLoading) return <Loader fullPage={true} />;
+  if (isLoading || isChecking) return <Loader fullPage={true} />;
 
-  console.log({ reviewStudents });
+  console.log({ checkRegistrationData });
 
   return (
     <Box>
+      <Stack mb={2}>
+        <Divider />
+        <Typography variant="h5" textAlign="center" fontWeight="600">
+          Registration Status
+        </Typography>
+        <Divider />
+        <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" my={2}>
+          <Typography variant="h6">Status: {checkRegistrationData?.data.status}</Typography>
+          <Typography variant="h6">
+            Start Date: {dateFormatter.stringToMonth(checkRegistrationData?.data.startDate)}
+          </Typography>
+          <Typography variant="h6">
+            End Date: {dateFormatter.stringToMonth(checkRegistrationData?.data.endDate)}
+          </Typography>
+        </Stack>
+      </Stack>
       {reviewStudents?.data.length > 0 && (
-        <Stack>
+        <Stack my={2}>
           <Divider />
-          <Typography variant="h5" p={1} textAlign="center" fontWeight="600">
+          <Typography variant="h5" textAlign="center" fontWeight="600">
             Students Review Request
           </Typography>
           <Divider />

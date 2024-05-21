@@ -10,6 +10,20 @@ const operatorApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.operator, tagTypes.student]
     }),
+    getRegistrationInfo: builder.query({
+      query: () => ({
+        url: '/registration-info',
+        method: 'GET'
+      }),
+      providesTags: [tagTypes.registrationData]
+    }),
+    checkRegistrationStatus: builder.query({
+      query: () => ({
+        url: '/registration-info/status',
+        method: 'GET'
+      }),
+      providesTags: [tagTypes.status]
+    }),
     getReviewStudents: builder.query({
       query: () => ({
         url: '/admins/review-request',
@@ -32,13 +46,23 @@ const operatorApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.operator, tagTypes.student]
     }),
-
+    startRegistration: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: '/registration-info/' + id,
+        method: 'PATCH',
+        body: payload
+      }),
+      invalidatesTags: [tagTypes.registrationData, tagTypes.status]
+    }),
   })
 });
 
 export const {
+  useGetRegistrationInfoQuery,
   useGetAllStudentsQuery,
   useGetReviewStudentsQuery,
   useGetStudentDetailsQuery,
-  useUpdateStudentStatusMutation
+  useCheckRegistrationStatusQuery,
+  useUpdateStudentStatusMutation,
+  useStartRegistrationMutation
 } = operatorApi;
