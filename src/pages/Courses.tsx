@@ -55,16 +55,37 @@ const Courses = () => {
   return (
     <Box width="100%" overflow="auto">
       <Paper sx={{ padding: '1rem', backgroundColor: 'transparent' }} variant="outlined">
-        <Grid container justifyContent="center" alignItems="center">
+        <Grid container justifyContent="space-evenly" alignItems="center">
           {user?.role === userRole.DEPARTMENT_OPERATOR && (
-            <Grid item xs={12} md={6} lg={2} sx={{ paddingRight: '.2rem', paddingTop: '.5rem' }}>
-              <Button variant="contained" onClick={handleClickOpen}>
+            <Grid item xs={12} md={6} lg={3} sx={{ paddingRight: '.2rem', paddingTop: '.5rem' }}>
+              <Button fullWidth variant="contained" onClick={handleClickOpen}>
                 Create Course
               </Button>
             </Grid>
           )}
 
-          <Grid item xs={12} sm={12} md={6} lg={4} sx={{ paddingRight: '.2rem' }}>
+          {user?.role !== userRole.DEPARTMENT_OPERATOR && (
+            <Grid item xs={12} sm={12} md={6} lg={4} sx={{ paddingRight: '.2rem' }}>
+              <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
+                <InputLabel htmlFor="departmentId">Filter by Department</InputLabel>
+                <Select
+                  labelId="departmentId"
+                  id="departmentId"
+                  label="Filter by Department"
+                  value={query.department}
+                  onChange={(e) => setQuery((prev) => ({ ...prev, department: e.target.value }))}
+                >
+                  {departments?.data?.map((item: any) => (
+                    <MenuItem key={item._id} value={item._id}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+          )}
+
+          <Grid item xs={12} sm={12} md={6} lg={3} sx={{ paddingRight: '.2rem' }}>
             <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
               <InputLabel htmlFor="year">Filter by Year</InputLabel>
               <Select
@@ -82,7 +103,7 @@ const Courses = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={4} sx={{ paddingRight: '.2rem' }}>
+          <Grid item xs={12} sm={12} md={6} lg={3} sx={{ paddingRight: '.2rem' }}>
             <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
               <InputLabel htmlFor="semester">Filter by Semester</InputLabel>
               <Select
@@ -102,10 +123,10 @@ const Courses = () => {
             xs={12}
             sm={12}
             md={6}
-            lg={1}
+            lg={2}
             sx={{ paddingRight: '.2rem', paddingTop: '.5rem' }}
           >
-            <Button variant="contained" onClick={() => setQuery(initState)}>
+            <Button variant="contained" fullWidth onClick={() => setQuery(initState)}>
               Clear
             </Button>
           </Grid>

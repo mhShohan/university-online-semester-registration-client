@@ -14,6 +14,8 @@ import { getCurrentToken } from './store/services/authSlice';
 import decodeToken from './utils/decodeToken';
 import { superAdminRoutes } from './routes/superAdmin.path';
 import { departmentOperatorRoutes } from './routes/departmentOperator.path';
+import { chairmanRoutes } from './routes/chairman.path';
+import { hallOperatorRoutes } from './routes/hallOperator.path';
 
 const App = () => {
   const theme = useTheme();
@@ -37,6 +39,14 @@ const App = () => {
 
     case userRole.SUPER_ADMIN:
       router = superAdminRoutes;
+      break;
+
+    case userRole.CHAIRMAN:
+      router = chairmanRoutes;
+      break;
+
+    case userRole.HALL_OPERATOR:
+      router = hallOperatorRoutes;
       break;
 
     default:
