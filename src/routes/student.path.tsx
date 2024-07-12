@@ -10,6 +10,12 @@ import SideBar from '../layouts/SideBar';
 const StudentDashboard = withSuspense(lazy(() => import('../pages/student/StudentDashboard')));
 const StudentProfile = withSuspense(lazy(() => import('../pages/student/StudentProfile')));
 const UpdateStudentPage = withSuspense(lazy(() => import('../pages/student/UpdateStudentPage')));
+const SemesterRegistration = withSuspense(
+  lazy(() => import('../pages/student/SemesterRegistration'))
+);
+const RegistrationSemesterCourse = withSuspense(
+  lazy(() => import('../pages/student/RegistrationSemesterCourse'))
+);
 
 const studentPath: TRouteSideBarPath[] = [
   { id: 1, name: 'Dashboard', path: '/', element: <StudentDashboard /> },
@@ -20,6 +26,19 @@ const studentPath: TRouteSideBarPath[] = [
     path: '/profile/update-profile',
     visible: false,
     element: <UpdateStudentPage />
+  },
+  {
+    id: 4,
+    name: 'Registration',
+    path: '/registration',
+    element: <SemesterRegistration />
+  },
+  {
+    id: 4,
+    name: 'Registration',
+    path: '/registration-semester-course',
+    visible: false,
+    element: <RegistrationSemesterCourse />
   }
 ];
 
