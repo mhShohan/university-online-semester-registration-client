@@ -3,6 +3,7 @@ import { baseApi } from '../baseApi';
 
 const studentApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+
     getSelfProfileOfStudent: builder.query({
       query: () => ({
         url: '/students/self',
@@ -10,6 +11,7 @@ const studentApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.student]
     }),
+
     updateStudentProfile: builder.mutation({
       query: ({ id, payload }) => ({
         url: '/students/' + id,
@@ -18,6 +20,7 @@ const studentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.student]
     }),
+
     accountVerifyRequest: builder.mutation({
       query: () => ({
         url: '/students/verify',

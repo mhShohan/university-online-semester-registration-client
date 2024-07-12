@@ -1,12 +1,11 @@
 import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
-import { useGetSelfProfileOfStudentQuery } from '../../store/features/student/student.api';
-import blankProPic from '../../assets/blankProPic.png';
 import { DataGrid } from '@mui/x-data-grid';
-import Loader from '../../components/Loader';
-import dateFormatter from '../../utils/dateFormatter';
 import { Link } from 'react-router-dom';
-import CustomHookFileUploader from '../../components/forms/CustomHookFileUploader';
-import CustomHookForm from '../../components/forms/CustomHookForm';
+import blankProPic from '../../assets/blankProPic.png';
+import UploadPhotoOnChange from '../../components/forms/UploadPhotoOnChange';
+import Loader from '../../components/Loader';
+import { useGetSelfProfileOfStudentQuery } from '../../store/features/student/student.api';
+import dateFormatter from '../../utils/dateFormatter';
 
 const StudentProfile = () => {
   const { data: profileData, isLoading } = useGetSelfProfileOfStudentQuery(undefined);
@@ -23,15 +22,15 @@ const StudentProfile = () => {
           <Stack justifyContent="center" alignItems="center" p={2}>
             <Box sx={{ padding: '.5rem 1rem' }}>
               <img
-                src={blankProPic}
+                src={data.avatar || blankProPic}
                 alt="profile"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </Box>
             {!data?.isVerified && (
-              <CustomHookForm onSubmit={() => console.log('y')}>
-                <CustomHookFileUploader name="file" label="Change Your Photo" />
-              </CustomHookForm>
+              <>
+                <UploadPhotoOnChange name="file" studentId={data._id} label="Change Your Photo" />
+              </>
             )}
           </Stack>
         </Grid>
