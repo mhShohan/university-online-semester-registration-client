@@ -3,4 +3,5 @@ export type TAuthUser = {
   name: string;
   email: string;
   role: string;
+  departmentId?: string;
 };

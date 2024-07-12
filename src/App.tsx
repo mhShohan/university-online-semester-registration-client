@@ -57,7 +57,7 @@ const App = () => {
   return (
     <Box component="main" sx={{ backgroundColor: theme.palette.primary.light }}>
       <CssBaseline />
-      <Toaster />
+      <Toaster richColors />
       <RouterProvider router={router} />
     </Box>
   );

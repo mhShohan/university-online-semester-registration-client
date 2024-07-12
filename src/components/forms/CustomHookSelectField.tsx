@@ -1,7 +1,5 @@
-import { Controller, useFormContext } from 'react-hook-form';
-
-// mui
 import { MenuItem, SxProps, TextField } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
 
 interface ITextField {
   name: string;
@@ -11,7 +9,7 @@ interface ITextField {
   required?: boolean;
   fullWidth?: boolean;
   sx?: SxProps;
-  items: string[];
+  items: { name: string; value: string }[];
 }
 
 const CustomHookSelectField = ({
@@ -33,18 +31,21 @@ const CustomHookSelectField = ({
       render={({ field }) => (
         <TextField
           {...field}
-          sx={{ ...sx }}
+          sx={{
+            ...sx
+          }}
           size={size}
           select
+          color="primary"
           label={label}
           required={required}
           fullWidth={fullWidth}
           error={isError}
           helperText={isError ? (formState.errors[name]?.message as string) : ''}
         >
-          {items.map((name) => (
-            <MenuItem key={name} value={name}>
-              {name}
+          {items.map((item) => (
+            <MenuItem key={item.name} value={item.value}>
+              {item.name}
             </MenuItem>
           ))}
         </TextField>

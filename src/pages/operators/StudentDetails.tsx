@@ -16,6 +16,7 @@ import dateFormatter from '../../utils/dateFormatter';
 import CustomHookForm from '../../components/forms/CustomHookForm';
 import CustomHookSelectField from '../../components/forms/CustomHookSelectField';
 import toastMessage from '../../lib/toastMessage';
+import { statusSelectOptions } from '../../constants';
 
 const StudentDetails = () => {
   const params = useParams<{ id: string }>();
@@ -47,7 +48,7 @@ const StudentDetails = () => {
         <Grid item xs={12} md={4}>
           <Box sx={{ padding: '.5rem 1rem' }}>
             <img
-              src={blankProPic}
+              src={data.avatar || blankProPic}
               alt="profile"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
@@ -194,7 +195,7 @@ const StudentDetails = () => {
             <CustomHookSelectField
               name="status"
               label="Status"
-              items={['ACTIVE', 'BLOCK', 'REJECTED']}
+              items={statusSelectOptions}
               sx={{ maxWidth: '200px' }}
             />
             <Button type="submit" variant="contained">
