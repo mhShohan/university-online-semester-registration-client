@@ -7,6 +7,7 @@ import mapPathToRoutes from '../utils/mapPathToRoutes';
 import mapPathToSidebarItem from '../utils/mapPathToSidebarItem';
 import { createBrowserRouter } from 'react-router-dom';
 import SideBar from '../layouts/SideBar';
+import RegisteredSemesters from '../pages/student/RegisteredSemesters';
 const StudentDashboard = withSuspense(lazy(() => import('../pages/student/StudentDashboard')));
 const StudentProfile = withSuspense(lazy(() => import('../pages/student/StudentProfile')));
 const UpdateStudentPage = withSuspense(lazy(() => import('../pages/student/UpdateStudentPage')));
@@ -39,6 +40,12 @@ const studentPath: TRouteSideBarPath[] = [
     path: '/registration-semester-course',
     visible: false,
     element: <RegistrationSemesterCourse />
+  },
+  {
+    id: 4,
+    name: 'registered semesters',
+    path: '/registered-semesters',
+    element: <RegisteredSemesters />
   }
 ];
 

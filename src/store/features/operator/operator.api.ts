@@ -3,6 +3,7 @@ import { baseApi } from '../baseApi';
 
 const operatorApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+
     getAllStudents: builder.query({
       query: () => ({
         url: '/admins/all-students',
@@ -10,6 +11,7 @@ const operatorApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.operator, tagTypes.student]
     }),
+
     getRegistrationInfo: builder.query({
       query: () => ({
         url: '/registration-info',
@@ -17,6 +19,7 @@ const operatorApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.registrationData]
     }),
+
     checkRegistrationStatus: builder.query({
       query: () => ({
         url: '/registration-info/status',
@@ -24,6 +27,7 @@ const operatorApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.status]
     }),
+
     getReviewStudents: builder.query({
       query: () => ({
         url: '/admins/review-request',
@@ -31,6 +35,7 @@ const operatorApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.operator, tagTypes.student]
     }),
+
     getStudentDetails: builder.query({
       query: (id) => ({
         url: '/students/' + id,
@@ -38,6 +43,7 @@ const operatorApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.operator, tagTypes.student]
     }),
+
     updateStudentStatus: builder.mutation({
       query: ({ id, payload }) => ({
         url: '/admins/review-request/' + id,
@@ -46,6 +52,7 @@ const operatorApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.operator, tagTypes.student]
     }),
+
     startRegistration: builder.mutation({
       query: ({ id, payload }) => ({
         url: '/registration-info/' + id,
