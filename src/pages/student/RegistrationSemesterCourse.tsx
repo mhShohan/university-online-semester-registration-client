@@ -1,9 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useGetAllCoursesQuery } from '../../store/features/courseApi';
-import { Checkbox, Container, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
+import {
+  Button,
+  Checkbox,
+  Container,
+  Divider,
+  Grid,
+  Stack,
+  Typography,
+  useTheme
+} from '@mui/material';
 import Loader from '../../components/Loader';
 import { useAppSelector } from '../../store/hook';
+import FormFillUp from '../../components/student/FormFillup';
+import { useGetRegistrationInfoQuery } from '../../store/features/operator/operator.api';
 
 interface ISingleCourse {
   _id: string;
@@ -24,6 +35,8 @@ const RegistrationSemesterCourse = () => {
     examType: ''
   });
   const { data, isLoading } = useGetAllCoursesQuery(query);
+  const [isGenerateFormStart, setIsGenerateFormStart] = useState(false);
+  const { data: registrationInfo } = useGetRegistrationInfoQuery(undefined);
 
   const handleSelectCourse = (course: ISingleCourse, checked: true) => {
     if (checked) {
@@ -31,6 +44,10 @@ const RegistrationSemesterCourse = () => {
     } else {
       setSelectedCourse(selectedCourse.filter((c) => c._id !== course._id));
     }
+  };
+
+  const handleGenerateForm = () => {
+    setIsGenerateFormStart(true);
   };
 
   useEffect(() => {
@@ -45,57 +62,76 @@ const RegistrationSemesterCourse = () => {
   if (isLoading) return <Loader fullPage={false} />;
 
   return (
-    <Container maxWidth="lg">
-      <Stack>
-        <Typography variant="h4" textAlign="center">
-          {query.year} Year, {query.semester} Semester Courses for {query.examType} Exam!
-        </Typography>
-        <Divider />
-        <Container maxWidth="md" sx={{ mt: 2 }}>
-          <Stack
-            sx={{
-              padding: '2rem 3rem',
-              border: `1px solid ${theme.palette.primary.main}`,
-              borderRadius: '8px'
-            }}
-          >
-            <Grid container textAlign="center">
-              <Grid item md={2}>
-                Select
+    <>
+      <Container maxWidth="lg">
+        <Stack>
+          <Typography variant="h4" textAlign="center">
+            {query.year} Year, {query.semester} Semester Courses for {query.examType} Exam!
+          </Typography>
+          <Divider />
+          <Container maxWidth="md" sx={{ mt: 2 }}>
+            <Stack
+              sx={{
+                padding: '2rem 3rem',
+                border: `1px solid ${theme.palette.primary.main}`,
+                borderRadius: '8px'
+              }}
+            >
+              <Grid container textAlign="center">
+                <Grid item md={2}>
+                  Select
+                </Grid>
+                <Grid item md={3}>
+                  Course Code
+                </Grid>
+                <Grid item md={5}>
+                  Course Name
+                </Grid>
+                <Grid item md={2}>
+                  Credit
+                </Grid>
               </Grid>
-              <Grid item md={3}>
-                Course Code
-              </Grid>
-              <Grid item md={5}>
-                Course Name
-              </Grid>
-              <Grid item md={2}>
-                Credit
-              </Grid>
-            </Grid>
+              <Divider />
+              {query.examType === 'Regular' && (
+                <>
+                  {data?.data?.map((course: ISingleCourse) => (
+                    <SingleCourse key={course._id} course={course} checked={true} />
+                  ))}
+                </>
+              )}
+              {query.examType !== 'Regular' && (
+                <>
+                  {data?.data?.map((course: ISingleCourse) => (
+                    <SingleCourseForRetake
+                      key={course._id}
+                      course={course}
+                      handleSelectCourse={handleSelectCourse}
+                    />
+                  ))}
+                </>
+              )}
+              <Button variant="contained" sx={{ mt: 2 }} onClick={handleGenerateForm}>
+                Generate Form
+              </Button>
+            </Stack>
+          </Container>
+        </Stack>
+      </Container>
+
+      {isGenerateFormStart && (
+        <Container maxWidth="lg">
+          <Stack mt={2}>
+            <Typography variant="h4" textAlign="center" sx={{ mt: 2 }}>
+              Fill Up the forms
+            </Typography>
             <Divider />
-            {query.examType === 'Regular' && (
-              <>
-                {data?.data?.map((course: ISingleCourse) => (
-                  <SingleCourse key={course._id} course={course} checked={true} />
-                ))}
-              </>
-            )}
-            {query.examType !== 'Regular' && (
-              <>
-                {data?.data?.map((course: ISingleCourse) => (
-                  <SingleCourseForRetake
-                    key={course._id}
-                    course={course}
-                    handleSelectCourse={handleSelectCourse}
-                  />
-                ))}
-              </>
-            )}
+
+            {/* Registration  From*/}
+            <FormFillUp registrationInfo={registrationInfo?.data} />
           </Stack>
         </Container>
-      </Stack>
-    </Container>
+      )}
+    </>
   );
 };
 

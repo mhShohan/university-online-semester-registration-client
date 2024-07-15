@@ -4,7 +4,7 @@ const academicSession = () => {
   const academicSessions = []
 
   for (let i = currentYear - 8; i <= currentYear; i++) {
-    academicSessions.push(`${i}-${i + 1}`)
+    academicSessions.push({ name: `${i}-${i + 1}`, value: `${i}-${i + 1}` })
   }
 
   return academicSessions
