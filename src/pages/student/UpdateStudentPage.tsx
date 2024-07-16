@@ -18,6 +18,8 @@ import CustomHookSelectField from '../../components/forms/CustomHookSelectField'
 import academicSession from '../../constants/academicSession';
 import toastMessage from '../../lib/toastMessage';
 import { useNavigate } from 'react-router-dom';
+import { updateProfileSchema } from '../../validationSchema/updateProfile.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const UpdateStudentPage = () => {
   const navigate = useNavigate();
@@ -89,7 +91,7 @@ const UpdateStudentPage = () => {
       <CustomHookForm
         onSubmit={handleProfileUpdate}
         defaultValues={data}
-        // resolver={zodResolver(updateProfileSchema)}
+        resolver={zodResolver(updateProfileSchema)}
       >
         <Typography
           variant="h5"
