@@ -1,11 +1,9 @@
-import dayjs from 'dayjs';
-import { Controller, useFormContext } from 'react-hook-form';
-
-// mui imports
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import dayjs from 'dayjs';
 import { SxProps } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
 
 interface IDatePicker {
   name: string;
@@ -16,7 +14,7 @@ interface IDatePicker {
   sx?: SxProps;
 }
 
-const CustomHookDatePicker = ({
+const CustomDatePicker = ({
   name,
   size = 'small',
   label,
@@ -25,21 +23,24 @@ const CustomHookDatePicker = ({
   sx
 }: IDatePicker) => {
   const { control } = useFormContext();
+
   return (
     <Controller
       name={name}
       control={control}
       defaultValue={dayjs(new Date().toDateString())}
-      render={({ field: { onChange, value, ...field } }) => {
+      render={({ field: { onChange, value, ...field }, fieldState: { error } }) => {
         return (
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
               label={label}
               timezone="system"
-              disablePast={false}
               {...field}
-              onChange={(date) => onChange(date)}
-              value={value}
+              onChange={(date) => {
+                onChange(new Date(date as any));
+              }}
+              value={dayjs(new Date(value))}
+              inputRef={field.ref}
               slotProps={{
                 textField: {
                   required: required,
@@ -48,7 +49,9 @@ const CustomHookDatePicker = ({
                     ...sx
                   },
                   variant: 'outlined',
-                  fullWidth: fullWidth
+                  fullWidth: fullWidth,
+                  error: !!error?.message,
+                  helperText: error?.message
                 }
               }}
             />
@@ -59,4 +62,4 @@ const CustomHookDatePicker = ({
   );
 };
 
-export default CustomHookDatePicker;
+export default CustomDatePicker;

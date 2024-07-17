@@ -2,18 +2,32 @@ import { Box, Button, Grid, Stack } from '@mui/material';
 import CustomHookDatePicker from '../../components/forms/CustomHookDatePicker';
 import CustomHookForm from '../../components/forms/CustomHookForm';
 import CustomHookInput from '../../components/forms/CustomHookInput';
-import { registrationInfoFields } from '../../data/registrationInfoFields';
 import { IRegistrationInfo } from '../../types';
+import { registrationInfoFields } from '../../data/registrationInfoFields';
+import { formFillUpSanitize } from '../../utils/sanitize';
 
 interface IFormFillUpProps {
   registrationInfo?: IRegistrationInfo;
+  semesterInfo: {
+    year: string;
+    semester: string;
+    courses: any;
+  };
 }
 
-const FormFillUp = ({ registrationInfo }: IFormFillUpProps) => {
-  console.log('Form', registrationInfo);
-
+const FormFillUp = ({ registrationInfo, semesterInfo }: IFormFillUpProps) => {
   const handleSubmit = (data: any) => {
-    console.log(data);
+    const totalCredit = semesterInfo.courses.reduce(
+      (acc: number, course: any) => acc + course.credit,
+      0
+    );
+    console.log(totalCredit);
+    const payload = formFillUpSanitize(data);
+    payload.courses = semesterInfo.courses;
+    payload.year = semesterInfo.year;
+    payload.semester = semesterInfo.semester;
+    payload.semesterFee.creditFee = totalCredit * payload.semesterFee.creditFee;
+    console.log(payload);
   };
 
   return (
@@ -33,6 +47,9 @@ const FormFillUp = ({ registrationInfo }: IFormFillUpProps) => {
               <CustomHookInput name={field.name} label={field.label} />
             </Grid>
           ))}
+          <Grid item xs={12} md={4} p={1}>
+            <CustomHookInput name="amercementFee" label="Amercement Fee" />
+          </Grid>
         </Grid>
 
         <Grid container>
@@ -90,5 +107,6 @@ const sendingData = {
     from: '2024-01-01',
     to: '2024-04-30',
     fee: 10000
-  }
+  },
+  courses: []
 };

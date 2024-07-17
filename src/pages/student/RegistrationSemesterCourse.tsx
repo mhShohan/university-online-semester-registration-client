@@ -13,8 +13,8 @@ import {
 } from '@mui/material';
 import Loader from '../../components/Loader';
 import { useAppSelector } from '../../store/hook';
-import FormFillUp from '../../components/student/FormFillup';
 import { useGetRegistrationInfoQuery } from '../../store/features/operator/operator.api';
+import FormFillUp from '../../components/student/FormFillUp';
 
 interface ISingleCourse {
   _id: string;
@@ -49,6 +49,10 @@ const RegistrationSemesterCourse = () => {
   const handleGenerateForm = () => {
     setIsGenerateFormStart(true);
   };
+
+  useEffect(() => {
+    setSelectedCourse(data?.data || []);
+  }, [isLoading]);
 
   useEffect(() => {
     setQuery((prev) => ({
@@ -127,7 +131,14 @@ const RegistrationSemesterCourse = () => {
             <Divider />
 
             {/* Registration  From*/}
-            <FormFillUp registrationInfo={registrationInfo?.data} />
+            <FormFillUp
+              registrationInfo={registrationInfo?.data}
+              semesterInfo={{
+                year: query.year,
+                semester: query.semester,
+                courses: selectedCourse
+              }}
+            />
           </Stack>
         </Container>
       )}
