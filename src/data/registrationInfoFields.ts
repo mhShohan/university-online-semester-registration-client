@@ -41,3 +41,5 @@ export const registrationInfoFields = {
     { name: 'to', label: 'to', type: 'date' },
   ]
 }
+
+
