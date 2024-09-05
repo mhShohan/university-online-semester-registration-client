@@ -14,7 +14,7 @@ import {
 import Loader from '../../components/Loader';
 import { useAppSelector } from '../../store/hook';
 import { useGetRegistrationInfoQuery } from '../../store/features/operator/operator.api';
-import FormFillUp from '../../components/student/FormFillUp';
+import FormFillUp, { RetakeOfImprovementForm } from '../../components/student/FormFillUp';
 
 interface ISingleCourse {
   _id: string;
@@ -51,7 +51,9 @@ const RegistrationSemesterCourse = () => {
   };
 
   useEffect(() => {
-    setSelectedCourse(data?.data || []);
+    if (query.examType === 'Regular') {
+      setSelectedCourse(data?.data || []);
+    }
   }, [isLoading]);
 
   useEffect(() => {
@@ -131,14 +133,27 @@ const RegistrationSemesterCourse = () => {
             <Divider />
 
             {/* Registration  From*/}
-            <FormFillUp
-              registrationInfo={registrationInfo?.data}
-              semesterInfo={{
-                year: query.year,
-                semester: query.semester,
-                courses: selectedCourse
-              }}
-            />
+            {query.examType === 'Regular' ? (
+              <FormFillUp
+                registrationInfo={registrationInfo?.data}
+                examType={query.examType}
+                semesterInfo={{
+                  year: query.year,
+                  semester: query.semester,
+                  courses: selectedCourse
+                }}
+              />
+            ) : (
+              <RetakeOfImprovementForm
+                registrationInfo={registrationInfo?.data}
+                examType={query.examType}
+                semesterInfo={{
+                  year: query.year,
+                  semester: query.semester,
+                  courses: selectedCourse
+                }}
+              />
+            )}
           </Stack>
         </Container>
       )}

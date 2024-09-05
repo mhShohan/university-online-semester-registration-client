@@ -39,6 +39,11 @@ export const registrationInfoFields = {
     { name: 'fee', label: 'Hall Rent Fee', type: 'number' },
     { name: 'from', label: 'From', type: 'date' },
     { name: 'to', label: 'to', type: 'date' },
+  ],
+  retake: [
+    { name: 'creditFee', label: 'Credit Fee', type: 'number' },
+    { name: 'admitCard', label: 'Admit Card', type: 'number' },
+    { name: 'centerFee', label: 'Center Fee', type: 'number' },
   ]
 }
 

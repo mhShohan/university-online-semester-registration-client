@@ -14,7 +14,7 @@ export const semesterSelectOptions = [
 export const examTypeSelectOptions = [
   { name: 'Regular', value: 'Regular' },
   { name: 'Retake', value: 'Retake' },
-  { name: 'Improve', value: 'Improve' }
+  { name: 'Improvement', value: 'Improvement' }
 ]
 
 

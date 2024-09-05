@@ -9,6 +9,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import SideBar from '../layouts/SideBar';
 import RegisteredSemesters from '../pages/student/RegisteredSemesters';
 const StudentDashboard = withSuspense(lazy(() => import('../pages/student/StudentDashboard')));
+const DetailsRegisteredSemestersPage = withSuspense(
+  lazy(() => import('../pages/student/DetailsRegisteredSemestersPage'))
+);
 const StudentProfile = withSuspense(lazy(() => import('../pages/student/StudentProfile')));
 const UpdateStudentPage = withSuspense(lazy(() => import('../pages/student/UpdateStudentPage')));
 const SemesterRegistration = withSuspense(
@@ -46,6 +49,13 @@ const studentPath: TRouteSideBarPath[] = [
     name: 'registered semesters',
     path: '/registered-semesters',
     element: <RegisteredSemesters />
+  },
+  {
+    id: 4,
+    name: 'registered semesters',
+    path: '/registered-semesters/:id',
+    visible: false,
+    element: <DetailsRegisteredSemestersPage />
   }
 ];
 
