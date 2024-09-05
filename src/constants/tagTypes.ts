@@ -8,6 +8,7 @@ export const tagTypes = {
   student: 'student',
   operator: 'operator',
   registrationData: 'registrationData',
+  registrationFeeForm: 'registrationFeeForm',
   status: 'status',
 } as const
 

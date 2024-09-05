@@ -1,13 +1,16 @@
 import { Box, Button, Grid, Stack } from '@mui/material';
-import CustomHookDatePicker from '../../components/forms/CustomHookDatePicker';
 import CustomHookForm from '../../components/forms/CustomHookForm';
 import CustomHookInput from '../../components/forms/CustomHookInput';
-import { IRegistrationInfo } from '../../types';
 import { registrationInfoFields } from '../../data/registrationInfoFields';
+import { IRegistrationInfo } from '../../types';
 import { formFillUpSanitize } from '../../utils/sanitize';
+import { toast } from 'sonner';
+import { useCreateRegistrationFeeFormMutation } from '../../store/features/feeForm.api';
+import { useNavigate } from 'react-router-dom';
 
 interface IFormFillUpProps {
   registrationInfo?: IRegistrationInfo;
+  examType: string;
   semesterInfo: {
     year: string;
     semester: string;
@@ -15,19 +18,36 @@ interface IFormFillUpProps {
   };
 }
 
-const FormFillUp = ({ registrationInfo, semesterInfo }: IFormFillUpProps) => {
-  const handleSubmit = (data: any) => {
+const FormFillUp = ({ registrationInfo, examType, semesterInfo }: IFormFillUpProps) => {
+  const [registerForm] = useCreateRegistrationFeeFormMutation();
+  const navigate = useNavigate();
+  const handleSubmit = async (data: any) => {
     const totalCredit = semesterInfo.courses.reduce(
       (acc: number, course: any) => acc + course.credit,
       0
     );
-    console.log(totalCredit);
+
     const payload = formFillUpSanitize(data);
+    payload.examType = examType;
     payload.courses = semesterInfo.courses;
     payload.year = semesterInfo.year;
     payload.semester = semesterInfo.semester;
     payload.semesterFee.creditFee = totalCredit * payload.semesterFee.creditFee;
-    console.log(payload);
+
+    const toastId = toast.loading('Registration is in progress');
+
+    try {
+      const res = await registerForm(payload).unwrap();
+
+      if (res.success) {
+        toast.success('Registration Success', { id: toastId });
+        navigate('/registered-semesters');
+      } else {
+        toast.error('Failed to Registration', { id: toastId });
+      }
+    } catch (error) {
+      toast.error('Failed to Registration', { id: toastId });
+    }
   };
 
   return (
@@ -36,7 +56,7 @@ const FormFillUp = ({ registrationInfo, semesterInfo }: IFormFillUpProps) => {
         <Grid container>
           {registrationInfoFields.semester.map((field) => (
             <Grid item xs={12} md={4} p={1} key={field.name}>
-              <CustomHookInput name={field.name} label={field.label} />
+              <CustomHookInput name={field.name} label={field.label} disabled />
             </Grid>
           ))}
         </Grid>
@@ -44,15 +64,15 @@ const FormFillUp = ({ registrationInfo, semesterInfo }: IFormFillUpProps) => {
         <Grid container>
           {registrationInfoFields.department.map((field) => (
             <Grid item xs={12} md={4} p={1} key={field.name}>
-              <CustomHookInput name={field.name} label={field.label} />
+              <CustomHookInput name={field.name} label={field.label} disabled />
             </Grid>
           ))}
-          <Grid item xs={12} md={4} p={1}>
+          {/* <Grid item xs={12} md={4} p={1}>
             <CustomHookInput name="amercementFee" label="Amercement Fee" />
-          </Grid>
+          </Grid> */}
         </Grid>
 
-        <Grid container>
+        {/* <Grid container>
           {registrationInfoFields.residentialFee.map((field) => (
             <>
               {field.type === 'date' ? (
@@ -67,10 +87,11 @@ const FormFillUp = ({ registrationInfo, semesterInfo }: IFormFillUpProps) => {
             </>
           ))}
         </Grid>
+           */}
 
         <Box m={1}>
           <Button variant="contained" type="submit">
-            Checkout to Payment
+            Request to Registration Start
           </Button>
         </Box>
       </CustomHookForm>
@@ -80,6 +101,64 @@ const FormFillUp = ({ registrationInfo, semesterInfo }: IFormFillUpProps) => {
 
 export default FormFillUp;
 
+export const RetakeOfImprovementForm = ({
+  registrationInfo,
+  examType,
+  semesterInfo
+}: IFormFillUpProps) => {
+  const [registerForm] = useCreateRegistrationFeeFormMutation();
+  const navigate = useNavigate();
+  const handleSubmit = async (data: any) => {
+    const totalCredit = semesterInfo.courses.reduce(
+      (acc: number, course: any) => acc + course.credit,
+      0
+    );
+
+    const payload = formFillUpSanitize(data);
+    payload.examType = examType;
+    payload.courses = semesterInfo.courses;
+    payload.year = semesterInfo.year;
+    payload.semester = semesterInfo.semester;
+    payload.semesterFee.creditFee = totalCredit * payload.semesterFee.creditFee;
+
+    const toastId = toast.loading('Registration is in progress');
+
+    try {
+      const res = await registerForm(payload).unwrap();
+
+      if (res.success) {
+        toast.success('Registration Success', { id: toastId });
+        navigate('/registered-semesters');
+      } else {
+        toast.error('Failed to Registration', { id: toastId });
+      }
+    } catch (error) {
+      toast.error('Failed to Registration', { id: toastId });
+    }
+  };
+
+  return (
+    <Stack my={5}>
+      <CustomHookForm onSubmit={handleSubmit} defaultValues={registrationInfo}>
+        <Grid container>
+          {registrationInfoFields.retake.map((field) => (
+            <Grid item xs={12} md={4} p={1} key={field.name}>
+              <CustomHookInput name={field.name} label={field.label} disabled />
+            </Grid>
+          ))}
+        </Grid>
+
+        <Box m={1}>
+          <Button variant="contained" type="submit">
+            Request to Registration Start
+          </Button>
+        </Box>
+      </CustomHookForm>
+    </Stack>
+  );
+};
+
+/** 
 const sendingData = {
   year: '1st',
   semester: '1st',
@@ -110,3 +189,4 @@ const sendingData = {
   },
   courses: []
 };
+*/
