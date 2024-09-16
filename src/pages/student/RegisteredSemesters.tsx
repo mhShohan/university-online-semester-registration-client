@@ -49,7 +49,7 @@ const SingleSemester = ({ regSemester }: SingleSemesterProps) => {
         boxShadow={24}
         borderRadius={4}
         component={Link}
-        to={`/registered-semesters/${_id}`}
+        to={`/application/${_id}`}
         sx={{ textDecoration: 'none', color: 'inherit' }}
       >
         <BoxItem title="Year" value={year} />
