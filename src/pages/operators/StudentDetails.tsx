@@ -17,12 +17,15 @@ import CustomHookForm from '../../components/forms/CustomHookForm';
 import CustomHookSelectField from '../../components/forms/CustomHookSelectField';
 import toastMessage from '../../lib/toastMessage';
 import { statusSelectOptions } from '../../constants';
+import { useAppSelector } from '../../store/hook';
+import { getCurrentUser } from '../../store/services/authSlice';
 
 const StudentDetails = () => {
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { data: profileData, isLoading } = useGetStudentDetailsQuery(params.id);
   const [updateStatus] = useUpdateStudentStatusMutation();
+  const user = useAppSelector(getCurrentUser);
 
   const handleUpdateStatus = async (data: FieldValues) => {
     try {
@@ -184,26 +187,28 @@ const StudentDetails = () => {
         </Box>
       </Stack>
 
-      <Stack p={3}>
-        <CustomHookForm onSubmit={handleUpdateStatus} defaultValues={{ status: data.status }}>
-          <Stack
-            direction={{ xs: 'column', md: 'row' }}
-            alignItems="center"
-            gap={1}
-            justifyContent="center"
-          >
-            <CustomHookSelectField
-              name="status"
-              label="Status"
-              items={statusSelectOptions}
-              sx={{ maxWidth: '200px' }}
-            />
-            <Button type="submit" variant="contained">
-              Update Student Status
-            </Button>
-          </Stack>
-        </CustomHookForm>
-      </Stack>
+      {user?.role === 'DEPARTMENT_OPERATOR' && (
+        <Stack p={3}>
+          <CustomHookForm onSubmit={handleUpdateStatus} defaultValues={{ status: data.status }}>
+            <Stack
+              direction={{ xs: 'column', md: 'row' }}
+              alignItems="center"
+              gap={1}
+              justifyContent="center"
+            >
+              <CustomHookSelectField
+                name="status"
+                label="Status"
+                items={statusSelectOptions}
+                sx={{ maxWidth: '200px' }}
+              />
+              <Button type="submit" variant="contained">
+                Update Student Status
+              </Button>
+            </Stack>
+          </CustomHookForm>
+        </Stack>
+      )}
     </Box>
   );
 };

@@ -64,7 +64,7 @@ const Courses = () => {
             </Grid>
           )}
 
-          {user?.role !== userRole.DEPARTMENT_OPERATOR && (
+          {user?.role !== userRole.DEPARTMENT_OPERATOR && user?.role !== userRole.CHAIRMAN && (
             <Grid item xs={12} sm={12} md={6} lg={4} sx={{ paddingRight: '.2rem' }}>
               <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
                 <InputLabel htmlFor="departmentId">Filter by Department</InputLabel>
