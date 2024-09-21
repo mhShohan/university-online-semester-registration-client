@@ -61,6 +61,15 @@ const operatorApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.registrationData, tagTypes.status]
     }),
+
+    acceptApplicationByHall: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: '/residential-fee-form/' + id,
+        method: 'PATCH',
+        body: payload
+      }),
+      invalidatesTags: [tagTypes.registrationFeeForm, tagTypes.status]
+    }),
   })
 });
 
@@ -71,5 +80,6 @@ export const {
   useGetStudentDetailsQuery,
   useCheckRegistrationStatusQuery,
   useUpdateStudentStatusMutation,
-  useStartRegistrationMutation
+  useStartRegistrationMutation,
+  useAcceptApplicationByHallMutation
 } = operatorApi;

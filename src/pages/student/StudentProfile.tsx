@@ -27,11 +27,7 @@ const StudentProfile = () => {
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </Box>
-            {!data?.isVerified && (
-              <>
-                <UploadPhotoOnChange name="file" studentId={data._id} label="Change Your Photo" />
-              </>
-            )}
+            <UploadPhotoOnChange name="file" studentId={data._id} label="Change Your Photo" />
           </Stack>
         </Grid>
         <Grid item xs={12} md={8}>
@@ -40,11 +36,10 @@ const StudentProfile = () => {
               <Typography variant="h3" sx={{ fontWeight: '700' }}>
                 {data?.name}
               </Typography>
-              {data?.status !== 'ACTIVE' && (
-                <Link to="/profile/update-profile">
-                  <Button variant="contained">Edit Profile</Button>
-                </Link>
-              )}
+
+              <Link to="/profile/update-profile">
+                <Button variant="contained">Edit Profile</Button>
+              </Link>
             </Stack>
             <Typography pl={2}>
               <strong>Status: </strong>

@@ -19,8 +19,8 @@ const departmentOperatorPath: TRouteSideBarPath[] = [
   { id: 1, name: 'Dashboard', path: '/', element: <DepartmentOperatorDashboard /> },
   { id: 2, name: 'Courses', path: '/courses', element: <Courses /> },
   { id: 3, name: 'Students', path: '/students', element: <Students /> },
-  { id: 3, name: 'Registration', path: '/registration', element: <Registration /> },
-  { id: 3, name: 'Students', path: '/students/:id', element: <StudentDetails />, visible: false }
+  { id: 4, name: 'Registration', path: '/registration', element: <Registration /> },
+  { id: 5, name: 'Students', path: '/students/:id', element: <StudentDetails />, visible: false }
 ];
 
 const departmentOperatorRoutesPath = mapPathToRoutes(departmentOperatorPath);

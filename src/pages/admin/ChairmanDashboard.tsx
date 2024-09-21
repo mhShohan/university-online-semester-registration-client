@@ -95,16 +95,17 @@ const ChairmanDashboard = () => {
             <>
               <Stack gap={1} direction="row" mt={4}>
                 <Link to={`/application/${form._id}`} style={{ width: '100%' }}>
-                  <Button variant="contained" fullWidth>
+                  <Button size="small" variant="contained" fullWidth>
                     View Application Details
                   </Button>
                 </Link>
                 <Link to={`/students/${form.studentId._id}`} style={{ width: '100%' }}>
-                  <Button variant="contained" fullWidth color="info">
+                  <Button size="small" variant="contained" fullWidth color="info">
                     View Student Details
                   </Button>
                 </Link>
                 <Button
+                  size="small"
                   variant="contained"
                   color="success"
                   fullWidth
@@ -113,6 +114,7 @@ const ChairmanDashboard = () => {
                   Accept Application
                 </Button>
                 <Button
+                  size="small"
                   variant="contained"
                   color="error"
                   fullWidth
