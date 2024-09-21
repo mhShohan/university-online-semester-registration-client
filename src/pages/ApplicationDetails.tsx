@@ -19,7 +19,7 @@ const semesterFeeArray = [
   'admitCard',
   'othersFee'
 ];
-const residentialFeeArray = ['fee', 'totalResidentFee', 'othersFee'];
+const residentialFeeArray = ['fee', 'from', 'to', 'totalResidentFee', 'othersFee'];
 
 const ApplicationDetails = () => {
   const params = useParams<{ id: string }>();
@@ -38,7 +38,13 @@ const ApplicationDetails = () => {
     .reduce((acc, cur) => (acc += cur), 0);
 
   const totalResidentuialFee = residentialFeeArray
-    .map((item) => form.residentialFeeId[item])
+    .map((item) => {
+      if (item === 'from' || item === 'to') {
+        return 0;
+      }
+
+      return form.residentialFeeId[item];
+    })
     .reduce((acc, cur) => (acc += cur), 0);
 
   const totalFee = totalDepartmentFee + totalSemesterFee + totalResidentuialFee;
@@ -52,6 +58,9 @@ const ApplicationDetails = () => {
             <Typography>Name: {form.studentId.name}</Typography>
             <Typography>Session: {form.studentId.session}</Typography>
             <Typography>Exam Types: {form.examType}</Typography>
+            <Typography textTransform="capitalize">
+              Status: {form.status.split('_').join(' ')}
+            </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography>Year: {form.year}</Typography>
@@ -111,12 +120,22 @@ const ApplicationDetails = () => {
 export default ApplicationDetails;
 
 const BoxItem = ({ itemKey, value }: { itemKey: string; value: string }) => {
+  let newValue = value;
+  // 'from', 'to'
+
+  if (itemKey === 'from' || itemKey === 'to') {
+    const date = new Date(value);
+    const month = date.toLocaleString('default', { month: 'short' });
+    const year = date.getFullYear();
+    newValue = `${month} ${year}`;
+  }
+
   return (
     <Box display="flex" justifyContent="space-between" mt={1}>
       <Typography fontWeight="700" textTransform="capitalize">
         {itemKey}
       </Typography>
-      <Typography>{value}</Typography>
+      <Typography>{newValue}</Typography>
     </Box>
   );
 };

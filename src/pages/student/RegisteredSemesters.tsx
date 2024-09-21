@@ -57,7 +57,7 @@ const SingleSemester = ({ regSemester }: SingleSemesterProps) => {
         <BoxItem title="Exam Type" value={examType} />
         <BoxItem title="Total Credit" value={totalCredit} />
         <BoxItem title="Registration Date" value={registrationDate} />
-        <BoxItem title="Status" value={status} />
+        <BoxItem title="Status" value={status.split('_').join(' ')} />
         <BoxItem title="Message" value={declineMessage || 'N/A'} />
       </Stack>
     </Grid>
@@ -70,7 +70,7 @@ const BoxItem = ({ title, value }: { title: string; value: string }) => {
       <Typography variant="h6" textAlign="left">
         {title}:
       </Typography>
-      <Typography textAlign="justify" ml={2}>
+      <Typography textAlign="justify" ml={2} textTransform="capitalize">
         {value}
       </Typography>
     </Stack>
