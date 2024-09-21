@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 const RegisteredSemesters = () => {
   const { data, isLoading } = useGetRegistrationFeeFormQuery(undefined);
 
-  console.log({ data, isLoading });
-
   if (isLoading) return <Loader fullPage={true} />;
 
   return (
