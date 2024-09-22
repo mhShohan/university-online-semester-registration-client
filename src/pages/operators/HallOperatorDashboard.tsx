@@ -83,6 +83,8 @@ const HallOperatorDashboard = () => {
 
   return (
     <Stack>
+      {data.data.length === 0 && <Typography>No Application Found</Typography>}
+
       <AcceptApplicationModal open={open} handleClose={handleClose} updateIds={updateIds} />
       <Stack gap={2}>
         {data.data.map((form: any) => (

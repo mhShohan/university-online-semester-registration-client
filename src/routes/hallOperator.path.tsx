@@ -13,6 +13,7 @@ const HallOperatorDashboard = withSuspense(
 );
 const StudentDetails = withSuspense(lazy(() => import('../pages/operators/StudentDetails')));
 const ApplicationDetails = withSuspense(lazy(() => import('../pages/ApplicationDetails')));
+const HallApplications = withSuspense(lazy(() => import('../pages/hall/HallApplications')));
 
 const hallOperatorPath: TRouteSideBarPath[] = [
   { id: 1, name: 'Dashboard', path: '/', element: <HallOperatorDashboard /> },
@@ -22,6 +23,12 @@ const hallOperatorPath: TRouteSideBarPath[] = [
     path: '/application/:id',
     element: <ApplicationDetails />,
     visible: false
+  },
+  {
+    id: 3,
+    name: 'Application',
+    path: '/applications',
+    element: <HallApplications />
   },
   { id: 4, name: 'Students', path: '/students/:id', element: <StudentDetails />, visible: false }
 ];
