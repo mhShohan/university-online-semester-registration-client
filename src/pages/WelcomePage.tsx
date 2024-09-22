@@ -61,7 +61,8 @@ const WelcomePage = () => {
               sx={{
                 width: '100%',
                 margin: '.6rem 0',
-                padding: '.6rem'
+                padding: '.6rem',
+                fontSize: '.8rem'
               }}
             >
               Login as a Student
@@ -72,7 +73,8 @@ const WelcomePage = () => {
               sx={{
                 width: '100%',
                 margin: '.6rem 0',
-                padding: '.6rem'
+                padding: '.6rem',
+                fontSize: '.8rem'
               }}
             >
               Register new Student Account
@@ -86,7 +88,8 @@ const WelcomePage = () => {
               sx={{
                 width: '100%',
                 margin: '.6rem 0',
-                padding: '.6rem'
+                padding: '.6rem',
+                fontSize: '.8rem'
               }}
             >
               Login as an Admin

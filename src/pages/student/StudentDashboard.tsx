@@ -1,16 +1,19 @@
 // mui
-import { Box, Divider, Stack, Typography } from '@mui/material';
+import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
 
 // project import
 import Loader from '../../components/Loader';
 import { useCheckRegistrationStatusQuery } from '../../store/features/operator/operator.api';
 import dateFormatter from '../../utils/dateFormatter';
+import { useGetRegistrationFeeFormQuery } from '../../store/features/feeForm.api';
+import { SingleSemester } from './RegisteredSemesters';
 
 const StudentDashboard = () => {
   const { data: checkRegistrationData, isLoading: isChecking } =
     useCheckRegistrationStatusQuery(undefined);
+  const { data, isLoading } = useGetRegistrationFeeFormQuery(undefined);
 
-  if (isChecking) return <Loader fullPage={true} />;
+  if (isChecking || isLoading) return <Loader fullPage={true} />;
 
   return (
     <Box>
@@ -30,6 +33,11 @@ const StudentDashboard = () => {
           </Typography>
         </Stack>
       </Stack>
+      <Grid container spacing={2}>
+        {data?.data.map((regSemester: any) => (
+          <SingleSemester key={regSemester.id} regSemester={regSemester} />
+        ))}
+      </Grid>
     </Box>
   );
 };

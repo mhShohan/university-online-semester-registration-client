@@ -24,6 +24,7 @@ export const ListItem = styled(MuiListItem)<IListItem>(({ theme, isactive }) => 
   },
   '& .MuiTypography-root': {
     color: isactive ? theme.palette.primary.dark : theme.palette.primary.light,
-    fontWeight: '600'
+    fontWeight: '600',
+    fontSize: '.8rem'
   }
 }));

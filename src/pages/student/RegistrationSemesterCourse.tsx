@@ -184,6 +184,7 @@ const SingleCourse = ({ course, checked }: { course: ISingleCourse; checked?: bo
     </>
   );
 };
+
 const SingleCourseForRetake = ({
   course,
   handleSelectCourse

@@ -12,6 +12,7 @@ const StudentDetails = withSuspense(lazy(() => import('../pages/operators/Studen
 const ApplicationDetails = withSuspense(lazy(() => import('../pages/ApplicationDetails')));
 const ChairmanDashboard = withSuspense(lazy(() => import('../pages/admin/ChairmanDashboard')));
 const Students = withSuspense(lazy(() => import('../pages/operators/Students')));
+const Result = withSuspense(lazy(() => import('../pages/Result')));
 
 const chairmanPath: TRouteSideBarPath[] = [
   { id: 1, name: 'Dashboard', path: '/', element: <ChairmanDashboard /> },
@@ -24,7 +25,8 @@ const chairmanPath: TRouteSideBarPath[] = [
     visible: false
   },
   { id: 4, name: 'Students', path: '/students/:id', element: <StudentDetails />, visible: false },
-  { id: 5, name: 'Students', path: '/students', element: <Students /> }
+  { id: 5, name: 'Students', path: '/students', element: <Students /> },
+  { id: 6, name: 'Result', path: '/result', element: <Result /> }
 ];
 
 const chairmanRoutePath = mapPathToRoutes(chairmanPath);

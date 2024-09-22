@@ -4,12 +4,19 @@ import { useGetRegistrationFeeFormQuery } from '../../store/features/feeForm.api
 import { Link } from 'react-router-dom';
 
 const RegisteredSemesters = () => {
-  const { data, isLoading } = useGetRegistrationFeeFormQuery(undefined);
+  const { data, isLoading } = useGetRegistrationFeeFormQuery({
+    status: 'approved_by_exam_controller'
+  });
 
   if (isLoading) return <Loader fullPage={true} />;
 
   return (
     <Stack>
+      {data?.data.length === 0 && (
+        <Typography variant="h5" textAlign="center">
+          No registered semesters found...
+        </Typography>
+      )}
       <Grid container spacing={2}>
         {data?.data.map((regSemester: any) => (
           <SingleSemester key={regSemester.id} regSemester={regSemester} />
@@ -34,7 +41,7 @@ interface SingleSemesterProps {
   };
 }
 
-const SingleSemester = ({ regSemester }: SingleSemesterProps) => {
+export const SingleSemester = ({ regSemester }: SingleSemesterProps) => {
   const { _id, year, semester, examType, courses, createdAt, status, declineMessage } = regSemester;
 
   const totalCredit = courses.reduce((acc, course) => acc + course.credit, 0);
