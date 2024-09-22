@@ -25,7 +25,7 @@ import { departmentOperatorSidebarItems } from '../routes/departmentOperator.pat
 import { chairmanSidebarItems } from '../routes/chairman.path';
 import { hallOperatorSidebarItems } from '../routes/hallOperator.path';
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 export default function SideBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
