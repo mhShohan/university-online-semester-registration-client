@@ -15,7 +15,6 @@ const DepartmentOperatorDashboard = withSuspense(
   lazy(() => import('../pages/operators/DepartmentOperatorDashboard'))
 );
 const Library = withSuspense(lazy(() => import('../pages/Library')));
-const Result = withSuspense(lazy(() => import('../pages/Result')));
 
 const departmentOperatorPath: TRouteSideBarPath[] = [
   { id: 1, name: 'Dashboard', path: '/', element: <DepartmentOperatorDashboard /> },
@@ -23,8 +22,7 @@ const departmentOperatorPath: TRouteSideBarPath[] = [
   { id: 3, name: 'Students', path: '/students', element: <Students /> },
   { id: 4, name: 'Registration', path: '/registration', element: <Registration /> },
   { id: 5, name: 'Students', path: '/students/:id', element: <StudentDetails />, visible: false },
-  { id: 9, name: 'Library', path: '/library', element: <Library /> },
-  { id: 10, name: 'Result', path: '/result', element: <Result /> }
+  { id: 9, name: 'Library', path: '/library', element: <Library /> }
 ];
 
 const departmentOperatorRoutesPath = mapPathToRoutes(departmentOperatorPath);

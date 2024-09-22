@@ -74,6 +74,7 @@ const ChairmanDashboard = () => {
   return (
     <Stack>
       <Stack gap={2}>
+        {data.data.length === 0 && <Typography textAlign="center">No Application Found</Typography>}
         {data.data.map((form: any) => (
           <Stack key={form._id} p={4} borderRadius={4} boxShadow={24}>
             <Grid container>
