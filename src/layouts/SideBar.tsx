@@ -27,6 +27,15 @@ import { hallOperatorSidebarItems } from '../routes/hallOperator.path';
 
 const drawerWidth = 220;
 
+const logo: any = {
+  STUDENT: 'student Dashboard',
+  ADMIN: 'Exam Controller Dashboard',
+  DEPARTMENT_OPERATOR: 'Department Operator Dashboard',
+  CHAIRMAN: 'Chairman Dashboard',
+  HALL_OPERATOR: 'Hall Operator Dashboard',
+  SUPER_ADMIN: 'Super Admin Dashboard'
+};
+
 export default function SideBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const role = useAppSelector(getCurrentUserRole);
@@ -79,7 +88,7 @@ export default function SideBar() {
   const drawer = (
     <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
       <Box>
-        <DashboardLogo name="BSMRSTU" />
+        <DashboardLogo name={logo[role || 'BSMRSTU']} />
         <Divider />
         <List sx={{ padding: 0 }}>
           {sidebarItem?.map((item) => (
@@ -181,8 +190,8 @@ const DashboardLogo = ({ name }: { name: string }) => {
   return (
     <Toolbar>
       <Typography
-        variant="h5"
         sx={{
+          fontSize: '.8rem',
           color: 'primary.light',
           textTransform: 'uppercase',
           fontWeight: '700',

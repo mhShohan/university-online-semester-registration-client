@@ -106,8 +106,8 @@ const Registration = () => {
           ))}
         </Grid>
         <Box my={4}>
-          <Button variant="contained" type="submit">
-            Registration Start
+          <Button variant="contained" type="submit" size="small" sx={{ px: 8 }}>
+            Update
           </Button>
         </Box>
       </CustomHookForm>

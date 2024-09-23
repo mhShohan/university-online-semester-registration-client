@@ -1,21 +1,29 @@
-import { Box, Button, Grid, IconButton, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Loader from '../../components/Loader';
 import { useGetRegistrationFeeFormByHallQuery } from '../../store/features/feeForm.api';
 // import Swal from 'sweetalert2';
-import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const HallApplications = () => {
-  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState({ status: true });
   const [searchTerm, setSearchTerm] = useState('');
   const { data, isLoading, isFetching } = useGetRegistrationFeeFormByHallQuery({
-    status: true,
-    search
+    ...query
   });
   // const [acceptOrDecline] = useAcceptOrDeclineFeeFomMutation();
 
-  if (isLoading || isFetching) return <Loader fullPage />;
+  console.log(query);
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      setQuery((p) => ({ ...p, search: searchTerm }));
+    }, 500);
+
+    return () => clearTimeout(debounce);
+  }, [searchTerm]);
+
+  // if (isLoading || isFetching) return <Loader fullPage />;
 
   // const declineApplication = async (id: string) => {
   //   const { isDenied, isDismissed, value } = await Swal.fire({
@@ -86,58 +94,52 @@ const HallApplications = () => {
             size="small"
             placeholder="Search by StudentId"
           />
-          <IconButton
-            onClick={() => setSearch(searchTerm)}
-            color="primary"
-            sx={{
-              bgcolor: 'primary.main',
-              color: 'white',
-              borderRadius: 0,
-              '&:hover': {
-                bgcolor: 'primary.main'
-              }
-            }}
-          >
-            <SearchIcon />
-          </IconButton>
         </Box>
       </Stack>
       <Stack gap={2}>
-        {data.data.length === 0 && <Typography>No Application Found</Typography>}
-        {data.data.map((form: any) => (
-          <Stack key={form._id} p={4} borderRadius={4} boxShadow={24}>
-            <Grid container>
-              <Grid item xs={6}>
-                <Typography>StudentId: {form.studentId.studentId}</Typography>
-                <Typography>Name: {form.studentId.name}</Typography>
-                <Typography>Session: {form.studentId.session}</Typography>
-                <Typography>Exam Types: {form.examType}</Typography>
-                <Typography textTransform="capitalize">
-                  Status: {form.status.split('_').join(' ')}
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography>Year: {form.year}</Typography>
-                <Typography>Semester: {form.semester}</Typography>
-                <Typography>
-                  Total Credit:{' '}
-                  {form.courses.reduce((acc: number, cur: any) => (acc += cur.credit), 0)}
-                </Typography>
-              </Grid>
-            </Grid>
-            <>
-              <Stack gap={1} direction="row" mt={4}>
-                <Link to={`/application/${form._id}`} style={{ width: '100%' }}>
-                  <Button size="small" variant="contained" fullWidth>
-                    View Application Details
-                  </Button>
-                </Link>
-                <Link to={`/students/${form.studentId._id}`} style={{ width: '100%' }}>
-                  <Button size="small" variant="contained" fullWidth color="info">
-                    View Student Details
-                  </Button>
-                </Link>
-                {/* <Button
+        {(data?.data?.length === 0 || !data) && (
+          <Typography variant="h6" textAlign="center">
+            No Application Found
+          </Typography>
+        )}
+        {isLoading || isFetching ? (
+          <Loader fullPage />
+        ) : (
+          <>
+            {data?.data?.map((form: any) => (
+              <Stack key={form._id} p={4} borderRadius={4} boxShadow={24}>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <Typography>StudentId: {form.studentId.studentId}</Typography>
+                    <Typography>Name: {form.studentId.name}</Typography>
+                    <Typography>Session: {form.studentId.session}</Typography>
+                    <Typography>Exam Types: {form.examType}</Typography>
+                    <Typography textTransform="capitalize">
+                      Status: {form.status.split('_').join(' ')}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography>Year: {form.year}</Typography>
+                    <Typography>Semester: {form.semester}</Typography>
+                    <Typography>
+                      Total Credit:{' '}
+                      {form.courses.reduce((acc: number, cur: any) => (acc += cur.credit), 0)}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <>
+                  <Stack gap={1} direction="row" mt={4}>
+                    <Link to={`/application/${form._id}`} style={{ width: '100%' }}>
+                      <Button size="small" variant="contained" fullWidth>
+                        View Application Details
+                      </Button>
+                    </Link>
+                    <Link to={`/students/${form.studentId._id}`} style={{ width: '100%' }}>
+                      <Button size="small" variant="contained" fullWidth color="info">
+                        View Student Details
+                      </Button>
+                    </Link>
+                    {/* <Button
                   size="small"
                   variant="contained"
                   color="success"
@@ -155,10 +157,12 @@ const HallApplications = () => {
                 >
                   Decline Application
                 </Button> */}
+                  </Stack>
+                </>
               </Stack>
-            </>
-          </Stack>
-        ))}
+            ))}
+          </>
+        )}
       </Stack>
     </Stack>
   );
