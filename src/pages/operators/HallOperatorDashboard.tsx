@@ -83,11 +83,11 @@ const HallOperatorDashboard = () => {
 
   return (
     <Stack>
-      {data.data.length === 0 && <Typography>No Application Found</Typography>}
+      {data?.data?.length === 0 && <Typography>No Application Found</Typography>}
 
       <AcceptApplicationModal open={open} handleClose={handleClose} updateIds={updateIds} />
       <Stack gap={2}>
-        {data.data.map((form: any) => (
+        {data?.data?.map((form: any) => (
           <Stack key={form._id} p={4} borderRadius={4} boxShadow={24}>
             <Grid container>
               <Grid item xs={6}>

@@ -13,8 +13,6 @@ const HallApplications = () => {
   });
   // const [acceptOrDecline] = useAcceptOrDeclineFeeFomMutation();
 
-  console.log(query);
-
   useEffect(() => {
     const debounce = setTimeout(() => {
       setQuery((p) => ({ ...p, search: searchTerm }));

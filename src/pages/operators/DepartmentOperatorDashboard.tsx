@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 // mui
-import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
+import { Box, Chip, Divider, Grid, Stack, Typography } from '@mui/material';
 
 // project import
 import {
@@ -29,7 +29,17 @@ const DepartmentOperatorDashboard = () => {
         </Typography>
         <Divider />
         <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" my={2}>
-          <Typography variant="h6">Status: {checkRegistrationData?.data.status}</Typography>
+          <Box display="flex" alignItems="center" gap={1}>
+            <Typography variant="h6">Status: </Typography>
+            <Chip
+              label={checkRegistrationData?.data.status}
+              color={checkRegistrationData?.data.status === 'Ongoing' ? 'success' : 'error'}
+              sx={{
+                padding: '0.2rem 1rem',
+                height: '1.5rem'
+              }}
+            />
+          </Box>
           <Typography variant="h6">
             Start Date: {dateFormatter.stringToMonth(checkRegistrationData?.data.startDate)}
           </Typography>

@@ -46,6 +46,12 @@ const CreateAdmin = () => {
   } = useForm();
 
   const onSubmit = async (data: FieldValues) => {
+    for (const key in data) {
+      if (!data[key]) {
+        delete data[key];
+      }
+    }
+
     try {
       const res = await createAdmin(data).unwrap();
       if (res.statusCode === 201 || res.statusCode === 200) {
@@ -182,10 +188,3 @@ const CreateAdmin = () => {
     </Box>
   );
 };
-
-// name:
-// email:
-// password:
-// departmentId
-// hallId:
-// role:
