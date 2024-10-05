@@ -10,6 +10,7 @@ export const tagTypes = {
   registrationData: 'registrationData',
   registrationFeeForm: 'registrationFeeForm',
   status: 'status',
+  payment: 'payment',
 } as const
 
 const tagTypesList = Object.values(tagTypes);

@@ -1,17 +1,17 @@
 import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import Loader from '../../components/Loader';
 import {
   useAcceptOrDeclineFeeFomMutation,
-  useGetRegistrationFeeFormByChairmanQuery
+  useGetRegistrationFeeFormByExamControllerQuery
 } from '../../store/features/feeForm.api';
-import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useEffect, useState } from 'react';
 
 const AllApplicationPage = () => {
   const [query, setQuery] = useState({ status: true });
   const [searchTerm, setSearchTerm] = useState('');
-  const { data, isLoading, isFetching } = useGetRegistrationFeeFormByChairmanQuery({
+  const { data, isLoading, isFetching } = useGetRegistrationFeeFormByExamControllerQuery({
     ...query
   });
   const [acceptOrDecline] = useAcceptOrDeclineFeeFomMutation();
@@ -55,7 +55,7 @@ const AllApplicationPage = () => {
 
     const payload = {
       declineMessage: value,
-      status: 'rejected_by_chairman'
+      status: 'rejected_by_exam_controller'
     };
 
     await acceptOrDecline({ id, payload });
@@ -69,7 +69,7 @@ const AllApplicationPage = () => {
     });
 
     if (isConfirmed) {
-      const payload = { status: 'approved_by_chairman' };
+      const payload = { status: 'approved_by_exam_controller' };
       await acceptOrDecline({ id, payload });
 
       Swal.fire({
@@ -140,30 +140,24 @@ const AllApplicationPage = () => {
                         View Student Details
                       </Button>
                     </Link>
-                    {['approved_by_chairman', 'rejected_by_chairman'].includes(
-                      form?.status as string
-                    ) && (
-                      <>
-                        <Button
-                          size="small"
-                          variant="contained"
-                          color="success"
-                          fullWidth
-                          onClick={() => acceptApplication(form._id)}
-                        >
-                          Accept Application
-                        </Button>
-                        <Button
-                          size="small"
-                          variant="contained"
-                          color="error"
-                          fullWidth
-                          onClick={() => declineApplication(form._id)}
-                        >
-                          Decline Application
-                        </Button>
-                      </>
-                    )}
+                    <Button
+                      size="small"
+                      variant="contained"
+                      color="success"
+                      fullWidth
+                      onClick={() => acceptApplication(form._id)}
+                    >
+                      Accept Application
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      color="error"
+                      fullWidth
+                      onClick={() => declineApplication(form._id)}
+                    >
+                      Decline Application
+                    </Button>
                   </Stack>
                 </>
               </Stack>

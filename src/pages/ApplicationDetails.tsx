@@ -5,6 +5,8 @@ import Loader from '../components/Loader';
 import { useAppSelector } from '../store/hook';
 import { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
+import { toast } from 'sonner';
+import { useCreateApplicationPaymentMutation } from '../store/features/student/student.api';
 
 const departmentFeeArray = ['developmentFee', 'association', 'centerFee'];
 const semesterFeeArray = [
@@ -27,6 +29,7 @@ const residentialFeeArray = ['fee', 'from', 'to', 'totalResidentFee', 'othersFee
 const ApplicationDetails = () => {
   const params = useParams<{ id: string }>();
   const { data, isLoading } = useGetSingleRegistrationFeeFormQuery(params.id);
+  const [createPayment] = useCreateApplicationPaymentMutation();
   const role = useAppSelector((state) => state.auth.user?.role);
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
 
@@ -54,15 +57,31 @@ const ApplicationDetails = () => {
 
   const totalFee = totalDepartmentFee + totalSemesterFee + totalResidentuialFee;
 
-  const handlePayment = (backAccountId: string) => {
+  const handlePayment = async (backAccountId: string) => {
     const payload = {
-      studentId: form.studentId.studentId,
       formId: form._id,
       amount: totalFee,
       backAccountId
     };
 
+    const toastId = toast.loading('Processing payment...');
+
     console.log(payload);
+
+    try {
+      const res = await createPayment(payload).unwrap();
+
+      console.log(res);
+
+      if (res.success) {
+        toast.success('Payment successful', { id: toastId });
+        setOpenPaymentModal(false);
+      } else {
+        toast.error('Payment failed', { id: toastId });
+      }
+    } catch (error) {
+      toast.error('Payment failed', { id: toastId });
+    }
   };
 
   return (
@@ -222,7 +241,6 @@ const PaymentModal = ({
   const onSubmit = async () => {
     if (error) return;
     await handlePayment(bankAccountId);
-    handleClose();
     setBankAccountId('');
     setError(true);
   };
