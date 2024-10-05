@@ -23,6 +23,7 @@ const RegistrationSemesterCourse = withSuspense(
 const ApplicationDetails = withSuspense(lazy(() => import('../pages/ApplicationDetails')));
 const Library = withSuspense(lazy(() => import('../pages/Library')));
 const Result = withSuspense(lazy(() => import('../pages/Result')));
+const AdmitCardPage = withSuspense(lazy(() => import('../pages/student/AdmitCardPage')));
 
 const studentPath: TRouteSideBarPath[] = [
   { id: 1, name: 'Dashboard', path: '/', element: <StudentDashboard /> },
@@ -52,6 +53,12 @@ const studentPath: TRouteSideBarPath[] = [
     name: 'registered semesters',
     path: '/registered-semesters',
     element: <RegisteredSemesters />
+  },
+  {
+    id: 60,
+    name: 'Admit Cards',
+    path: '/admit-cards',
+    element: <AdmitCardPage />
   },
   {
     id: 7,

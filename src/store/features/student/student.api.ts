@@ -28,11 +28,21 @@ const studentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.student]
     }),
+
+    createApplicationPayment: builder.mutation({
+      query: (payload) => ({
+        url: '/payments',
+        method: 'POST',
+        body: payload
+      }),
+      invalidatesTags: [tagTypes.payment, tagTypes.registrationFeeForm]
+    }),
   })
 });
 
 export const {
   useGetSelfProfileOfStudentQuery,
   useUpdateStudentProfileMutation,
-  useAccountVerifyRequestMutation
+  useAccountVerifyRequestMutation,
+  useCreateApplicationPaymentMutation
 } = studentApi;
