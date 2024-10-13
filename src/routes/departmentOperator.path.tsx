@@ -14,7 +14,7 @@ const Registration = withSuspense(lazy(() => import('../pages/operators/Registra
 const DepartmentOperatorDashboard = withSuspense(
   lazy(() => import('../pages/operators/DepartmentOperatorDashboard'))
 );
-const Library = withSuspense(lazy(() => import('../pages/Library')));
+const Library = withSuspense(lazy(() => import('../pages/operators/Library')));
 const BookDetails = withSuspense(lazy(() => import('../pages/operators/BookDetails')));
 
 const departmentOperatorPath: TRouteSideBarPath[] = [

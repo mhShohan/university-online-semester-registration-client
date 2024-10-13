@@ -1,9 +1,12 @@
 import { Box, Button, Divider, IconButton, Modal, Stack, Typography } from '@mui/material';
-import { useAddBookMutation, useGetAllBooksQuery } from '../store/features/operator/operator.api';
-import Loader from '../components/Loader';
+import {
+  useAddBookMutation,
+  useGetAllBooksQuery
+} from '../../store/features/operator/operator.api';
+import Loader from '../../components/Loader';
 import { useState } from 'react';
-import CustomHookForm from '../components/forms/CustomHookForm';
-import CustomHookInput from '../components/forms/CustomHookInput';
+import CustomHookForm from '../../components/forms/CustomHookForm';
+import CustomHookInput from '../../components/forms/CustomHookInput';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';

@@ -9,7 +9,15 @@ const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: payload
       }),
-      invalidatesTags: [ tagTypes.user, tagTypes.faculty, tagTypes.department, tagTypes.hall, tagTypes.student, tagTypes.registrationFeeForm ]
+      invalidatesTags: [
+        tagTypes.user,
+        tagTypes.faculty,
+        tagTypes.department,
+        tagTypes.hall,
+        tagTypes.student,
+        tagTypes.registrationFeeForm,
+        tagTypes.books
+      ]
     }),
     adminLogin: builder.mutation({
       query: (payload) => ({
@@ -17,7 +25,15 @@ const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: payload
       }),
-      invalidatesTags: [ tagTypes.user, tagTypes.faculty, tagTypes.department, tagTypes.hall, tagTypes.student, tagTypes.registrationFeeForm ]
+      invalidatesTags: [
+        tagTypes.user,
+        tagTypes.faculty,
+        tagTypes.department,
+        tagTypes.hall,
+        tagTypes.student,
+        tagTypes.registrationFeeForm,
+        tagTypes.books
+      ]
     }),
     studentRegistration: builder.mutation({
       query: (payload) => ({

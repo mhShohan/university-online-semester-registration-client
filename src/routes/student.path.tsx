@@ -21,9 +21,9 @@ const RegistrationSemesterCourse = withSuspense(
   lazy(() => import('../pages/student/RegistrationSemesterCourse'))
 );
 const ApplicationDetails = withSuspense(lazy(() => import('../pages/ApplicationDetails')));
-const Library = withSuspense(lazy(() => import('../pages/Library')));
 const Result = withSuspense(lazy(() => import('../pages/Result')));
 const AdmitCardPage = withSuspense(lazy(() => import('../pages/student/AdmitCardPage')));
+const LibraryBooks = withSuspense(lazy(() => import('../pages/student/LibraryBooks')));
 
 const studentPath: TRouteSideBarPath[] = [
   { id: 1, name: 'Dashboard', path: '/', element: <StudentDashboard /> },
@@ -78,7 +78,7 @@ const studentPath: TRouteSideBarPath[] = [
     id: 9,
     name: 'Library',
     path: '/library',
-    element: <Library />
+    element: <LibraryBooks />
   },
   {
     id: 10,
