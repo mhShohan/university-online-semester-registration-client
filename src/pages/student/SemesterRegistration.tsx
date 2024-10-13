@@ -7,6 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { useCheckRegistrationStatusQuery } from '../../store/features/operator/operator.api';
 import Loader from '../../components/Loader';
+import axios from 'axios';
+import config from '../../config';
+import { useAppSelector } from '../../store/hook';
+import { toast } from 'sonner';
 
 const defaultValues = {
   year: '',
@@ -23,19 +27,32 @@ const validator = z.object({
 const SemesterRegistration = () => {
   const navigate = useNavigate();
   const theme = useTheme();
+  const token = useAppSelector((state) => state.auth.token);
   const { data: checkRegistrationData, isLoading: isChecking } =
     useCheckRegistrationStatusQuery(undefined);
 
-  console.log(checkRegistrationData);
-
   if (isChecking) return <Loader fullPage={true} />;
 
-  const onSubmit = (data: any) => {
-    if (data) {
-      const queryString = `year=${data.year}&semester=${data.semester}&examType=${data.examType}`;
-      navigate('/registration-semester-course?' + queryString);
+  const onSubmit = async (data: any) => {
+    if (!data) return;
+    const queryString = `year=${data.year}&semester=${data.semester}&examType=${data.examType}`;
+
+    try {
+      const res = await axios.get(`${config.baseUrl}/fee-form/check?${queryString}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      if (res.data.success) {
+        navigate('/registration-semester-course?' + queryString);
+      } else {
+        toast.error('You have already registered for this semester');
+      }
+    } catch (error) {
+      toast.error('You have already registered for this semester');
     }
-    return;
   };
 
   return (
