@@ -74,7 +74,7 @@ const columns: GridColDef[] = [
 function Table({ rows }: { rows: GridRowsProp[] }) {
   return (
     <Box sx={{ width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} rowSelection={false} />
+      <DataGrid rows={rows} columns={columns} rowSelection={false} hideFooter={true} />
     </Box>
   );
 }

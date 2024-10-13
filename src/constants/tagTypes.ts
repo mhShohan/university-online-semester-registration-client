@@ -11,6 +11,7 @@ export const tagTypes = {
   registrationFeeForm: 'registrationFeeForm',
   status: 'status',
   payment: 'payment',
+  books: 'books',
 } as const
 
 const tagTypesList = Object.values(tagTypes);
