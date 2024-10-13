@@ -62,8 +62,8 @@ const UpdateStudentPage = () => {
     const { ssc, hsc, dateOfBirth, ...rest } = fields;
 
     const educationalQualifications = [
-      { name: 'Secondary School Certificate', ...ssc },
-      { name: 'Higher Secondary Certificate', ...hsc }
+      { ...ssc, name: 'Secondary School Certificate' },
+      { ...hsc, name: 'Higher Secondary Certificate' }
     ];
 
     const payload = {

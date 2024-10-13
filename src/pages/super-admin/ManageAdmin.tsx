@@ -59,8 +59,6 @@ const CreateAdmin = () => {
         toastMessage({ icon: 'success', text: res.message });
       }
     } catch (error: any) {
-      console.log(error);
-
       toastMessage({ icon: 'error', text: error.data.message });
     }
   };

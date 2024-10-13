@@ -9,7 +9,7 @@ const operatorApi = baseApi.injectEndpoints({
         url: '/admins/all-students',
         method: 'GET'
       }),
-      providesTags: [tagTypes.operator, tagTypes.student]
+      providesTags: [ tagTypes.operator, tagTypes.student ]
     }),
 
     getRegistrationInfo: builder.query({
@@ -17,7 +17,7 @@ const operatorApi = baseApi.injectEndpoints({
         url: '/registration-info',
         method: 'GET'
       }),
-      providesTags: [tagTypes.registrationData]
+      providesTags: [ tagTypes.registrationData ]
     }),
 
     checkRegistrationStatus: builder.query({
@@ -25,7 +25,7 @@ const operatorApi = baseApi.injectEndpoints({
         url: '/registration-info/status',
         method: 'GET'
       }),
-      providesTags: [tagTypes.status]
+      providesTags: [ tagTypes.status ]
     }),
 
     getReviewStudents: builder.query({
@@ -33,7 +33,7 @@ const operatorApi = baseApi.injectEndpoints({
         url: '/admins/review-request',
         method: 'GET'
       }),
-      providesTags: [tagTypes.operator, tagTypes.student]
+      providesTags: [ tagTypes.operator, tagTypes.student ]
     }),
 
     getStudentDetails: builder.query({
@@ -41,7 +41,7 @@ const operatorApi = baseApi.injectEndpoints({
         url: '/students/' + id,
         method: 'GET'
       }),
-      providesTags: [tagTypes.operator, tagTypes.student]
+      providesTags: [ tagTypes.operator, tagTypes.student ]
     }),
 
     updateStudentStatus: builder.mutation({
@@ -50,7 +50,7 @@ const operatorApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: payload
       }),
-      invalidatesTags: [tagTypes.operator, tagTypes.student]
+      invalidatesTags: [ tagTypes.operator, tagTypes.student ]
     }),
 
     startRegistration: builder.mutation({
@@ -59,7 +59,7 @@ const operatorApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: payload
       }),
-      invalidatesTags: [tagTypes.registrationData, tagTypes.status]
+      invalidatesTags: [ tagTypes.registrationData, tagTypes.status ]
     }),
 
     acceptApplicationByHall: builder.mutation({
@@ -68,8 +68,35 @@ const operatorApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: payload
       }),
-      invalidatesTags: [tagTypes.registrationFeeForm, tagTypes.status]
+      invalidatesTags: [ tagTypes.registrationFeeForm, tagTypes.status ]
     }),
+
+    addBook: builder.mutation({
+      query: (payload) => ({
+        url: '/books',
+        method: 'POST',
+        body: payload
+      }),
+      invalidatesTags: [ tagTypes.books ]
+    }),
+
+    getAllBooks: builder.query({
+      query: (query) => ({
+        url: '/books',
+        method: 'GET',
+        params: query
+      }),
+      providesTags: [ tagTypes.books ]
+    }),
+
+    getSingleBook: builder.query({
+      query: (id) => ({
+        url: '/books/' + id,
+        method: 'GET',
+      }),
+      providesTags: [ tagTypes.books ]
+    }),
+
   })
 });
 
@@ -81,5 +108,8 @@ export const {
   useCheckRegistrationStatusQuery,
   useUpdateStudentStatusMutation,
   useStartRegistrationMutation,
-  useAcceptApplicationByHallMutation
+  useAcceptApplicationByHallMutation,
+  useAddBookMutation,
+  useGetAllBooksQuery,
+  useGetSingleBookQuery
 } = operatorApi;

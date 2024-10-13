@@ -9,7 +9,7 @@ const registrationFeeForm = baseApi.injectEndpoints({
         method: 'GET',
         params: query
       }),
-      providesTags: [tagTypes.registrationFeeForm]
+      providesTags: [ tagTypes.registrationFeeForm ]
     }),
 
     getSingleRegistrationFeeForm: builder.query({
@@ -17,7 +17,7 @@ const registrationFeeForm = baseApi.injectEndpoints({
         url: '/fee-form/' + id,
         method: 'GET',
       }),
-      providesTags: [tagTypes.registrationFeeForm]
+      providesTags: [ tagTypes.registrationFeeForm ]
     }),
 
     getRegistrationFeeFormByChairman: builder.query({
@@ -26,7 +26,7 @@ const registrationFeeForm = baseApi.injectEndpoints({
         method: 'GET',
         params: query
       }),
-      providesTags: [tagTypes.registrationFeeForm]
+      providesTags: [ tagTypes.registrationFeeForm ]
     }),
 
     getRegistrationFeeFormByExamController: builder.query({
@@ -35,7 +35,7 @@ const registrationFeeForm = baseApi.injectEndpoints({
         method: 'GET',
         params: query
       }),
-      providesTags: [tagTypes.registrationFeeForm]
+      providesTags: [ tagTypes.registrationFeeForm ]
     }),
 
     getRegistrationFeeFormByHall: builder.query({
@@ -44,7 +44,16 @@ const registrationFeeForm = baseApi.injectEndpoints({
         method: 'GET',
         params: query
       }),
-      providesTags: [tagTypes.registrationFeeForm]
+      providesTags: [ tagTypes.registrationFeeForm ]
+    }),
+
+    getAllHallPayments: builder.query({
+      query: (query) => ({
+        url: '/fee-form/by-hall/payment',
+        method: 'GET',
+        params: query
+      }),
+      providesTags: [ tagTypes.registrationFeeForm ]
     }),
 
     createRegistrationFeeForm: builder.mutation({
@@ -53,7 +62,7 @@ const registrationFeeForm = baseApi.injectEndpoints({
         method: 'POST',
         body: payload
       }),
-      invalidatesTags: [tagTypes.registrationFeeForm]
+      invalidatesTags: [ tagTypes.registrationFeeForm ]
     }),
 
     acceptOrDeclineFeeFom: builder.mutation({
@@ -62,7 +71,7 @@ const registrationFeeForm = baseApi.injectEndpoints({
         method: 'PATCH',
         body: payload
       }),
-      invalidatesTags: [tagTypes.registrationFeeForm]
+      invalidatesTags: [ tagTypes.registrationFeeForm ]
     }),
 
     updateRegistrationFeeForm: builder.mutation({
@@ -71,7 +80,7 @@ const registrationFeeForm = baseApi.injectEndpoints({
         method: 'PATCH',
         body: payload
       }),
-      invalidatesTags: [tagTypes.registrationFeeForm]
+      invalidatesTags: [ tagTypes.registrationFeeForm ]
     })
   })
 });
@@ -84,6 +93,7 @@ export const {
   useAcceptOrDeclineFeeFomMutation,
   useGetSingleRegistrationFeeFormQuery,
   useGetRegistrationFeeFormByHallQuery,
-  useGetRegistrationFeeFormByExamControllerQuery
+  useGetRegistrationFeeFormByExamControllerQuery,
+  useGetAllHallPaymentsQuery
 } =
   registrationFeeForm;
