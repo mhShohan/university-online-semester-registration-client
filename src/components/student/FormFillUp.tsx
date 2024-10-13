@@ -41,7 +41,7 @@ const FormFillUp = ({ registrationInfo, examType, semesterInfo }: IFormFillUpPro
 
       if (res.success) {
         toast.success('Registration Success', { id: toastId });
-        navigate('/registered-semesters');
+        navigate('/');
       } else {
         toast.error('Failed to Registration', { id: toastId });
       }
@@ -128,7 +128,7 @@ export const RetakeOfImprovementForm = ({
 
       if (res.success) {
         toast.success('Registration Success', { id: toastId });
-        navigate('/registered-semesters');
+        navigate('/');
       } else {
         toast.error('Failed to Registration', { id: toastId });
       }
@@ -157,36 +157,3 @@ export const RetakeOfImprovementForm = ({
     </Stack>
   );
 };
-
-/** 
-const sendingData = {
-  year: '1st',
-  semester: '1st',
-  departmentalFee: {
-    centerFee: 5000,
-    association: 1000,
-    developmentFee: 2000,
-    amercementFee: 500
-  },
-  semesterFee: {
-    tuitionFee: 15000,
-    transport: 2000,
-    library: 1000,
-    centralSports: 1500,
-    studentWelfare: 1000,
-    treatment: 2000,
-    roverScout: 500,
-    BNCC: 500,
-    computerFee: 3000,
-    semesterExamFee: 1000,
-    admitCard: 500,
-    othersFee: 500
-  },
-  residentialFee: {
-    from: '2024-01-01',
-    to: '2024-04-30',
-    fee: 10000
-  },
-  courses: []
-};
-*/

@@ -10,7 +10,7 @@ import Loader from '../../components/Loader';
 import axios from 'axios';
 import config from '../../config';
 import { useAppSelector } from '../../store/hook';
-import { toast } from 'sonner';
+import toastMessage from '../../lib/toastMessage';
 
 const defaultValues = {
   year: '',
@@ -48,10 +48,18 @@ const SemesterRegistration = () => {
       if (res.data.success) {
         navigate('/registration-semester-course?' + queryString);
       } else {
-        toast.error('You have already registered for this semester');
+        toastMessage({
+          icon: 'error',
+          title: 'Not Eligible',
+          text: 'You have already registered for this semester'
+        });
       }
     } catch (error) {
-      toast.error('You have already registered for this semester');
+      toastMessage({
+        icon: 'warning',
+        title: 'Not Eligible',
+        text: 'You have already registered for this semester'
+      });
     }
   };
 
