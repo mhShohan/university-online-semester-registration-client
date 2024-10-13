@@ -47,6 +47,15 @@ const registrationFeeForm = baseApi.injectEndpoints({
       providesTags: [ tagTypes.registrationFeeForm ]
     }),
 
+    getAllHallPayments: builder.query({
+      query: (query) => ({
+        url: '/fee-form/by-hall/payment',
+        method: 'GET',
+        params: query
+      }),
+      providesTags: [ tagTypes.registrationFeeForm ]
+    }),
+
     createRegistrationFeeForm: builder.mutation({
       query: (payload) => ({
         url: '/fee-form',
@@ -84,6 +93,7 @@ export const {
   useAcceptOrDeclineFeeFomMutation,
   useGetSingleRegistrationFeeFormQuery,
   useGetRegistrationFeeFormByHallQuery,
-  useGetRegistrationFeeFormByExamControllerQuery
+  useGetRegistrationFeeFormByExamControllerQuery,
+  useGetAllHallPaymentsQuery
 } =
   registrationFeeForm;
