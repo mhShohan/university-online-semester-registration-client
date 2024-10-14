@@ -1,12 +1,12 @@
 import { Box, Button, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
-import { useGetSingleRegistrationFeeFormQuery } from '../store/features/feeForm.api';
+import Modal from '@mui/material/Modal';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
-import { useAppSelector } from '../store/hook';
-import { useEffect, useState } from 'react';
-import Modal from '@mui/material/Modal';
-import { toast } from 'sonner';
+import toastMessage from '../lib/toastMessage';
+import { useGetSingleRegistrationFeeFormQuery } from '../store/features/feeForm.api';
 import { useCreateApplicationPaymentMutation } from '../store/features/student/student.api';
+import { useAppSelector } from '../store/hook';
 
 const departmentFeeArray = ['developmentFee', 'association', 'centerFee'];
 const semesterFeeArray = [
@@ -64,23 +64,26 @@ const ApplicationDetails = () => {
       backAccountId
     };
 
-    const toastId = toast.loading('Processing payment...');
-
-    console.log(payload);
-
     try {
       const res = await createPayment(payload).unwrap();
 
-      console.log(res);
-
       if (res.success) {
-        toast.success('Payment successful', { id: toastId });
+        toastMessage({
+          icon: 'success',
+          title: 'Payment Successful'
+        });
         setOpenPaymentModal(false);
       } else {
-        toast.error('Payment failed', { id: toastId });
+        toastMessage({
+          icon: 'error',
+          title: 'Payment Failed'
+        });
       }
     } catch (error) {
-      toast.error('Payment failed', { id: toastId });
+      toastMessage({
+        icon: 'error',
+        title: 'Payment Failed'
+      });
     }
   };
 

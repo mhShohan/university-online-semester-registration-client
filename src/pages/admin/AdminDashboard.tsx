@@ -1,8 +1,9 @@
-import { Button, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Loader from '../../components/Loader';
 import {
+  useAcceptAllApplicationMutation,
   useAcceptOrDeclineFeeFomMutation,
   useGetRegistrationFeeFormByExamControllerQuery
 } from '../../store/features/feeForm.api';
@@ -10,6 +11,7 @@ import {
 const ChairmanDashboard = () => {
   const { data, isLoading } = useGetRegistrationFeeFormByExamControllerQuery(undefined);
   const [acceptOrDecline] = useAcceptOrDeclineFeeFomMutation();
+  const [acceptAllApplication] = useAcceptAllApplicationMutation();
 
   if (isLoading) return <Loader fullPage />;
 
@@ -71,9 +73,42 @@ const ChairmanDashboard = () => {
     }
   };
 
+  const handleAllRequestAccept = async () => {
+    const payload = { oldStatus: 'payment_completed', newStatus: 'approved_by_exam_controller' };
+
+    const { isConfirmed, isDenied } = await Swal.fire({
+      icon: 'warning',
+      title: 'Are you sure?',
+      text: 'Do you want to accept all application?',
+      showCancelButton: true,
+      confirmButtonText: 'Accept'
+    });
+
+    if (isConfirmed) {
+      await acceptAllApplication(payload).unwrap();
+
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'All Application Accepted!!!',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    } else if (isDenied) {
+      Swal.fire('Changes are not saved', '', 'info');
+    }
+  };
+
   return (
     <Stack>
       <Stack gap={2}>
+        {data.data.length !== 0 && (
+          <Box>
+            <Button variant="contained" color="primary" onClick={handleAllRequestAccept}>
+              Accept All Request
+            </Button>
+          </Box>
+        )}
         {data.data.length === 0 && <Typography textAlign="center">No Application Found</Typography>}
         {data.data.map((form: any) => (
           <Stack key={form._id} p={4} borderRadius={4} boxShadow={24}>

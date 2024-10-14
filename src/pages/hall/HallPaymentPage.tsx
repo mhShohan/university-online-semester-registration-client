@@ -9,8 +9,6 @@ const HallPaymentPage = () => {
 
   if (isLoading) return <Loader fullPage={true} />;
 
-  ('2024-01-01T00:00:00.000Z');
-
   const formatDate = (date: string) => {
     const newDate = new Date(date);
     return newDate.toLocaleString('default', { month: 'short' }) + ', ' + newDate.getFullYear();
