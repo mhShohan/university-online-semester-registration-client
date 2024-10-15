@@ -54,11 +54,11 @@ const SemesterRegistration = () => {
           text: 'You have already registered for this semester'
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       toastMessage({
         icon: 'warning',
         title: 'Not Eligible',
-        text: 'You have already registered for this semester'
+        text: error.response.data.message
       });
     }
   };

@@ -52,6 +52,7 @@ const RegistrationSemesterCourse = () => {
 
   useEffect(() => {
     if (query.examType === 'Regular') {
+      console.log('Regular', data?.data);
       setSelectedCourse(data?.data || []);
     }
   }, [isLoading]);
