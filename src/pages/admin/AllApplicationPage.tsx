@@ -18,6 +18,7 @@ const AllApplicationPage = () => {
 
   useEffect(() => {
     const debounce = setTimeout(() => {
+      if (searchTerm.length !== 0 && searchTerm.length < 8) return;
       setQuery((p) => ({ ...p, search: searchTerm }));
     }, 500);
 
@@ -140,24 +141,30 @@ const AllApplicationPage = () => {
                         View Student Details
                       </Button>
                     </Link>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      color="success"
-                      fullWidth
-                      onClick={() => acceptApplication(form._id)}
-                    >
-                      Accept Application
-                    </Button>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      color="error"
-                      fullWidth
-                      onClick={() => declineApplication(form._id)}
-                    >
-                      Decline Application
-                    </Button>
+                    <>
+                      {form.status === 'rejected_by_exam_controller' && (
+                        <Button
+                          size="small"
+                          variant="contained"
+                          color="success"
+                          fullWidth
+                          onClick={() => acceptApplication(form._id)}
+                        >
+                          Accept Application
+                        </Button>
+                      )}
+                      {form.status === 'approved_by_exam_controller' && (
+                        <Button
+                          size="small"
+                          variant="contained"
+                          color="error"
+                          fullWidth
+                          onClick={() => declineApplication(form._id)}
+                        >
+                          Decline Application
+                        </Button>
+                      )}
+                    </>
                   </Stack>
                 </>
               </Stack>

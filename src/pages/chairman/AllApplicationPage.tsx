@@ -18,6 +18,7 @@ const AllApplicationPage = () => {
 
   useEffect(() => {
     const debounce = setTimeout(() => {
+      if (searchTerm.length !== 0 && searchTerm.length < 8) return;
       setQuery((p) => ({ ...p, search: searchTerm }));
     }, 500);
 
@@ -140,10 +141,8 @@ const AllApplicationPage = () => {
                         View Student Details
                       </Button>
                     </Link>
-                    {['approved_by_chairman', 'rejected_by_chairman'].includes(
-                      form?.status as string
-                    ) && (
-                      <>
+                    <>
+                      {form.status === 'rejected_by_chairman' && (
                         <Button
                           size="small"
                           variant="contained"
@@ -153,6 +152,8 @@ const AllApplicationPage = () => {
                         >
                           Accept Application
                         </Button>
+                      )}
+                      {form.status === 'approved_by_chairman' && (
                         <Button
                           size="small"
                           variant="contained"
@@ -162,8 +163,8 @@ const AllApplicationPage = () => {
                         >
                           Decline Application
                         </Button>
-                      </>
-                    )}
+                      )}
+                    </>
                   </Stack>
                 </>
               </Stack>

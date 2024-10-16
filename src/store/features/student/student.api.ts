@@ -9,7 +9,7 @@ const studentApi = baseApi.injectEndpoints({
         url: '/students/self',
         method: 'GET'
       }),
-      providesTags: [tagTypes.student]
+      providesTags: [ tagTypes.student ]
     }),
 
     updateStudentProfile: builder.mutation({
@@ -18,7 +18,7 @@ const studentApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: payload
       }),
-      invalidatesTags: [tagTypes.student]
+      invalidatesTags: [ tagTypes.student ]
     }),
 
     accountVerifyRequest: builder.mutation({
@@ -26,7 +26,7 @@ const studentApi = baseApi.injectEndpoints({
         url: '/students/verify',
         method: 'POST'
       }),
-      invalidatesTags: [tagTypes.student]
+      invalidatesTags: [ tagTypes.student ]
     }),
 
     createApplicationPayment: builder.mutation({
@@ -35,8 +35,19 @@ const studentApi = baseApi.injectEndpoints({
         method: 'POST',
         body: payload
       }),
-      invalidatesTags: [tagTypes.payment, tagTypes.registrationFeeForm]
+      invalidatesTags: [ tagTypes.payment, tagTypes.registrationFeeForm ]
     }),
+
+    getAllApplicationPayment: builder.query({
+      query: (query) => ({
+        url: '/payments',
+        method: 'GET',
+        params: query
+      }),
+      providesTags: [ tagTypes.payment, tagTypes.registrationFeeForm ]
+    }),
+
+
   })
 });
 
@@ -44,5 +55,6 @@ export const {
   useGetSelfProfileOfStudentQuery,
   useUpdateStudentProfileMutation,
   useAccountVerifyRequestMutation,
-  useCreateApplicationPaymentMutation
+  useCreateApplicationPaymentMutation,
+  useGetAllApplicationPaymentQuery
 } = studentApi;

@@ -11,6 +11,7 @@ import SideBar from '../layouts/SideBar';
 // const Courses = withSuspense(lazy(() => import('../pages/Courses')));
 const AdminDashboard = withSuspense(lazy(() => import('../pages/admin/AdminDashboard')));
 const AllApplicationPage = withSuspense(lazy(() => import('../pages/admin/AllApplicationPage')));
+const AllPaymentPage = withSuspense(lazy(() => import('../pages/admin/AllPaymentPage')));
 const StudentDetails = withSuspense(lazy(() => import('../pages/operators/StudentDetails')));
 const ApplicationDetails = withSuspense(lazy(() => import('../pages/ApplicationDetails')));
 
@@ -24,7 +25,8 @@ const adminPath: TRouteSideBarPath[] = [
     visible: false
   },
   { id: 3, name: 'Application', path: '/applications', element: <AllApplicationPage /> },
-  { id: 4, name: 'Students', path: '/students/:id', element: <StudentDetails />, visible: false }
+  { id: 4, name: 'Students', path: '/students/:id', element: <StudentDetails />, visible: false },
+  { id: 5, name: 'Payments', path: '/payments', element: <AllPaymentPage /> }
 
   // { id: 2, name: 'Pavilions', path: '/pavilions', element: <Pavilions /> },
   // { id: 3, name: 'Courses', path: '/courses', element: <Courses /> }
