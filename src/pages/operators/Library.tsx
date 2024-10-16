@@ -26,7 +26,8 @@ const Library = () => {
       id: book._id,
       bookName: book.bookName,
       author: book.author,
-      quantity: book.quantity
+      quantity: book.quantity,
+      available: book.quantity - book.borrowedBy.length
     };
   });
 
@@ -48,9 +49,16 @@ const Library = () => {
 export default Library;
 
 const columns: GridColDef[] = [
-  { field: 'bookName', headerName: 'Book Name', flex: 1 },
-  { field: 'author', headerName: 'Author Name', flex: 1 },
-  { field: 'quantity', headerName: 'Quantity', flex: 1 },
+  { field: 'bookName', headerName: 'Book Name', flex: 2 },
+  { field: 'author', headerName: 'Author Name', flex: 2 },
+  { field: 'quantity', headerName: 'Total Books', flex: 1, align: 'center', headerAlign: 'center' },
+  {
+    field: 'available',
+    headerName: 'Available Books',
+    flex: 1,
+    align: 'center',
+    headerAlign: 'center'
+  },
   {
     field: 'action',
     headerName: 'Action',

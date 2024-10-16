@@ -67,7 +67,15 @@ export const SingleSemester = ({ regSemester }: SingleSemesterProps) => {
         <BoxItem title="Exam Type" value={examType} />
         <BoxItem title="Total Credit" value={totalCredit} />
         <BoxItem title="Registration Date" value={registrationDate} />
-        <BoxItem title="Status" value={status.split('_').join(' ')} color />
+        <BoxItem
+          title="Status"
+          value={
+            status === 'approved_by_hall_authority'
+              ? 'Payment Pending'
+              : status.split('_').join(' ')
+          }
+          color
+        />
         <BoxItem title="Message" value={declineMessage || 'N/A'} />
       </Stack>
     </Grid>

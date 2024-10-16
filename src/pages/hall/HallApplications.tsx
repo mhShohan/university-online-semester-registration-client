@@ -15,6 +15,7 @@ const HallApplications = () => {
 
   useEffect(() => {
     const debounce = setTimeout(() => {
+      if (searchTerm.length !== 0 && searchTerm.length < 8) return;
       setQuery((p) => ({ ...p, search: searchTerm }));
     }, 500);
 
