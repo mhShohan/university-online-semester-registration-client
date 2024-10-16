@@ -1,20 +1,19 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import PreviewIcon from '@mui/icons-material/Preview';
 import { Box, Button, Divider, IconButton, Modal, Stack, Typography } from '@mui/material';
+import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
+import { useState } from 'react';
+import { FieldValues } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
+import { z } from 'zod';
+import CustomHookForm from '../../components/forms/CustomHookForm';
+import CustomHookInput from '../../components/forms/CustomHookInput';
+import Loader from '../../components/Loader';
 import {
   useAddBookMutation,
   useGetAllBooksQuery
 } from '../../store/features/operator/operator.api';
-import Loader from '../../components/Loader';
-import { useState } from 'react';
-import CustomHookForm from '../../components/forms/CustomHookForm';
-import CustomHookInput from '../../components/forms/CustomHookInput';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'sonner';
-import { FieldValues } from 'react-hook-form';
-import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
-import { Link } from 'react-router-dom';
-import EditNoteIcon from '@mui/icons-material/EditNote';
-import PreviewIcon from '@mui/icons-material/Preview';
 
 const Library = () => {
   const [open, setOpen] = useState(false);
@@ -64,9 +63,9 @@ const columns: GridColDef[] = [
               <PreviewIcon />
             </IconButton>
           </Link>
-          <IconButton>
+          {/* <IconButton>
             <EditNoteIcon />
-          </IconButton>
+          </IconButton> */}
         </>
       );
     }
