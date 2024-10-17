@@ -16,11 +16,21 @@ const DepartmentOperatorDashboard = withSuspense(
 );
 const Library = withSuspense(lazy(() => import('../pages/operators/Library')));
 const BookDetails = withSuspense(lazy(() => import('../pages/operators/BookDetails')));
+const AllApplicationPage = withSuspense(lazy(() => import('../pages/chairman/AllApplicationPage')));
+const ApplicationDetails = withSuspense(lazy(() => import('../pages/ApplicationDetails')));
 
 const departmentOperatorPath: TRouteSideBarPath[] = [
   { id: 1, name: 'Dashboard', path: '/', element: <DepartmentOperatorDashboard /> },
   { id: 2, name: 'Courses', path: '/courses', element: <Courses /> },
   { id: 3, name: 'Students', path: '/students', element: <Students /> },
+  {
+    id: 222,
+    name: 'Application',
+    path: '/application/:id',
+    element: <ApplicationDetails />,
+    visible: false
+  },
+  { id: 7, name: 'Application', path: '/applications', element: <AllApplicationPage /> },
   { id: 4, name: 'Registration', path: '/registration', element: <Registration /> },
   { id: 5, name: 'Students', path: '/students/:id', element: <StudentDetails />, visible: false },
   { id: 6, name: 'Library', path: '/library', element: <Library /> },

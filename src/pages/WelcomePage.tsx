@@ -30,7 +30,7 @@ const WelcomePage = () => {
             </Typography>
             <Typography variant="h6" sx={{ fontWeight: 700 }}>
               Bangabandhu Sheikh Mujibur Rahman Science and Technology University, <br />{' '}
-              Gopalgang-8100
+              Gopalganj-8100
             </Typography>
           </Box>
         </Grid>

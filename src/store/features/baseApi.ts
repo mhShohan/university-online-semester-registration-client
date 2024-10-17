@@ -33,7 +33,6 @@ const customBaseQuery: BaseQueryFn<FetchArgs, BaseQueryApi, DefinitionType> = as
   const result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 401) {
-    //! TODO: refactor this system letter
     window.location.href = '/';
     api.dispatch(logoutUser());
   }
