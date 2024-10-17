@@ -8,7 +8,6 @@ import mapPathToSidebarItem from '../utils/mapPathToSidebarItem';
 import { createBrowserRouter } from 'react-router-dom';
 import SideBar from '../layouts/SideBar';
 const Pavilions = withSuspense(lazy(() => import('../pages/super-admin/Pavilions')));
-// const Courses = withSuspense(lazy(() => import('../pages/Courses')));
 const SuperAdminDashboard = withSuspense(
   lazy(() => import('../pages/super-admin/SuperAdminDashboard'))
 );
