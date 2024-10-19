@@ -70,7 +70,7 @@ const AllApplicationPage = () => {
     });
 
     if (isConfirmed) {
-      const payload = { status: 'approved_by_chairman' };
+      const payload = { status: 'approved_by_chairman', declineMessage: 'N/A' };
       await acceptOrDecline({ id, payload });
 
       Swal.fire({

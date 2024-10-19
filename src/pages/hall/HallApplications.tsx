@@ -1,8 +1,11 @@
 import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Loader from '../../components/Loader';
-import { useGetRegistrationFeeFormByHallQuery } from '../../store/features/feeForm.api';
-// import Swal from 'sweetalert2';
+import {
+  useAcceptOrDeclineFeeFomMutation,
+  useGetRegistrationFeeFormByHallQuery
+} from '../../store/features/feeForm.api';
+import Swal from 'sweetalert2';
 import { useEffect, useState } from 'react';
 
 const HallApplications = () => {
@@ -11,7 +14,7 @@ const HallApplications = () => {
   const { data, isLoading, isFetching } = useGetRegistrationFeeFormByHallQuery({
     ...query
   });
-  // const [acceptOrDecline] = useAcceptOrDeclineFeeFomMutation();
+  const [acceptOrDecline] = useAcceptOrDeclineFeeFomMutation();
 
   useEffect(() => {
     const debounce = setTimeout(() => {
@@ -22,65 +25,65 @@ const HallApplications = () => {
     return () => clearTimeout(debounce);
   }, [searchTerm]);
 
-  // if (isLoading || isFetching) return <Loader fullPage />;
+  if (isLoading || isFetching) return <Loader fullPage />;
 
-  // const declineApplication = async (id: string) => {
-  //   const { isDenied, isDismissed, value } = await Swal.fire({
-  //     title: 'Decline Application',
-  //     text: 'Please Provide details message for decline this application...!!!',
-  //     input: 'textarea',
-  //     inputAttributes: {
-  //       autocapitalize: 'off'
-  //     },
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Decline',
-  //     confirmButtonColor: 'red',
-  //     showLoaderOnConfirm: true,
-  //     inputValidator: (value) => {
-  //       return new Promise((resolve) => {
-  //         if (value) {
-  //           resolve();
-  //         } else {
-  //           resolve('Please provide and message');
-  //         }
-  //       });
-  //     }
-  //   });
+  const declineApplication = async (id: string) => {
+    const { isDenied, isDismissed, value } = await Swal.fire({
+      title: 'Decline Application',
+      text: 'Please Provide details message for decline this application...!!!',
+      input: 'textarea',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Decline',
+      confirmButtonColor: 'red',
+      showLoaderOnConfirm: true,
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          if (value) {
+            resolve();
+          } else {
+            resolve('Please provide and message');
+          }
+        });
+      }
+    });
 
-  //   if (isDenied || isDismissed) {
-  //     return;
-  //   }
+    if (isDenied || isDismissed) {
+      return;
+    }
 
-  //   const payload = {
-  //     declineMessage: value,
-  //     status: 'rejected_by_chairman'
-  //   };
+    const payload = {
+      declineMessage: value,
+      status: 'rejected_by_hall_authority'
+    };
 
-  //   await acceptOrDecline({ id, payload });
-  // };
+    await acceptOrDecline({ id, payload });
+  };
 
-  // const acceptApplication = async (id: string) => {
-  //   const { isConfirmed, isDenied } = await Swal.fire({
-  //     text: 'Do you want to Accept this Application?',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Accept'
-  //   });
+  const acceptApplication = async (id: string) => {
+    const { isConfirmed, isDenied } = await Swal.fire({
+      text: 'Do you want to Accept this Application?',
+      showCancelButton: true,
+      confirmButtonText: 'Accept'
+    });
 
-  //   if (isConfirmed) {
-  //     const payload = { status: 'approved_by_chairman' };
-  //     await acceptOrDecline({ id, payload });
+    if (isConfirmed) {
+      const payload = { status: 'approved_by_hall_authority', declineMessage: 'N/A' };
+      await acceptOrDecline({ id, payload });
 
-  //     Swal.fire({
-  //       position: 'center',
-  //       icon: 'success',
-  //       title: 'Application Accepted!!!',
-  //       showConfirmButton: false,
-  //       timer: 1500
-  //     });
-  //   } else if (isDenied) {
-  //     Swal.fire('Changes are not saved', '', 'info');
-  //   }
-  // };
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Application Accepted!!!',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    } else if (isDenied) {
+      Swal.fire('Changes are not saved', '', 'info');
+    }
+  };
 
   return (
     <Stack>
@@ -138,24 +141,28 @@ const HallApplications = () => {
                         View Student Details
                       </Button>
                     </Link>
-                    {/* <Button
-                  size="small"
-                  variant="contained"
-                  color="success"
-                  fullWidth
-                  onClick={() => acceptApplication(form._id)}
-                >
-                  Accept Application
-                </Button>
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="error"
-                  fullWidth
-                  onClick={() => declineApplication(form._id)}
-                >
-                  Decline Application
-                </Button> */}
+                    {form.status === 'rejected_by_hall_authority' && (
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="success"
+                        fullWidth
+                        onClick={() => acceptApplication(form._id)}
+                      >
+                        Accept Application
+                      </Button>
+                    )}
+                    {form.status === 'approved_by_hall_authority' && (
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="error"
+                        fullWidth
+                        onClick={() => declineApplication(form._id)}
+                      >
+                        Decline Application
+                      </Button>
+                    )}
                   </Stack>
                 </>
               </Stack>

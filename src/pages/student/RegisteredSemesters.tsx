@@ -102,7 +102,12 @@ const BoxItem = ({
   }
 
   return (
-    <Stack direction="row" justifyContent="space-between">
+    <Stack
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+      borderBottom="1px solid lightblue"
+    >
       <Typography variant="h6" textAlign="left">
         {title}:
       </Typography>

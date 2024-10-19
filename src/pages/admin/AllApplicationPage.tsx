@@ -70,7 +70,7 @@ const AllApplicationPage = () => {
     });
 
     if (isConfirmed) {
-      const payload = { status: 'approved_by_exam_controller' };
+      const payload = { status: 'approved_by_exam_controller', declineMessage: 'N/A' };
       await acceptOrDecline({ id, payload });
 
       Swal.fire({
