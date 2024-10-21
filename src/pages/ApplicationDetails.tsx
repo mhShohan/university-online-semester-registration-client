@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Chip, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -87,6 +87,20 @@ const ApplicationDetails = () => {
     }
   };
 
+  const chipColor = (value: string) => {
+    let outLineColor: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning' = 'info';
+
+    if (String(value).includes('approved')) {
+      outLineColor = 'success';
+    }
+
+    if (String(value).includes('rejected')) {
+      outLineColor = 'error';
+    }
+
+    return outLineColor;
+  };
+
   return (
     <Stack>
       <PaymentModal
@@ -103,7 +117,16 @@ const ApplicationDetails = () => {
             <Typography>Session: {form.studentId.session}</Typography>
             <Typography>Exam Types: {form.examType}</Typography>
             <Typography textTransform="capitalize">
-              Status: {form.status.split('_').join(' ')}
+              Status:
+              <Chip
+                label={form.status.split('_').join(' ')}
+                color={chipColor(form.status)}
+                sx={{
+                  padding: '0.1rem 1rem',
+                  height: '1.5rem',
+                  ml: 2
+                }}
+              />
             </Typography>
           </Grid>
           <Grid item xs={6}>

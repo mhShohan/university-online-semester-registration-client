@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Chip, Divider, Grid, Stack, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import blankProPic from '../../assets/blankProPic.png';
@@ -20,11 +20,18 @@ const StudentProfile = () => {
       <Grid container>
         <Grid item xs={12} md={4}>
           <Stack justifyContent="center" alignItems="center" p={2}>
-            <Box sx={{ padding: '.5rem 1rem' }}>
+            <Box
+              sx={{
+                padding: '1.5rem',
+                height: '400px',
+                border: '1px solid gray',
+                borderRadius: 4
+              }}
+            >
               <img
                 src={data.avatar || blankProPic}
                 alt="profile"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 4 }}
               />
             </Box>
             <UploadPhotoOnChange name="file" studentId={data._id} label="Change Your Photo" />
@@ -43,7 +50,14 @@ const StudentProfile = () => {
             </Stack>
             <Typography pl={2}>
               <strong>Status: </strong>
-              {data?.status}
+              <Chip
+                label={data?.status}
+                color={data?.status === 'ACTIVE' ? 'success' : 'error'}
+                sx={{
+                  padding: '0.1rem 1rem',
+                  height: '1.5rem'
+                }}
+              />
             </Typography>
             <Grid container>
               <SingleItem name="student Id" value={data?.studentId} />

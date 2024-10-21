@@ -3,7 +3,7 @@ import CustomHookForm from '../../components/forms/CustomHookForm';
 import CustomHookInput from '../../components/forms/CustomHookInput';
 import { registrationInfoFields } from '../../data/registrationInfoFields';
 import { IRegistrationInfo } from '../../types';
-import { formFillUpSanitize } from '../../utils/sanitize';
+import { formFillUpSanitize, retakeFormFillUpSanitize } from '../../utils/sanitize';
 import { toast } from 'sonner';
 import { useCreateRegistrationFeeFormMutation } from '../../store/features/feeForm.api';
 import { useNavigate } from 'react-router-dom';
@@ -114,7 +114,9 @@ export const RetakeOfImprovementForm = ({
       0
     );
 
-    const payload = formFillUpSanitize(data);
+    // admitCard, creditFee, centerFee
+
+    const payload: any = retakeFormFillUpSanitize(data);
     payload.examType = examType;
     payload.courses = semesterInfo.courses;
     payload.year = semesterInfo.year;

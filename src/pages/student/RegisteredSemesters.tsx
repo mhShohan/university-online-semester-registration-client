@@ -45,11 +45,9 @@ export const SingleSemester = ({ regSemester }: SingleSemesterProps) => {
   const { _id, year, semester, examType, courses, createdAt, status, declineMessage } = regSemester;
 
   const totalCredit = courses.reduce((acc, course) => {
-    console.log('acc', acc, 'course', course);
-
     return acc + course.credit;
   }, 0);
-  console.log('totalCredit', regSemester);
+
   const registrationDate = new Date(createdAt).toLocaleDateString();
 
   return (

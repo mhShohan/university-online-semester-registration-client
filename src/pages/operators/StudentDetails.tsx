@@ -49,16 +49,24 @@ const StudentDetails = () => {
       {/* Profile Info */}
       <Grid container>
         <Grid item xs={12} md={4}>
-          <Box sx={{ padding: '.5rem 1rem' }}>
+          <Box
+            sx={{
+              padding: '1.5rem',
+              width: '100%',
+              height: '400px',
+              border: '1px solid gray',
+              borderRadius: 4
+            }}
+          >
             <img
               src={data.avatar || blankProPic}
               alt="profile"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 4 }}
             />
           </Box>
         </Grid>
         <Grid item xs={12} md={8}>
-          <Stack direction="column" height="100%" justifyContent="center">
+          <Stack direction="column" height="100%" justifyContent="center" ml={2}>
             <Stack direction="row" justifyContent="space-between" alignItems="center" pl={2}>
               <Typography variant="h3" sx={{ fontWeight: '700' }}>
                 {data?.name}

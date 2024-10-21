@@ -39,3 +39,46 @@ export const formFillUpSanitize = (data: any) => {
 
   return payload
 }
+
+
+export const retakeFormFillUpSanitize = (data: any) => {
+  const departmentalFee: Record<string, number> = {
+    centerFee: Number(data.centerFee),
+    association: 0,
+    developmentFee: 0,
+    amercementFee: 0
+  }
+
+  const semesterFee: Record<string, number> = {
+    tuitionFee: 0,
+    transport: 0,
+    library: 0,
+    centralSports: 0,
+    studentWelfare: 0,
+    treatment: 0,
+    roverScout: 0,
+    creditFee: Number(data.creditFee),
+    BNCC: 0,
+    computerFee: 0,
+    semesterExamFee: 0,
+    admitCard: Number(data.admitCard),
+    othersFee: 0
+  }
+
+  const residentialFee: Record<string, any> = {
+    from: Number(data.from),
+    to: data.to,
+    fee: data.fee
+  }
+
+  const payload: Record<string, any> = {
+    departmentalFee,
+    semesterFee,
+  }
+
+  if (data.fee) {
+    payload.residentialFee = residentialFee
+  }
+
+  return payload
+}
