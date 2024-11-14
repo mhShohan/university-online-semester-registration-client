@@ -26,7 +26,7 @@ const WelcomePage = () => {
           <Box sx={{ margin: '2rem 0' }}>
             <img src={logo} alt="BSMRSTU LOGO" width={200} />
             <Typography variant="h4" sx={{ fontWeight: 900 }}>
-              Academic Semester Registration
+              University Online Semester Registration
             </Typography>
             <Typography variant="h6" sx={{ fontWeight: 700 }}>
               Bangabandhu Sheikh Mujibur Rahman Science and Technology University, <br />{' '}
