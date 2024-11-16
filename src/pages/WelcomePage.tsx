@@ -23,14 +23,14 @@ const WelcomePage = () => {
     >
       <Grid container>
         <Grid item xs={12} md={8}>
-          <Box sx={{ margin: '2rem 0' }}>
+          <Box sx={{ margin: '3rem' }}>
             <img src={logo} alt="BSMRSTU LOGO" width={200} />
             <Typography variant="h4" sx={{ fontWeight: 900 }}>
               University Online Semester Registration
             </Typography>
-            <Typography variant="h6" sx={{ fontWeight: 700 }}>
-              Bangabandhu Sheikh Mujibur Rahman Science and Technology University, <br />{' '}
-              Gopalganj-8100
+            <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '16px' }}>
+              Developed by Dept. of EEE, Bangabandhu Sheikh Mujibur Rahman Science and Technology
+              University, Gopalganj-8100
             </Typography>
           </Box>
         </Grid>
