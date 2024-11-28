@@ -29,8 +29,8 @@ const WelcomePage = () => {
               University Online Semester Registration
             </Typography>
             <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '16px' }}>
-              Developed by Dept. of EEE, Bangabandhu Sheikh Mujibur Rahman Science and Technology
-              University, Gopalganj-8100
+              Bangabandhu Sheikh Mujibur Rahman Science and Technology University,
+              <br /> Gopalganj-8100
             </Typography>
           </Box>
         </Grid>
