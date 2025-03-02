@@ -184,15 +184,20 @@ const AdminLoginPage = () => {
                 >
                   Login
                 </Button>
+                <Box sx={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
+                  <Link to="/" style={{ textDecoration: 'none' }}>
+                    <Button
+                      type="button"
+                      size="medium"
+                      variant="contained"
+                      sx={{ display: 'flex', alignItems: 'center' }}
+                    >
+                      <ArrowBackIosIcon style={{ fontSize: '1rem' }} />
+                      Go back
+                    </Button>
+                  </Link>
+                </Box>
               </form>
-              <Box sx={{ marginTop: '2rem' }}>
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                  <Button variant="contained" sx={{ display: 'flex', alignItems: 'center' }}>
-                    <ArrowBackIosIcon style={{ fontSize: '1rem' }} />
-                    Go back
-                  </Button>
-                </Link>
-              </Box>
             </Box>
           </Grid>
         </Grid>
