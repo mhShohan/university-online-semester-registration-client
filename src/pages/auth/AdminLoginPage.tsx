@@ -214,7 +214,7 @@ function createData(role: string, email: string, password: string) {
 const rows = [
   createData('Chairman (EEE)', 'chairman.eee@gmail.com', 'pass123'),
   createData('Department Operator (EEE)', 'operator.eee@gmail.com', 'pass123'),
-  createData('Hall Operator (SRH)', 'hall.srh@gmail.com	', 'pass123'),
+  createData('Hall Operator (SRH)', 'hall.srh@gmail.com', 'pass123'),
   createData('Exam Controller', 'admin@gmail.com', 'pass123')
 ];
 
