@@ -67,7 +67,8 @@ const DepartmentOperatorDashboard = () => {
                 >
                   <Stack
                     sx={{
-                      border: '1px solid #252525',
+                      border: '1px solid',
+                      borderColor: 'divider',
                       padding: '.3rem .5rem',
                       borderRadius: '.4rem',
                       textDecoration: 'none',

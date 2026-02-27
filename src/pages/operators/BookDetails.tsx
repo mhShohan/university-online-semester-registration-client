@@ -137,7 +137,7 @@ const BookModal = ({
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Stack justifyItems="center" alignItems="center" bgcolor="#fff" borderRadius={2}>
+          <Stack justifyItems="center" alignItems="center" bgcolor="background.paper" borderRadius={2}>
             <Box p={4} boxShadow={20} width={400}>
               <Typography variant="h6" textAlign="center" pb={1}>
                 Provide Book To student

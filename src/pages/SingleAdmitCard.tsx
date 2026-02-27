@@ -23,7 +23,7 @@ const SingleAdmitCard = () => {
     <Stack>
       <Stack margin="auto">
         {/* Front Side */}
-        <Stack px={6} py={4} bgcolor="#fff" borderRadius={2} maxWidth={1200}>
+        <Stack px={6} py={4} bgcolor="background.paper" borderRadius={2} maxWidth={1200}>
           <Stack direction="row" gap={4} alignItems="center">
             <Box width={100} height={100}>
               <img src={logo} alt="logo" style={{ width: '100%', height: '100%' }} />
@@ -67,7 +67,7 @@ const SingleAdmitCard = () => {
           </Stack>
           <Stack direction="row" justifyContent="space-between" alignItems="center" mt={4}>
             <Stack alignItems="center">
-              <Box width={250} height={60} bgcolor="#def8fa" borderRadius={2}></Box>
+              <Box width={250} height={60} bgcolor="primary.light" borderRadius={2}></Box>
               <Typography fontSize={12} fontWeight={700}>
                 Candidate Signature & Date
               </Typography>
@@ -87,7 +87,7 @@ const SingleAdmitCard = () => {
         </Stack>
 
         {/* Back Side */}
-        <Stack px={6} py={4} bgcolor="#fff" borderRadius={2} maxWidth={1200} minHeight={500} mt={4}>
+        <Stack px={6} py={4} bgcolor="background.paper" borderRadius={2} maxWidth={1200} minHeight={500} mt={4}>
           <Divider />
           <Typography variant="h6" fontWeight={700} textAlign="center">
             Courses
@@ -167,7 +167,7 @@ const BoxItem = ({ title, value }: { title: string; value: string }) => {
       <Typography textAlign="left" flex={1} flexWrap="nowrap" fontSize={18} fontWeight={700}>
         {title}:
       </Typography>
-      <Typography textAlign="left" flex={3} fontSize={18} bgcolor="#def8fa" px={2} borderRadius={1}>
+      <Typography textAlign="left" flex={3} fontSize={18} bgcolor="primary.light" px={2} borderRadius={1}>
         {value}
       </Typography>
     </Stack>

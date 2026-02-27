@@ -92,7 +92,8 @@ const StudentDetails = () => {
             padding: '.2rem 1rem',
             fontWeight: '600',
             textTransform: 'uppercase',
-            borderBottom: '1px solid #000',
+            borderBottom: '1px solid',
+            borderColor: 'divider',
             textAlign: 'center',
             marginBottom: '.3rem'
           }}
@@ -121,7 +122,8 @@ const StudentDetails = () => {
             padding: '.2rem 1rem',
             fontWeight: '600',
             textTransform: 'uppercase',
-            borderBottom: '1px solid #000',
+            borderBottom: '1px solid',
+            borderColor: 'divider',
             textAlign: 'center',
             marginBottom: '.3rem'
           }}
@@ -145,7 +147,8 @@ const StudentDetails = () => {
             padding: '.2rem 1rem',
             fontWeight: '600',
             textTransform: 'uppercase',
-            borderBottom: '1px solid #000',
+            borderBottom: '1px solid',
+            borderColor: 'divider',
             textAlign: 'center',
             marginBottom: '.3rem'
           }}
@@ -168,7 +171,8 @@ const StudentDetails = () => {
             padding: '.2rem 1rem',
             fontWeight: '600',
             textTransform: 'uppercase',
-            borderBottom: '1px solid #000',
+            borderBottom: '1px solid',
+            borderColor: 'divider',
             textAlign: 'center',
             marginBottom: '.3rem'
           }}
@@ -227,14 +231,14 @@ const SingleItem = ({ name, value, md = 6 }: { name: string; value: string; md?:
   return (
     <Grid item xs={12} md={md} p={1}>
       <Box
-        sx={{
+        sx={(theme) => ({
           width: '100%',
-          boxShadow: '0 0 5px rgba(0, 0, 0, 0.20) inset',
+          boxShadow: `0 0 5px ${theme.palette.divider} inset`,
           padding: '.5rem 1rem',
           borderRadius: '.4rem',
           display: 'flex',
           flexDirection: 'column'
-        }}
+        })}
       >
         <Typography sx={{ fontWeight: '600', fontSize: '1.1rem', textTransform: 'uppercase' }}>
           {name}

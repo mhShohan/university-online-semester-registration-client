@@ -104,7 +104,8 @@ export default function SideBar() {
             display: 'flex',
             alignItems: 'center',
             gap: '4px',
-            backgroundColor: theme.palette.secondary.dark
+            backgroundColor: theme.palette.secondary.dark,
+            color: theme.palette.secondary.contrastText
           }}
         >
           <LogoutIcon sx={{ fontSize: '1rem' }} />
@@ -192,7 +193,7 @@ const DashboardLogo = ({ name }: { name: string }) => {
       <Typography
         sx={{
           fontSize: '.8rem',
-          color: 'primary.light',
+          color: 'primary.contrastText',
           textTransform: 'uppercase',
           fontWeight: '700',
           textAlign: 'center'

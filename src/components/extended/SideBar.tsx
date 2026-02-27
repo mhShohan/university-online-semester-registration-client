@@ -13,17 +13,17 @@ export const ListItem = styled(MuiListItem)<IListItem>(({ theme, isactive }) => 
   '&:hover': {
     background: theme.palette.secondary.dark,
     '& .MuiSvgIcon-root': {
-      fill: theme.palette.primary.light
+      fill: theme.palette.primary.contrastText
     },
     '& .MuiTypography-root': {
-      color: theme.palette.primary.light
+      color: theme.palette.primary.contrastText
     }
   },
   '& .MuiSvgIcon-root': {
-    fill: isactive ? theme.palette.primary.dark : theme.palette.primary.light
+    fill: isactive ? theme.palette.primary.dark : theme.palette.primary.contrastText
   },
   '& .MuiTypography-root': {
-    color: isactive ? theme.palette.primary.dark : theme.palette.primary.light,
+    color: isactive ? theme.palette.primary.dark : theme.palette.primary.contrastText,
     fontWeight: '600',
     fontSize: '.8rem'
   }

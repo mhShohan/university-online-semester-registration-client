@@ -96,7 +96,8 @@ const UpdateStudentPage = () => {
         <Typography
           variant="h5"
           textAlign="left"
-          sx={{ pb: 1, borderBottom: '1px solid #000', mb: 2 }}
+          sx={{ pb: 1, borderBottom: '1px solid',
+            borderColor: 'divider', mb: 2 }}
         >
           Personal Information
         </Typography>
@@ -137,7 +138,8 @@ const UpdateStudentPage = () => {
         <Typography
           variant="h5"
           textAlign="left"
-          sx={{ pb: 1, borderBottom: '1px solid #000', my: 2 }}
+          sx={{ pb: 1, borderBottom: '1px solid',
+            borderColor: 'divider', my: 2 }}
         >
           Present Address Information
         </Typography>
@@ -163,7 +165,8 @@ const UpdateStudentPage = () => {
         <Typography
           variant="h5"
           textAlign="left"
-          sx={{ pb: 1, borderBottom: '1px solid #000', my: 2 }}
+          sx={{ pb: 1, borderBottom: '1px solid',
+            borderColor: 'divider', my: 2 }}
         >
           Permanent Address Information
         </Typography>
@@ -189,7 +192,8 @@ const UpdateStudentPage = () => {
         <Typography
           variant="h5"
           textAlign="left"
-          sx={{ pb: 1, borderBottom: '1px solid #000', my: 2 }}
+          sx={{ pb: 1, borderBottom: '1px solid',
+            borderColor: 'divider', my: 2 }}
         >
           Educational Qualifications (Higher Secondary Certificate)
         </Typography>
@@ -217,7 +221,8 @@ const UpdateStudentPage = () => {
         <Typography
           variant="h5"
           textAlign="left"
-          sx={{ pb: 1, borderBottom: '1px solid #000', my: 2 }}
+          sx={{ pb: 1, borderBottom: '1px solid',
+            borderColor: 'divider', my: 2 }}
         >
           Educational Qualifications (Secondary School Certificate)
         </Typography>
