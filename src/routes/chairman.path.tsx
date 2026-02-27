@@ -1,5 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { lazy } from 'react';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import DescriptionIcon from '@mui/icons-material/Description';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import PeopleIcon from '@mui/icons-material/People';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 // project imports
 import withSuspense from '../components/HOC/withSuspense';
@@ -16,7 +21,13 @@ const Result = withSuspense(lazy(() => import('../pages/Result')));
 const AllApplicationPage = withSuspense(lazy(() => import('../pages/chairman/AllApplicationPage')));
 
 const chairmanPath: TRouteSideBarPath[] = [
-  { id: 1, name: 'Dashboard', path: '/', element: <ChairmanDashboard /> },
+  {
+    id: 1,
+    name: 'Dashboard',
+    path: '/',
+    element: <ChairmanDashboard />,
+    icon: <DashboardIcon />
+  },
   {
     id: 2,
     name: 'Application',
@@ -24,11 +35,17 @@ const chairmanPath: TRouteSideBarPath[] = [
     element: <ApplicationDetails />,
     visible: false
   },
-  { id: 7, name: 'Application', path: '/applications', element: <AllApplicationPage /> },
-  { id: 3, name: 'Courses', path: '/courses', element: <Courses /> },
+  {
+    id: 7,
+    name: 'Application',
+    path: '/applications',
+    element: <AllApplicationPage />,
+    icon: <DescriptionIcon />
+  },
+  { id: 3, name: 'Courses', path: '/courses', element: <Courses />, icon: <MenuBookIcon /> },
   { id: 4, name: 'Students', path: '/students/:id', element: <StudentDetails />, visible: false },
-  { id: 5, name: 'Students', path: '/students', element: <Students /> },
-  { id: 6, name: 'Result', path: '/result', element: <Result /> }
+  { id: 5, name: 'Students', path: '/students', element: <Students />, icon: <PeopleIcon /> },
+  { id: 6, name: 'Result', path: '/result', element: <Result />, icon: <AssignmentIcon /> }
 ];
 
 const chairmanRoutePath = mapPathToRoutes(chairmanPath);

@@ -1,13 +1,20 @@
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import PersonIcon from '@mui/icons-material/Person';
 import { lazy } from 'react';
 
 // project import
+import { createBrowserRouter } from 'react-router-dom';
 import withSuspense from '../components/HOC/withSuspense';
+import SideBar from '../layouts/SideBar';
+import RegisteredSemesters from '../pages/student/RegisteredSemesters';
 import { TRouteSideBarPath } from '../types';
 import mapPathToRoutes from '../utils/mapPathToRoutes';
 import mapPathToSidebarItem from '../utils/mapPathToSidebarItem';
-import { createBrowserRouter } from 'react-router-dom';
-import SideBar from '../layouts/SideBar';
-import RegisteredSemesters from '../pages/student/RegisteredSemesters';
 const StudentDashboard = withSuspense(lazy(() => import('../pages/student/StudentDashboard')));
 const DetailsRegisteredSemestersPage = withSuspense(
   lazy(() => import('../pages/student/DetailsRegisteredSemestersPage'))
@@ -27,8 +34,8 @@ const SingleAdmitCard = withSuspense(lazy(() => import('../pages/SingleAdmitCard
 const LibraryBooks = withSuspense(lazy(() => import('../pages/student/LibraryBooks')));
 
 const studentPath: TRouteSideBarPath[] = [
-  { id: 1, name: 'Dashboard', path: '/', element: <StudentDashboard /> },
-  { id: 2, name: 'Profile', path: '/profile', element: <StudentProfile /> },
+  { id: 1, name: 'Dashboard', path: '/', element: <StudentDashboard />, icon: <DashboardIcon /> },
+  { id: 2, name: 'Profile', path: '/profile', element: <StudentProfile />, icon: <PersonIcon /> },
   {
     id: 3,
     name: 'Edit Profile',
@@ -40,7 +47,8 @@ const studentPath: TRouteSideBarPath[] = [
     id: 4,
     name: 'Registration',
     path: '/registration',
-    element: <SemesterRegistration />
+    element: <SemesterRegistration />,
+    icon: <AppRegistrationIcon />
   },
   {
     id: 5,
@@ -53,13 +61,15 @@ const studentPath: TRouteSideBarPath[] = [
     id: 6,
     name: 'registered semesters',
     path: '/registered-semesters',
-    element: <RegisteredSemesters />
+    element: <RegisteredSemesters />,
+    icon: <CalendarMonthIcon />
   },
   {
     id: 60,
     name: 'Admit Cards',
     path: '/admit-cards',
-    element: <AdmitCardPage />
+    element: <AdmitCardPage />,
+    icon: <ConfirmationNumberIcon />
   },
   {
     id: 61,
@@ -86,13 +96,15 @@ const studentPath: TRouteSideBarPath[] = [
     id: 9,
     name: 'Library',
     path: '/library',
-    element: <LibraryBooks />
+    element: <LibraryBooks />,
+    icon: <MenuBookIcon />
   },
   {
     id: 10,
     name: 'Result',
     path: '/result',
-    element: <Result />
+    element: <Result />,
+    icon: <AssignmentIcon />
   }
 ];
 

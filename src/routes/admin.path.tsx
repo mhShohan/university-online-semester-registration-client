@@ -1,4 +1,7 @@
 import { lazy } from 'react';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import DescriptionIcon from '@mui/icons-material/Description';
+import PaymentIcon from '@mui/icons-material/Payment';
 
 // project imports
 import withSuspense from '../components/HOC/withSuspense';
@@ -16,7 +19,7 @@ const StudentDetails = withSuspense(lazy(() => import('../pages/operators/Studen
 const ApplicationDetails = withSuspense(lazy(() => import('../pages/ApplicationDetails')));
 
 const adminPath: TRouteSideBarPath[] = [
-  { id: 1, name: 'Dashboard', path: '/', element: <AdminDashboard /> },
+  { id: 1, name: 'Dashboard', path: '/', element: <AdminDashboard />, icon: <DashboardIcon /> },
   {
     id: 2,
     name: 'Application',
@@ -24,10 +27,15 @@ const adminPath: TRouteSideBarPath[] = [
     element: <ApplicationDetails />,
     visible: false
   },
-  { id: 3, name: 'Application', path: '/applications', element: <AllApplicationPage /> },
+  {
+    id: 3,
+    name: 'Application',
+    path: '/applications',
+    element: <AllApplicationPage />,
+    icon: <DescriptionIcon />
+  },
   { id: 4, name: 'Students', path: '/students/:id', element: <StudentDetails />, visible: false },
-  { id: 5, name: 'Payments', path: '/payments', element: <AllPaymentPage /> }
-
+  { id: 5, name: 'Payments', path: '/payments', element: <AllPaymentPage />, icon: <PaymentIcon /> },
   // { id: 2, name: 'Pavilions', path: '/pavilions', element: <Pavilions /> },
   // { id: 3, name: 'Courses', path: '/courses', element: <Courses /> }
 ];

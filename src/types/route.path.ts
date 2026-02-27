@@ -6,6 +6,7 @@ export type TRouteSideBarPath = {
   path: string;
   element: ReactNode;
   visible?: boolean;
+  icon?: ReactNode;
 };
 
 export type TRoute = {
@@ -17,4 +18,5 @@ export type TSideBarItems = {
   id: number;
   name: string;
   link: string;
+  icon?: ReactNode;
 };

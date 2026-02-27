@@ -1,4 +1,10 @@
 import { lazy } from 'react';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import PeopleIcon from '@mui/icons-material/People';
+import DescriptionIcon from '@mui/icons-material/Description';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
 // project imports
 import withSuspense from '../components/HOC/withSuspense';
@@ -20,9 +26,15 @@ const AllApplicationPage = withSuspense(lazy(() => import('../pages/chairman/All
 const ApplicationDetails = withSuspense(lazy(() => import('../pages/ApplicationDetails')));
 
 const departmentOperatorPath: TRouteSideBarPath[] = [
-  { id: 1, name: 'Dashboard', path: '/', element: <DepartmentOperatorDashboard /> },
-  { id: 2, name: 'Courses', path: '/courses', element: <Courses /> },
-  { id: 3, name: 'Students', path: '/students', element: <Students /> },
+  {
+    id: 1,
+    name: 'Dashboard',
+    path: '/',
+    element: <DepartmentOperatorDashboard />,
+    icon: <DashboardIcon />
+  },
+  { id: 2, name: 'Courses', path: '/courses', element: <Courses />, icon: <MenuBookIcon /> },
+  { id: 3, name: 'Students', path: '/students', element: <Students />, icon: <PeopleIcon /> },
   {
     id: 222,
     name: 'Application',
@@ -30,10 +42,22 @@ const departmentOperatorPath: TRouteSideBarPath[] = [
     element: <ApplicationDetails />,
     visible: false
   },
-  { id: 7, name: 'Application', path: '/applications', element: <AllApplicationPage /> },
-  { id: 4, name: 'Registration', path: '/registration', element: <Registration /> },
+  {
+    id: 7,
+    name: 'Application',
+    path: '/applications',
+    element: <AllApplicationPage />,
+    icon: <DescriptionIcon />
+  },
+  {
+    id: 4,
+    name: 'Registration',
+    path: '/registration',
+    element: <Registration />,
+    icon: <AppRegistrationIcon />
+  },
   { id: 5, name: 'Students', path: '/students/:id', element: <StudentDetails />, visible: false },
-  { id: 6, name: 'Library', path: '/library', element: <Library /> },
+  { id: 6, name: 'Library', path: '/library', element: <Library />, icon: <LocalLibraryIcon /> },
   { id: 7, name: 'BookDetails', path: '/books/:id', element: <BookDetails />, visible: false }
 ];
 
