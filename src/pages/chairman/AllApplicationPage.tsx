@@ -1,12 +1,14 @@
 import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+
+import { EmptyState } from '../../components/ui';
 import Loader from '../../components/Loader';
 import {
   useAcceptOrDeclineFeeFomMutation,
   useGetRegistrationFeeFormByChairmanQuery
 } from '../../store/features/feeForm.api';
-import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import { useEffect, useState } from 'react';
 
 const AllApplicationPage = () => {
   const [query, setQuery] = useState({ status: true });
@@ -100,9 +102,7 @@ const AllApplicationPage = () => {
       </Stack>
       <Stack gap={2}>
         {(data?.data?.length === 0 || !data) && (
-          <Typography variant="h6" textAlign="center">
-            No Application Found
-          </Typography>
+          <EmptyState message="No applications found" />
         )}
         {isLoading || isFetching ? (
           <Loader fullPage />

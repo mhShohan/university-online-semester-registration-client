@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
-// mui
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -14,9 +13,9 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  Paper,
   TextField,
-  Typography,
-  useTheme
+  Typography
 } from '@mui/material';
 
 //project import
@@ -31,7 +30,6 @@ const LoginPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const theme = useTheme();
   const {
     register,
     handleSubmit,
@@ -59,103 +57,68 @@ const LoginPage = () => {
     }
   };
 
-  if (isLoading) return <Loader fullPage={true} />;
-  else
-    return (
-      <Container sx={{ height: '100vh' }}>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="100%"
-          flexDirection="column"
-        >
-          <form
-            style={{
-              maxWidth: '400px',
-              padding: '2rem 3rem',
-              border: `1px solid ${theme.palette.primary.main}`,
-              borderRadius: '8px'
-            }}
-            onSubmit={handleSubmit(handleLogin)}
-          >
-            <Typography
-              variant="h5"
-              sx={{
-                textAlign: 'center',
-                marginBottom: '.8rem',
-                textTransform: 'uppercase',
-                fontWeight: 700
-              }}
-            >
-              Login as a student
-            </Typography>
+  if (isLoading) return <Loader fullPage />;
 
-            <TextField
-              {...register('emailOrStudentId', { required: true })}
-              color={errors['emailOrStudentId'] ? 'error' : 'primary'}
-              type="text"
-              label="Email Address or Student ID"
-              id="outlined-start-adornment"
-              size="small"
-              sx={{ width: '100%', marginTop: '.6rem' }}
+  return (
+    <Container sx={{ height: '100vh' }}>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100%"
+        flexDirection="column"
+      >
+        <Paper component="form" onSubmit={handleSubmit(handleLogin)} sx={{ maxWidth: 400, p: 3 }}>
+          <Typography variant="h5" textAlign="center" fontWeight={700} sx={{ mb: 2 }}>
+            Login as student
+          </Typography>
+          <TextField
+            {...register('emailOrStudentId', { required: true })}
+            error={!!errors['emailOrStudentId']}
+            type="text"
+            label="Email or Student ID"
+            size="small"
+            fullWidth
+            sx={{ mt: 1.5 }}
+          />
+          <FormControl fullWidth variant="outlined" size="small" sx={{ mt: 1.5 }} error={!!errors['password']}>
+            <InputLabel htmlFor="login-password">Password</InputLabel>
+            <OutlinedInput
+              id="login-password"
+              {...register('password', { required: true })}
+              type={showPassword ? 'text' : 'password'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onMouseDown={() => setShowPassword(true)}
+                    onMouseUp={() => setShowPassword(false)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
             />
-            <FormControl sx={{ width: '100%', marginTop: '.6rem' }} variant="outlined" size="small">
-              <InputLabel
-                htmlFor="outlined-adornment-password"
-                color={errors['password'] ? 'error' : 'primary'}
-              >
-                Password
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                {...register('password', { required: true })}
-                color={errors['password'] ? 'error' : 'primary'}
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onMouseDown={() => setShowPassword(true)}
-                      onMouseUp={() => setShowPassword(false)}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-              />
-            </FormControl>
-
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              sx={{ marginTop: '10px', width: '100%', padding: '8px', borderRadius: '6px' }}
-            >
-              Login
+          </FormControl>
+          <Button variant="contained" type="submit" fullWidth sx={{ mt: 2, py: 1.25 }}>
+            Login
+          </Button>
+          <Typography variant="body2" textAlign="center" sx={{ mt: 2 }}>
+            No account? <Link to="/register" style={{ textDecoration: 'none' }}>Register here</Link>
+          </Typography>
+        </Paper>
+        <Box sx={{ mt: 3 }}>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <Button variant="outlined" startIcon={<ArrowBackIosIcon sx={{ fontSize: 18 }} />}>
+              Go back
             </Button>
-            <Box style={{ textAlign: 'center', marginTop: '10px' }}>
-              <Typography variant="body1">
-                Have no Account?{' '}
-                <Link to="/register" style={{ textDecoration: 'none' }}>
-                  Register Here!
-                </Link>
-              </Typography>
-            </Box>
-          </form>
-          <Box sx={{ marginTop: '2rem' }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <Button variant="contained" sx={{ display: 'flex', alignItems: 'center' }}>
-                <ArrowBackIosIcon style={{ fontSize: '1rem' }} />
-                Go back
-              </Button>
-            </Link>
-          </Box>
+          </Link>
         </Box>
-      </Container>
-    );
+      </Box>
+    </Container>
+  );
 };
 
 export default LoginPage;

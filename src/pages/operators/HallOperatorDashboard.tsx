@@ -11,6 +11,8 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+
+import { EmptyState } from '../../components/ui';
 import Loader from '../../components/Loader';
 import {
   useAcceptOrDeclineFeeFomMutation,
@@ -83,7 +85,7 @@ const HallOperatorDashboard = () => {
 
   return (
     <Stack>
-      {data?.data?.length === 0 && <Typography>No Application Found</Typography>}
+      {data?.data?.length === 0 && <EmptyState message="No applications found" />}
 
       <AcceptApplicationModal open={open} handleClose={handleClose} updateIds={updateIds} />
       <Stack gap={2}>

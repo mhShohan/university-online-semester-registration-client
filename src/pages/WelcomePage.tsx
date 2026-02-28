@@ -1,10 +1,10 @@
-import { Box, Button, Chip, Container, Divider, Grid, Typography, useTheme } from '@mui/material';
-import logo from '../assets/gstu_logo.png';
+import { Box, Button, Chip, Container, Divider, Grid, Paper, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
+import logo from '../assets/gstu_logo.png';
 
 const WelcomePage = () => {
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const handleNavigate = (link: string) => {
     navigate(link);
@@ -21,9 +21,9 @@ const WelcomePage = () => {
         textAlign: 'center'
       }}
     >
-      <Grid container>
+      <Grid container justifyContent="center" alignItems="center" spacing={4}>
         <Grid item xs={12} md={8}>
-          <Box sx={{ margin: '3rem' }}>
+          <Box sx={{ m: 4 }}>
             <Box
               sx={{
                 display: 'flex',
@@ -33,89 +33,60 @@ const WelcomePage = () => {
                 height: 200,
                 borderRadius: '50%',
                 overflow: 'hidden',
-                border: `3px solid ${theme.palette.primary.main}`,
-                // padding: '.4rem',
+                border: '3px solid',
+                borderColor: 'primary.main',
                 margin: '0 auto',
-                boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
-                bgcolor: theme.palette.background.paper
+                boxShadow: 2,
+                bgcolor: 'background.paper'
               }}
             >
               <img
                 src={logo}
                 alt="GSTU LOGO"
                 width={220}
-                style={{ width: '100%', height: '100%' }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </Box>
-            <Typography variant="h4" sx={{ fontWeight: 900 }}>
+            <Typography variant="h4" fontWeight={800} sx={{ mt: 2 }}>
               University Online Semester Registration
             </Typography>
-            <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '16px' }}>
+            <Typography variant="h6" fontWeight={700} color="text.secondary" sx={{ mt: 0.5 }}>
               Gopalganj Science and Technology University, Gopalganj-8100
             </Typography>
           </Box>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          md={4}
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%'
-          }}
-        >
-          <Box
-            sx={{
-              width: '100%',
-              border: `1px solid ${theme.palette.primary.main}`,
-              padding: '3rem',
-              borderRadius: '8px',
-              textAlign: 'center',
-              margin: '2rem 0'
-            }}
-          >
-            <Button
-              onClick={() => handleNavigate('/login')}
-              variant="contained"
-              sx={{
-                width: '100%',
-                margin: '.6rem 0',
-                padding: '.6rem',
-                fontSize: '.8rem'
-              }}
-            >
-              Login as a Student
-            </Button>
-            <Button
-              onClick={() => handleNavigate('/register')}
-              variant="contained"
-              sx={{
-                width: '100%',
-                margin: '.6rem 0',
-                padding: '.6rem',
-                fontSize: '.8rem'
-              }}
-            >
-              Register new Student Account
-            </Button>
-            <Divider>
-              <Chip label="OR" />
-            </Divider>
-            <Button
-              onClick={() => handleNavigate('/admin-login')}
-              variant="contained"
-              sx={{
-                width: '100%',
-                margin: '.6rem 0',
-                padding: '.6rem',
-                fontSize: '.8rem'
-              }}
-            >
-              Login as an Admin
-            </Button>
-          </Box>
+        <Grid item xs={12} md={4} display="flex" justifyContent="center">
+          <Paper sx={{ p: 4, width: '100%', maxWidth: 360, textAlign: 'center' }}>
+            <Stack spacing={1.5}>
+              <Button
+                onClick={() => handleNavigate('/login')}
+                variant="contained"
+                fullWidth
+                size="large"
+              >
+                Login as student
+              </Button>
+              <Button
+                onClick={() => handleNavigate('/register')}
+                variant="contained"
+                fullWidth
+                size="large"
+              >
+                Register new account
+              </Button>
+              <Divider sx={{ py: 1 }}>
+                <Chip label="OR" size="small" />
+              </Divider>
+              <Button
+                onClick={() => handleNavigate('/admin-login')}
+                variant="outlined"
+                fullWidth
+                size="large"
+              >
+                Login as admin
+              </Button>
+            </Stack>
+          </Paper>
         </Grid>
       </Grid>
     </Container>

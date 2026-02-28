@@ -1,12 +1,14 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
+import { AppCard, EmptyState, PageSection } from '../../components/ui';
 import Loader from '../../components/Loader';
 import {
   useAcceptAllApplicationMutation,
   useAcceptOrDeclineFeeFomMutation,
   useGetRegistrationFeeFormByChairmanQuery
 } from '../../store/features/feeForm.api';
-import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 const ChairmanDashboard = () => {
   const { data, isLoading } = useGetRegistrationFeeFormByChairmanQuery(undefined);
@@ -100,7 +102,7 @@ const ChairmanDashboard = () => {
   };
 
   return (
-    <Stack>
+    <PageSection title="Applications">
       <Stack gap={2}>
         {data.data.length !== 0 && (
           <Box>
@@ -109,61 +111,65 @@ const ChairmanDashboard = () => {
             </Button>
           </Box>
         )}
-        {data.data.length === 0 && <Typography textAlign="center">No Application Found</Typography>}
+        {data.data.length === 0 && <EmptyState message="No applications found" />}
         {data.data.map((form: any) => (
-          <Stack key={form._id} p={4} borderRadius={4} boxShadow={24}>
-            <Grid container>
-              <Grid item xs={6}>
-                <Typography>StudentId: {form.studentId.studentId}</Typography>
-                <Typography>Name: {form.studentId.name}</Typography>
-                <Typography>Session: {form.studentId.session}</Typography>
-                <Typography>Exam Types: {form.examType}</Typography>
+          <AppCard key={form._id} padding={3}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <Typography variant="body2" color="text.secondary">Student ID</Typography>
+                <Typography>{form.studentId.studentId}</Typography>
+                <Typography variant="body2" color="text.secondary">Name</Typography>
+                <Typography>{form.studentId.name}</Typography>
+                <Typography variant="body2" color="text.secondary">Session</Typography>
+                <Typography>{form.studentId.session}</Typography>
+                <Typography variant="body2" color="text.secondary">Exam Type</Typography>
+                <Typography>{form.examType}</Typography>
               </Grid>
-              <Grid item xs={6}>
-                <Typography>Year: {form.year}</Typography>
-                <Typography>Semester: {form.semester}</Typography>
+              <Grid item xs={12} md={6}>
+                <Typography variant="body2" color="text.secondary">Year</Typography>
+                <Typography>{form.year}</Typography>
+                <Typography variant="body2" color="text.secondary">Semester</Typography>
+                <Typography>{form.semester}</Typography>
+                <Typography variant="body2" color="text.secondary">Total Credit</Typography>
                 <Typography>
-                  Total Credit:{' '}
                   {form.courses.reduce((acc: number, cur: any) => (acc += cur.credit), 0)}
                 </Typography>
               </Grid>
             </Grid>
-            <>
-              <Stack gap={1} direction="row" mt={4}>
-                <Link to={`/application/${form._id}`} style={{ width: '100%' }}>
-                  <Button size="small" variant="contained" fullWidth>
-                    View Application Details
-                  </Button>
-                </Link>
-                <Link to={`/students/${form.studentId._id}`} style={{ width: '100%' }}>
-                  <Button size="small" variant="contained" fullWidth color="info">
-                    View Student Details
-                  </Button>
-                </Link>
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="success"
-                  fullWidth
-                  onClick={() => acceptApplication(form._id)}
-                >
-                  Accept Application
+            <Stack gap={1} direction="row" flexWrap="wrap" mt={2}>
+              <Link to={`/application/${form._id}`} style={{ flex: '1 1 140px' }}>
+                <Button size="small" variant="contained" fullWidth>
+                  View Details
                 </Button>
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="error"
-                  fullWidth
-                  onClick={() => declineApplication(form._id)}
-                >
-                  Decline Application
+              </Link>
+              <Link to={`/students/${form.studentId._id}`} style={{ flex: '1 1 140px' }}>
+                <Button size="small" variant="outlined" fullWidth>
+                  View Student
                 </Button>
-              </Stack>
-            </>
-          </Stack>
+              </Link>
+              <Button
+                size="small"
+                variant="contained"
+                color="success"
+                sx={{ flex: '1 1 140px' }}
+                onClick={() => acceptApplication(form._id)}
+              >
+                Accept
+              </Button>
+              <Button
+                size="small"
+                variant="contained"
+                color="error"
+                sx={{ flex: '1 1 140px' }}
+                onClick={() => declineApplication(form._id)}
+              >
+                Decline
+              </Button>
+            </Stack>
+          </AppCard>
         ))}
       </Stack>
-    </Stack>
+    </PageSection>
   );
 };
 

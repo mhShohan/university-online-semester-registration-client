@@ -12,8 +12,9 @@ import {
 } from '../../store/features/student/student.api';
 import dateFormatter from '../../utils/dateFormatter';
 
-// mui
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
+
+import { PageSection } from '../../components/ui';
 import CustomHookSelectField from '../../components/forms/CustomHookSelectField';
 import academicSession from '../../constants/academicSession';
 import toastMessage from '../../lib/toastMessage';
@@ -93,160 +94,127 @@ const UpdateStudentPage = () => {
         defaultValues={data}
         resolver={zodResolver(updateProfileSchema)}
       >
-        <Typography
-          variant="h5"
-          textAlign="left"
-          sx={{ pb: 1, borderBottom: '1px solid',
-            borderColor: 'divider', mb: 2 }}
-        >
-          Personal Information
-        </Typography>
-        <Grid container>
-          <Grid item xs={12} md={4} p={1}>
+        <PageSection title="Personal Information" withDivider={false}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="name" label="Name" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="studentId" label="Student ID" disabled />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="email" label="Email" disabled />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookSelectField name="session" label="Session" items={academicSession()} />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookDatePicker name="dateOfBirth" label="Date of Birth" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="phone" label="Contact Number" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="fatherName" label="Father Name" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="motherName" label="Mother Name" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="nationality" label="Nationality" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="religion" label="Religion" />
           </Grid>
         </Grid>
+        </PageSection>
 
-        {/* present address info */}
-        <Typography
-          variant="h5"
-          textAlign="left"
-          sx={{ pb: 1, borderBottom: '1px solid',
-            borderColor: 'divider', my: 2 }}
-        >
-          Present Address Information
-        </Typography>
-        <Grid container>
-          <Grid item xs={12} md={4} p={1}>
+        <PageSection title="Present Address" withDivider={false}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="presentAddress.village" label="Village" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="presentAddress.subDistrict" label="Sub District" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="presentAddress.postOffice" label="Post Office" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="presentAddress.district" label="District" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="presentAddress.zipCode" label="Zip Code" />
           </Grid>
         </Grid>
+        </PageSection>
 
-        {/* permanent Address  info */}
-        <Typography
-          variant="h5"
-          textAlign="left"
-          sx={{ pb: 1, borderBottom: '1px solid',
-            borderColor: 'divider', my: 2 }}
-        >
-          Permanent Address Information
-        </Typography>
-        <Grid container>
-          <Grid item xs={12} md={4} p={1}>
+        <PageSection title="Permanent Address" withDivider={false}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="permanentAddress.village" label="Village" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="permanentAddress.subDistrict" label="Sub District" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="permanentAddress.postOffice" label="Post Office" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="permanentAddress.district" label="District" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="permanentAddress.zipCode" label="Zip Code" />
           </Grid>
         </Grid>
+        </PageSection>
 
-        {/* educational Qualifications */}
-        <Typography
-          variant="h5"
-          textAlign="left"
-          sx={{ pb: 1, borderBottom: '1px solid',
-            borderColor: 'divider', my: 2 }}
-        >
-          Educational Qualifications (Higher Secondary Certificate)
-        </Typography>
-        <Grid container>
-          <Grid item xs={12} md={4} p={1}>
+        <PageSection title="Educational Qualifications (HSC)" withDivider={false}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="hsc.name" label="Exam Name" disabled />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="hsc.institute" label="Institute" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="hsc.board" label="Board" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="hsc.passingYear" label="Passing Year" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="hsc.roll" label="Roll" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="hsc.GPA" label="GPA" />
           </Grid>
         </Grid>
+        </PageSection>
 
-        <Typography
-          variant="h5"
-          textAlign="left"
-          sx={{ pb: 1, borderBottom: '1px solid',
-            borderColor: 'divider', my: 2 }}
-        >
-          Educational Qualifications (Secondary School Certificate)
-        </Typography>
-        <Grid container>
-          <Grid item xs={12} md={4} p={1}>
+        <PageSection title="Educational Qualifications (SSC)" withDivider={false}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="ssc.name" label="Exam Name" disabled />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="ssc.institute" label="Institute" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="ssc.board" label="Board" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="ssc.passingYear" label="Passing Year" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="ssc.roll" label="Roll" />
           </Grid>
-          <Grid item xs={12} md={4} p={1}>
+          <Grid item xs={12} md={4}>
             <CustomHookInput name="ssc.GPA" label="GPA" />
           </Grid>
         </Grid>
-        <Button type="submit" variant="contained" sx={{ m: 1, padding: '.5rem 3rem' }}>
+        </PageSection>
+        <Button type="submit" variant="contained" sx={{ mt: 2, py: 1.25, px: 3 }}>
           Update Profile
         </Button>
       </CustomHookForm>

@@ -1,4 +1,6 @@
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
+
+import { EmptyState } from '../../components/ui';
 import Loader from '../../components/Loader';
 import { useGetAllHallPaymentsQuery } from '../../store/features/feeForm.api';
 import { Link } from 'react-router-dom';
@@ -14,8 +16,8 @@ const HallPaymentPage = () => {
     return newDate.toLocaleString('default', { month: 'short' }) + ', ' + newDate.getFullYear();
   };
 
-  const payments = data?.data?.map((form: any) => {
-    return {
+  const payments =
+    data?.data?.map((form: any) => ({
       id: form._id,
       studentId: form.studentId.studentId,
       studentName: form.studentId.name,
@@ -23,8 +25,7 @@ const HallPaymentPage = () => {
       duration: `${formatDate(form.residentialFeeId.from)} - ${formatDate(
         form.residentialFeeId.to
       )}`
-    };
-  });
+    })) ?? [];
 
   return (
     <Stack>
@@ -34,10 +35,8 @@ const HallPaymentPage = () => {
       </Typography>
       <Divider />
       <Stack mt={4}>
-        {payments.length <= 0 ? (
-          <Typography variant="h6" textAlign="center">
-            No Payment Found
-          </Typography>
+        {payments.length === 0 ? (
+          <EmptyState message="No payments found" />
         ) : (
           <Table rows={payments}></Table>
         )}

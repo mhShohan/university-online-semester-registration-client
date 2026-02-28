@@ -1,6 +1,8 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+
+import { EmptyState } from '../../components/ui';
 import Loader from '../../components/Loader';
 import {
   useAcceptAllApplicationMutation,
@@ -109,7 +111,7 @@ const ChairmanDashboard = () => {
             </Button>
           </Box>
         )}
-        {data.data.length === 0 && <Typography textAlign="center">No Application Found</Typography>}
+        {data.data.length === 0 && <EmptyState message="No applications found" />}
         {data.data.map((form: any) => (
           <Stack key={form._id} p={4} borderRadius={4} boxShadow={24}>
             <Grid container>

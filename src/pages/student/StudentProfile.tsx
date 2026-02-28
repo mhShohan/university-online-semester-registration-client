@@ -1,8 +1,10 @@
-import { Box, Button, Chip, Divider, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Grid, Paper, Stack, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
+
 import blankProPic from '../../assets/blankProPic.png';
 import UploadPhotoOnChange from '../../components/forms/UploadPhotoOnChange';
+import { PageSection, StatusChip } from '../../components/ui';
 import Loader from '../../components/Loader';
 import { useGetSelfProfileOfStudentQuery } from '../../store/features/student/student.api';
 import dateFormatter from '../../utils/dateFormatter';
@@ -10,83 +12,56 @@ import dateFormatter from '../../utils/dateFormatter';
 const StudentProfile = () => {
   const { data: profileData, isLoading } = useGetSelfProfileOfStudentQuery(undefined);
 
-  if (isLoading) return <Loader fullPage={true} />;
+  if (isLoading) return <Loader fullPage />;
 
   const data = profileData?.data;
 
   return (
     <Box>
-      {/* Profile Info */}
-      <Grid container>
+      <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
-          <Stack justifyContent="center" alignItems="center" p={2}>
-            <Box
-              sx={{
-                padding: '1.5rem',
-                height: '400px',
-                border: '1px solid gray',
-                borderRadius: 4
-              }}
-            >
+          <Stack justifyContent="center" alignItems="center" spacing={2}>
+            <Paper variant="outlined" sx={{ p: 2, height: 320, width: '100%', overflow: 'hidden' }}>
               <img
-                src={data.avatar || blankProPic}
+                src={data?.avatar || blankProPic}
                 alt="profile"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 4 }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }}
               />
-            </Box>
-            <UploadPhotoOnChange name="file" studentId={data._id} label="Change Your Photo" />
+            </Paper>
+            <UploadPhotoOnChange name="file" studentId={data?._id} label="Change photo" />
           </Stack>
         </Grid>
         <Grid item xs={12} md={8}>
-          <Stack direction="column" height="100%" justifyContent="center">
-            <Stack direction="row" justifyContent="space-between" alignItems="center" pl={2}>
-              <Typography variant="h3" sx={{ fontWeight: '700' }}>
+          <Stack spacing={2}>
+            <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={1}>
+              <Typography variant="h4" fontWeight={700}>
                 {data?.name}
               </Typography>
-
-              <Link to="/profile/update-profile">
-                <Button variant="contained">Edit Profile</Button>
+              <Link to="/profile/update-profile" style={{ textDecoration: 'none' }}>
+                <Button variant="contained">Edit profile</Button>
               </Link>
             </Stack>
-            <Typography pl={2}>
-              <strong>Status: </strong>
-              <Chip
-                label={data?.status}
-                color={data?.status === 'ACTIVE' ? 'success' : 'error'}
-                sx={{
-                  padding: '0.1rem 1rem',
-                  height: '1.5rem'
-                }}
+            <Stack direction="row" alignItems="center" gap={1}>
+              <Typography variant="body2" fontWeight={600}>Status</Typography>
+              <StatusChip
+                label={data?.status ?? ''}
+                status={data?.status === 'ACTIVE' ? 'success' : 'error'}
               />
-            </Typography>
-            <Grid container>
-              <SingleItem name="student Id" value={data?.studentId} />
+            </Stack>
+            <Grid container spacing={1}>
+              <SingleItem name="Student ID" value={data?.studentId} />
               <SingleItem name="Email" value={data?.email} />
               <SingleItem name="Department" value={data?.department} />
-              <SingleItem name="faculty" value={data?.faculty} />
-              <SingleItem name="hall" value={data?.hall} />
-              <SingleItem name="session" value={data?.session} />
+              <SingleItem name="Faculty" value={data?.faculty} />
+              <SingleItem name="Hall" value={data?.hall} />
+              <SingleItem name="Session" value={data?.session} />
             </Grid>
           </Stack>
         </Grid>
       </Grid>
 
-      {/* Personal Details */}
-      <Stack my={2}>
-        <Divider />
-        <Typography
-          variant="h5"
-          sx={{
-            padding: '.2rem 1rem',
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            textAlign: 'center'
-          }}
-        >
-          Personal Details
-        </Typography>
-        <Divider />
-        <Grid container>
+      <PageSection title="Personal Details">
+        <Grid container spacing={2}>
           <SingleItem md={4} name="Father Name" value={data?.fatherName} />
           <SingleItem md={4} name="Mother Name" value={data?.motherName} />
           <SingleItem md={4} name="Contact Number" value={data?.phone} />
@@ -98,72 +73,30 @@ const StudentProfile = () => {
           <SingleItem md={4} name="nationality" value={data?.nationality} />
           <SingleItem md={4} name="religion" value={data?.religion} />
         </Grid>
-      </Stack>
+      </PageSection>
 
-      {/* Present Address Details */}
-      <Stack my={2}>
-        <Divider />
-        <Typography
-          variant="h5"
-          sx={{
-            padding: '.2rem 1rem',
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            textAlign: 'center'
-          }}
-        >
-          Present Address
-        </Typography>
-        <Divider />
-        <Grid container>
+      <PageSection title="Present Address">
+        <Grid container spacing={2}>
           <SingleItem md={4} name="village" value={data?.presentAddress?.village} />
           <SingleItem md={4} name="sub District" value={data?.presentAddress?.subDistrict} />
           <SingleItem md={4} name="post Office" value={data?.presentAddress?.postOffice} />
           <SingleItem md={4} name="district" value={data?.presentAddress?.district} />
           <SingleItem md={4} name="zip Code" value={data?.presentAddress?.zipCode} />
         </Grid>
-      </Stack>
+      </PageSection>
 
-      {/* permanentAddress Details */}
-      <Stack my={2}>
-        <Divider />
-        <Typography
-          variant="h5"
-          sx={{
-            padding: '.2rem 1rem',
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            textAlign: 'center'
-          }}
-        >
-          Permanent Address
-        </Typography>
-        <Divider />
-        <Grid container>
+      <PageSection title="Permanent Address">
+        <Grid container spacing={2}>
           <SingleItem md={4} name="village" value={data?.permanentAddress?.village} />
           <SingleItem md={4} name="sub District" value={data?.permanentAddress?.subDistrict} />
           <SingleItem md={4} name="post Office" value={data?.permanentAddress?.postOffice} />
           <SingleItem md={4} name="district" value={data?.permanentAddress?.district} />
           <SingleItem md={4} name="zip Code" value={data?.permanentAddress?.zipCode} />
         </Grid>
-      </Stack>
+      </PageSection>
 
-      <Stack my={2}>
-        <Divider />
-        <Typography
-          variant="h5"
-          sx={{
-            padding: '.2rem 1rem',
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            textAlign: 'center'
-          }}
-        >
-          Educational Qualifications
-        </Typography>
-        <Divider />
-
-        <Box my={1}>
+      <PageSection title="Educational Qualifications">
+        <Paper sx={{ overflow: 'hidden', mt: 1 }}>
           <DataGrid
             autoHeight
             columns={[
@@ -177,34 +110,32 @@ const StudentProfile = () => {
             rows={
               data?.educationalQualifications.map((item: any, i: any) => ({ id: i, ...item })) || []
             }
-            hideFooterPagination={true}
+            hideFooter
           />
-        </Box>
-      </Stack>
+        </Paper>
+      </PageSection>
     </Box>
   );
 };
 
 export default StudentProfile;
 
-const SingleItem = ({ name, value, md = 6 }: { name: string; value: string; md?: number }) => {
-  return (
-    <Grid item xs={12} md={md} p={1}>
-      <Box
-        sx={(theme) => ({
-          width: '100%',
-          boxShadow: `0 0 5px ${theme.palette.divider} inset`,
-          padding: '.5rem 1rem',
-          borderRadius: '.4rem',
-          display: 'flex',
-          flexDirection: 'column'
-        })}
-      >
-        <Typography sx={{ fontWeight: '600', fontSize: '1.1rem', textTransform: 'uppercase' }}>
-          {name}
-        </Typography>
-        <Typography>{value}</Typography>
-      </Box>
-    </Grid>
-  );
-};
+const SingleItem = ({ name, value, md = 6 }: { name: string; value: string; md?: number }) => (
+  <Grid item xs={12} md={md}>
+    <Box
+      sx={(theme) => ({
+        width: '100%',
+        boxShadow: `0 0 5px ${theme.palette.divider} inset`,
+        padding: 1,
+        borderRadius: 1,
+        display: 'flex',
+        flexDirection: 'column'
+      })}
+    >
+      <Typography variant="caption" color="text.secondary" fontWeight={600}>
+        {name}
+      </Typography>
+      <Typography variant="body2">{value}</Typography>
+    </Box>
+  </Grid>
+);

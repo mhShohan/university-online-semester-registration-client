@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-// mui
+import EditNoteIcon from '@mui/icons-material/EditNote';
 import {
-  Button,
+  IconButton,
   Paper,
   Skeleton,
   Table,
@@ -10,12 +10,10 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
+  Tooltip
 } from '@mui/material';
-// import DeleteIcon from '@mui/icons-material/Delete';
-import EditNoteIcon from '@mui/icons-material/EditNote';
 
-//project import
 import { useAppDispatch } from '../../store/hook';
 import { setUpdateAdminModal } from '../../store/services/modalSlice';
 import { IAdmin } from '../../types/admin.types';
@@ -25,26 +23,37 @@ export default function AdminTable({ data, isFetching }: { data: IAdmin[]; isFet
   const [modalOpen, setModalOpen] = useState(false);
   const dispatch = useAppDispatch();
 
-  const handleClickOpen = (data: IAdmin) => {
-    dispatch(setUpdateAdminModal(data));
+  const handleClickOpen = (row: IAdmin) => {
+    dispatch(setUpdateAdminModal(row));
     setModalOpen(true);
   };
 
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ borderRadius: 2, overflow: 'hidden' }}>
         <Table
-          sx={{ minWidth: '400px', width: '100%', tableLayout: 'auto' }}
-          size="small"
-          aria-label="a dense table"
+          sx={{ minWidth: 400, width: '100%', tableLayout: 'auto' }}
+          size="medium"
+          aria-label="Admins table"
         >
           <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="center">Email</TableCell>
-              <TableCell align="center">Role</TableCell>
-              <TableCell align="center">Department</TableCell>
-              <TableCell align="center">Hall </TableCell>
+            <TableRow sx={{ backgroundColor: 'primary.dark' }}>
+              <TableCell sx={{ color: 'primary.contrastText', fontWeight: 700 }}>Name</TableCell>
+              <TableCell align="center" sx={{ color: 'primary.contrastText', fontWeight: 700 }}>
+                Email
+              </TableCell>
+              <TableCell align="center" sx={{ color: 'primary.contrastText', fontWeight: 700 }}>
+                Role
+              </TableCell>
+              <TableCell align="center" sx={{ color: 'primary.contrastText', fontWeight: 700 }}>
+                Department
+              </TableCell>
+              <TableCell align="center" sx={{ color: 'primary.contrastText', fontWeight: 700 }}>
+                Hall
+              </TableCell>
+              <TableCell align="center" sx={{ color: 'primary.contrastText', fontWeight: 700 }}>
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -57,7 +66,7 @@ export default function AdminTable({ data, isFetching }: { data: IAdmin[]; isFet
             )}
             {!isFetching &&
               data?.map((row) => (
-                <TableRow key={row._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableRow key={row._id}>
                   <TableCell component="th" scope="row">
                     {row.name}
                   </TableCell>
@@ -66,29 +75,15 @@ export default function AdminTable({ data, isFetching }: { data: IAdmin[]; isFet
                   <TableCell align="center">{row.department}</TableCell>
                   <TableCell align="center">{row.hall}</TableCell>
                   <TableCell align="center">
-                    <Button
-                      sx={{
-                        minWidth: '0',
-                        minHeight: '0',
-                        width: '30px',
-                        height: '30px',
-                        padding: 0
-                      }}
-                      onClick={() => handleClickOpen(row)}
-                    >
-                      <EditNoteIcon sx={{ fontSize: '2.2rem' }} />
-                    </Button>
-                    {/* <Button
-                  sx={{
-                    minWidth: '0',
-                    minHeight: '0',
-                    width: '30px',
-                    height: '30px',
-                    padding: 0
-                  }}
-                >
-                <DeleteIcon sx={{ fontSize: '1.8rem' }} />
-              </Button> */}
+                    <Tooltip title="Edit admin">
+                      <IconButton
+                        size="small"
+                        onClick={() => handleClickOpen(row)}
+                        aria-label={`Edit ${row.name}`}
+                      >
+                        <EditNoteIcon fontSize="medium" />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               ))}
@@ -100,30 +95,12 @@ export default function AdminTable({ data, isFetching }: { data: IAdmin[]; isFet
   );
 }
 
-const TableSkeleton = () => {
-  return (
-    <TableRow>
-      <TableCell>
-        <Skeleton variant="rectangular" />
+const TableSkeleton = () => (
+  <TableRow>
+    {[1, 2, 3, 4, 5, 6].map((i) => (
+      <TableCell key={i}>
+        <Skeleton variant="text" width="80%" />
       </TableCell>
-      <TableCell>
-        <Skeleton variant="rectangular" />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="rectangular" />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="rectangular" />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="rectangular" />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="rectangular" />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="rectangular" />
-      </TableCell>
-    </TableRow>
-  );
-};
+    ))}
+  </TableRow>
+);

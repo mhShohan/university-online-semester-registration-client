@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
-// mui
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -16,10 +15,10 @@ import {
   InputLabel,
   MenuItem,
   OutlinedInput,
+  Paper,
   Select,
   TextField,
-  Typography,
-  useTheme
+  Typography
 } from '@mui/material';
 
 //project import
@@ -44,7 +43,6 @@ const RegisterPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [studentRegistration, { isLoading }] = useStudentRegistrationMutation();
   const navigate = useNavigate();
-  const theme = useTheme();
   const {
     register,
     handleSubmit,
@@ -85,7 +83,7 @@ const RegisterPage = () => {
     }
   };
 
-  if (isLoading) return <Loader fullPage={true} />;
+  if (isLoading) return <Loader fullPage />;
 
   return (
     <Container sx={{ height: '100vh' }}>
@@ -96,67 +94,51 @@ const RegisterPage = () => {
         height="100%"
         flexDirection="column"
       >
-        <form
-          style={{
-            maxWidth: '600px',
-            padding: '2rem 3rem',
-            border: `1px solid ${theme.palette.primary.main}`,
-            borderRadius: '8px'
-          }}
+        <Paper
+          component="form"
           onSubmit={handleSubmit(registerNewStudent)}
+          sx={{ maxWidth: 600, p: 3 }}
         >
-          <Typography
-            variant="h5"
-            sx={{
-              textAlign: 'center',
-              marginBottom: '.8rem',
-              textTransform: 'uppercase',
-              fontWeight: 700
-            }}
-          >
-            Register account!
+          <Typography variant="h5" textAlign="center" fontWeight={700} sx={{ mb: 2 }}>
+            Register account
           </Typography>
 
-          <Grid container>
-            <Grid item xs={12} md={6} sx={{ padding: '0 2px' }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
               <TextField
                 {...register('name', { required: true })}
-                color={errors['name'] ? 'error' : 'primary'}
+                error={!!errors['name']}
                 label="Student Name"
-                id="outlined-start-adornment"
                 size="small"
-                sx={{ width: '100%', marginTop: '.6rem', backgroundColor: 'transparent' }}
+                fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6} sx={{ padding: '0 2px' }}>
+            <Grid item xs={12} md={6}>
               <TextField
                 {...register('studentId', { required: true })}
-                color={errors['studentId'] ? 'error' : 'primary'}
+                error={!!errors['studentId']}
                 label="Student ID"
-                id="outlined-start-adornment"
                 size="small"
-                sx={{ width: '100%', marginTop: '.6rem' }}
+                fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6} sx={{ padding: '0 2px' }}>
+            <Grid item xs={12} md={6}>
               <TextField
                 {...register('email', { required: true })}
-                color={errors['email'] ? 'error' : 'primary'}
+                error={!!errors['email']}
                 label="Email Address"
-                id="outlined-start-adornment"
                 size="small"
-                sx={{ width: '100%', marginTop: '.6rem' }}
+                fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6} sx={{ padding: '0 2px' }}>
-              <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
+            <Grid item xs={12} md={6}>
+              <FormControl size="small" fullWidth variant="outlined" error={!!errors['departmentId']}>
                 <InputLabel htmlFor="departmentId">Department</InputLabel>
                 <Select
-                  labelId="departmentId"
+                  labelId="departmentId-label"
                   id="departmentId"
-                  label="Faculty"
+                  label="Department"
                   {...register('departmentId', { required: true })}
-                  color={errors['departmentId'] ? 'error' : 'primary'}
                 >
                   {departments?.data.map((item: TItem) => (
                     <MenuItem key={item._id} value={item._id}>
@@ -166,15 +148,14 @@ const RegisterPage = () => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} md={6} sx={{ padding: '0 2px' }}>
-              <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
-                <InputLabel htmlFor="departmentId">Faculty</InputLabel>
+            <Grid item xs={12} md={6}>
+              <FormControl size="small" fullWidth variant="outlined" error={!!errors['facultyId']}>
+                <InputLabel id="facultyId-label">Faculty</InputLabel>
                 <Select
-                  labelId="departmentId"
-                  id="departmentId"
+                  labelId="facultyId-label"
+                  id="facultyId"
                   label="Faculty"
                   {...register('facultyId', { required: true })}
-                  color={errors['facultyId'] ? 'error' : 'primary'}
                 >
                   {faculties?.data.map((item: TItem) => (
                     <MenuItem key={item._id} value={item._id}>
@@ -184,15 +165,14 @@ const RegisterPage = () => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} md={6} sx={{ padding: '0 2px' }}>
-              <FormControl size="small" fullWidth variant="outlined" sx={{ marginTop: '.6rem' }}>
-                <InputLabel htmlFor="departmentId">Hall</InputLabel>
+            <Grid item xs={12} md={6}>
+              <FormControl size="small" fullWidth variant="outlined" error={!!errors['hallId']}>
+                <InputLabel id="hallId-label">Hall</InputLabel>
                 <Select
-                  labelId="departmentId"
-                  id="departmentId"
+                  labelId="hallId-label"
+                  id="hallId"
                   label="Hall"
                   {...register('hallId', { required: true })}
-                  color={errors['hallId'] ? 'error' : 'primary'}
                 >
                   {halls?.data.map((item: TItem) => (
                     <MenuItem key={item._id} value={item._id}>
@@ -202,22 +182,12 @@ const RegisterPage = () => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} md={6} sx={{ padding: '0 2px' }}>
-              <FormControl
-                sx={{ width: '100%', marginTop: '.6rem' }}
-                variant="outlined"
-                size="small"
-              >
-                <InputLabel
-                  htmlFor="outlined-adornment-password"
-                  color={errors['password'] ? 'error' : 'primary'}
-                >
-                  Password
-                </InputLabel>
+            <Grid item xs={12} md={6}>
+              <FormControl fullWidth variant="outlined" size="small" error={!!errors['password']}>
+                <InputLabel htmlFor="reg-password">Password</InputLabel>
                 <OutlinedInput
-                  id="outlined-adornment-password"
+                  id="reg-password"
                   {...register('password', { required: true })}
-                  color={errors['password'] ? 'error' : 'primary'}
                   type={showPassword ? 'text' : 'password'}
                   endAdornment={
                     <InputAdornment position="end">
@@ -235,33 +205,22 @@ const RegisterPage = () => {
                 />
               </FormControl>
             </Grid>
-
-            <Grid item xs={12} md={6} sx={{ padding: '0 2px' }}>
-              <FormControl
-                sx={{ width: '100%', marginTop: '.6rem' }}
-                variant="outlined"
-                size="small"
-              >
-                <InputLabel
-                  htmlFor="outlined-adornment-password"
-                  color={errors['confirmPassword'] ? 'error' : 'primary'}
-                >
-                  Confirm Password
-                </InputLabel>
+            <Grid item xs={12} md={6}>
+              <FormControl fullWidth variant="outlined" size="small" error={!!errors['confirmPassword']}>
+                <InputLabel htmlFor="reg-confirm-password">Confirm Password</InputLabel>
                 <OutlinedInput
-                  id="outlined-adornment-password"
+                  id="reg-confirm-password"
                   {...register('confirmPassword', { required: true })}
-                  color={errors['confirmPassword'] ? 'error' : 'primary'}
                   type={showConfirmPassword ? 'text' : 'password'}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
-                        aria-label="toggle password visibility"
+                        aria-label="toggle confirm password visibility"
                         onMouseDown={() => setShowConfirmPassword(true)}
                         onMouseUp={() => setShowConfirmPassword(false)}
                         edge="end"
                       >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                        {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
                   }
@@ -270,28 +229,16 @@ const RegisterPage = () => {
               </FormControl>
             </Grid>
           </Grid>
-
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            sx={{ marginTop: '10px', width: '100%', padding: '8px', borderRadius: '6px' }}
-          >
+          <Button variant="contained" type="submit" fullWidth sx={{ mt: 2, py: 1.25 }}>
             Register
           </Button>
-          <Box style={{ textAlign: 'center', marginTop: '10px' }}>
-            <Typography variant="body1">
-              Already Have an Account?{' '}
-              <Link to="/login" style={{ textDecoration: 'none' }}>
-                Login Here!
-              </Link>
-            </Typography>
-          </Box>
-        </form>
-        <Box sx={{ marginTop: '2rem' }}>
+          <Typography variant="body2" textAlign="center" sx={{ mt: 2 }}>
+            Already have an account? <Link to="/login" style={{ textDecoration: 'none' }}>Login here</Link>
+          </Typography>
+        </Paper>
+        <Box sx={{ mt: 3 }}>
           <Link to="/" style={{ textDecoration: 'none' }}>
-            <Button variant="contained" sx={{ display: 'flex', alignItems: 'center' }}>
-              <ArrowBackIosIcon style={{ fontSize: '1rem' }} />
+            <Button variant="outlined" startIcon={<ArrowBackIosIcon sx={{ fontSize: 18 }} />}>
               Go back
             </Button>
           </Link>

@@ -2,10 +2,9 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
-//mui
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import SendIcon from '@mui/icons-material/Send';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -17,6 +16,7 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -24,8 +24,7 @@ import {
   TableHead,
   TableRow,
   TextField,
-  Typography,
-  useTheme
+  Typography
 } from '@mui/material';
 
 // project import
@@ -44,7 +43,6 @@ const AdminLoginPage = () => {
   });
   const [adminLogin, { isLoading }] = useAdminLoginMutation();
   const [showPassword, setShowPassword] = useState(false);
-  const theme = useTheme();
   const {
     register,
     handleSubmit,
@@ -77,129 +75,70 @@ const AdminLoginPage = () => {
     reset(defaultCredentials);
   }, [defaultCredentials, reset]);
 
-  if (isLoading) return <Loader fullPage={true} />;
-  else
-    return (
-      <Container sx={{ height: '100vh' }}>
-        <Grid container gap={6}>
-          <Grid item xs={7} justifyContent="center" alignItems="center" height="100vh">
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
-              <Box
-                style={{
-                  flexGrow: 1,
-                  padding: '2.2rem 1rem',
-                  border: `1px solid ${theme.palette.primary.main}`,
-                  borderRadius: '8px'
-                }}
-              >
-                <Typography variant="h6" textAlign="center" fontWeight="600" pb={1}>
-                  Admin Login Credentials.
-                </Typography>
-                <Divider />
-                <CredentialTable setDefaultCredentials={setDefaultCredentials} />
-              </Box>
-            </Box>
-          </Grid>
-          <Grid
-            item
-            xs={4}
-            justifyContent="center"
-            alignItems="center"
-            height="100vh"
-            flexDirection="column"
+  if (isLoading) return <Loader fullPage />;
+
+  return (
+    <Container sx={{ height: '100vh' }}>
+      <Grid container gap={4} justifyContent="center" alignItems="center" minHeight="100vh">
+        <Grid item xs={12} md={7} display="flex" justifyContent="center">
+          <Paper sx={{ p: 2.5, maxWidth: 480, width: '100%' }}>
+            <Typography variant="h6" textAlign="center" fontWeight={600} sx={{ pb: 1 }}>
+              Admin login credentials
+            </Typography>
+            <Divider />
+            <CredentialTable setDefaultCredentials={setDefaultCredentials} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={4} display="flex" justifyContent="center">
+          <Paper
+            component="form"
+            onSubmit={handleSubmit(handleLogin)}
+            sx={{ p: 3, maxWidth: 400, width: '100%' }}
           >
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              height="100%"
-              flexDirection="column"
-            >
-              <form
-                style={{
-                  maxWidth: '400px',
-                  padding: '2rem 3rem',
-                  border: `1px solid ${theme.palette.primary.main}`,
-                  borderRadius: '8px'
-                }}
-                onSubmit={handleSubmit(handleLogin)}
-              >
-                <Typography
-                  variant="h5"
-                  sx={{
-                    textAlign: 'center',
-                    marginBottom: '.8rem',
-                    textTransform: 'uppercase',
-                    fontWeight: 700
-                  }}
-                >
-                  Login as an admin
-                </Typography>
-
-                <TextField
-                  {...register('email', { required: true })}
-                  color={errors['email'] ? 'error' : 'primary'}
-                  label="Email Address"
-                  id="outlined-start-adornment"
-                  size="small"
-                  sx={{ width: '100%', marginTop: '.6rem' }}
-                />
-                <FormControl
-                  sx={{ width: '100%', marginTop: '.6rem' }}
-                  variant="outlined"
-                  size="small"
-                >
-                  <InputLabel
-                    htmlFor="outlined-adornment-password"
-                    color={errors['password'] ? 'error' : 'primary'}
-                  >
-                    Password
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-password"
-                    {...register('password', { required: true })}
-                    color={errors['password'] ? 'error' : 'primary'}
-                    type={showPassword ? 'text' : 'password'}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onMouseDown={() => setShowPassword(true)}
-                          onMouseUp={() => setShowPassword(false)}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Password"
-                  />
-                </FormControl>
-
-                <Button
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  sx={{ marginTop: '10px', width: '100%', padding: '8px', borderRadius: '6px' }}
-                >
-                  Login
-                </Button>
-                <Box sx={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
-                  <Link to="/" style={{ textDecoration: 'none' }}>
-                    <Button
-                      type="button"
-                      size="medium"
-                      variant="contained"
-                      sx={{ display: 'flex', alignItems: 'center' }}
+            <Typography variant="h5" textAlign="center" fontWeight={700} sx={{ mb: 2 }}>
+              Login as admin
+            </Typography>
+            <TextField
+              {...register('email', { required: true })}
+              error={!!errors['email']}
+              label="Email"
+              size="small"
+              fullWidth
+              sx={{ mb: 1.5 }}
+            />
+            <FormControl fullWidth variant="outlined" size="small" error={!!errors['password']} sx={{ mb: 2 }}>
+              <InputLabel htmlFor="admin-login-password">Password</InputLabel>
+              <OutlinedInput
+                id="admin-login-password"
+                {...register('password', { required: true })}
+                type={showPassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onMouseDown={() => setShowPassword(true)}
+                      onMouseUp={() => setShowPassword(false)}
+                      edge="end"
                     >
-                      <ArrowBackIosIcon style={{ fontSize: '1rem' }} />
-                      Go back
-                    </Button>
-                  </Link>
-                </Box>
-              </form>
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
+            <Button variant="contained" type="submit" fullWidth sx={{ py: 1.25 }}>
+              Login
+            </Button>
+            <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                <Button variant="outlined" startIcon={<ArrowBackIosIcon sx={{ fontSize: 18 }} />}>
+                  Go back
+                </Button>
+              </Link>
             </Box>
-          </Grid>
+          </Paper>
+        </Grid>
         </Grid>
       </Container>
     );

@@ -39,9 +39,97 @@ let theme = createTheme({
   },
   components: {
     MuiButton: {
+      defaultProps: {
+        size: 'medium'
+      },
       styleOverrides: {
         root: {
           borderRadius: 8
+        },
+        contained: {
+          '&:hover': {
+            boxShadow: 2
+          }
+        }
+      }
+    },
+    MuiPaper: {
+      defaultProps: {
+        elevation: 2
+      },
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+          border: '1px solid',
+          borderColor: 'divider'
+        }
+      }
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          padding: '12px 16px'
+        }
+      }
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          '&:last-child td, &:last-child th': {
+            border: 0
+          },
+          '&:hover': {
+            backgroundColor: 'action.hover'
+          }
+        }
+      }
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 12,
+          maxWidth: 560
+        }
+      }
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          fontSize: '1.25rem',
+          fontWeight: 600,
+          paddingBottom: 1
+        }
+      }
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          paddingTop: 2
+        }
+      }
+    },
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          borderTop: '1px solid',
+          borderColor: 'divider',
+          padding: 2,
+          gap: 1
+        }
+      }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8
+        }
+      }
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          fontWeight: 600
         }
       }
     }

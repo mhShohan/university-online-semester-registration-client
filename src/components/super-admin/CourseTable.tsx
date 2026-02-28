@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-// mui
+import EditNoteIcon from '@mui/icons-material/EditNote';
 import {
-  Button,
+  IconButton,
   Paper,
   Skeleton,
   Table,
@@ -10,18 +10,16 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
+  Tooltip
 } from '@mui/material';
-// import DeleteIcon from '@mui/icons-material/Delete';
-import EditNoteIcon from '@mui/icons-material/EditNote';
 
-//project import
+import { userRole } from '../../constants';
+import { useAppDispatch, useAppSelector } from '../../store/hook';
+import { getCurrentUserRole } from '../../store/services/authSlice';
+import { setUpdateCourseModal } from '../../store/services/modalSlice';
 import { ICourse } from '../../types';
 import UpdateCourseModal from './UpdateCourseModal';
-import { useAppDispatch, useAppSelector } from '../../store/hook';
-import { setUpdateCourseModal } from '../../store/services/modalSlice';
-import { getCurrentUserRole } from '../../store/services/authSlice';
-import { userRole } from '../../constants';
 
 interface CourseTableProps {
   data: ICourse[];
@@ -33,29 +31,42 @@ export default function CourseTable({ data, isFetching }: CourseTableProps) {
   const role = useAppSelector(getCurrentUserRole);
   const dispatch = useAppDispatch();
 
-  const handleClickOpen = (data: ICourse) => {
-    dispatch(setUpdateCourseModal(data));
-
+  const handleClickOpen = (row: ICourse) => {
+    dispatch(setUpdateCourseModal(row));
     setModalOpen(true);
   };
 
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ borderRadius: 2, overflow: 'hidden' }}>
         <Table
-          sx={{ minWidth: '400px', width: '100%', tableLayout: 'auto' }}
-          size="small"
-          aria-label="a dense table"
+          sx={{ minWidth: 400, width: '100%', tableLayout: 'auto' }}
+          size="medium"
+          aria-label="Courses table"
         >
           <TableHead>
-            <TableRow>
-              <TableCell>Course Title</TableCell>
-              <TableCell align="center">Course Code</TableCell>
-              <TableCell align="center">Credit</TableCell>
-              <TableCell align="center">Department</TableCell>
-              <TableCell align="center">Year </TableCell>
-              <TableCell align="center">Semester</TableCell>
-              <TableCell align="center">Actions</TableCell>
+            <TableRow sx={{ backgroundColor: 'primary.dark' }}>
+              <TableCell sx={{ color: 'primary.contrastText', fontWeight: 700 }}>
+                Course Title
+              </TableCell>
+              <TableCell align="center" sx={{ color: 'primary.contrastText', fontWeight: 700 }}>
+                Course Code
+              </TableCell>
+              <TableCell align="center" sx={{ color: 'primary.contrastText', fontWeight: 700 }}>
+                Credit
+              </TableCell>
+              <TableCell align="center" sx={{ color: 'primary.contrastText', fontWeight: 700 }}>
+                Department
+              </TableCell>
+              <TableCell align="center" sx={{ color: 'primary.contrastText', fontWeight: 700 }}>
+                Year
+              </TableCell>
+              <TableCell align="center" sx={{ color: 'primary.contrastText', fontWeight: 700 }}>
+                Semester
+              </TableCell>
+              <TableCell align="center" sx={{ color: 'primary.contrastText', fontWeight: 700 }}>
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -68,7 +79,7 @@ export default function CourseTable({ data, isFetching }: CourseTableProps) {
             )}
             {!isFetching &&
               data?.map((row) => (
-                <TableRow key={row._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableRow key={row._id}>
                   <TableCell component="th" scope="row">
                     {row.title}
                   </TableCell>
@@ -78,30 +89,18 @@ export default function CourseTable({ data, isFetching }: CourseTableProps) {
                   <TableCell align="center">{row.year}</TableCell>
                   <TableCell align="center">{row.semester}</TableCell>
                   <TableCell align="center">
-                    <Button
-                      sx={{
-                        minWidth: '0',
-                        minHeight: '0',
-                        width: '30px',
-                        height: '30px',
-                        padding: 0
-                      }}
-                      onClick={() => handleClickOpen(row)}
-                      disabled={role !== userRole.DEPARTMENT_OPERATOR}
-                    >
-                      <EditNoteIcon sx={{ fontSize: '2.2rem' }} />
-                    </Button>
-                    {/* <Button
-                  sx={{
-                    minWidth: '0',
-                    minHeight: '0',
-                    width: '30px',
-                    height: '30px',
-                    padding: 0
-                  }}
-                >
-                <DeleteIcon sx={{ fontSize: '1.8rem' }} />
-              </Button> */}
+                    <Tooltip title="Edit course">
+                      <span>
+                        <IconButton
+                          size="small"
+                          onClick={() => handleClickOpen(row)}
+                          disabled={role !== userRole.DEPARTMENT_OPERATOR}
+                          aria-label={`Edit ${row.title}`}
+                        >
+                          <EditNoteIcon fontSize="medium" />
+                        </IconButton>
+                      </span>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               ))}
@@ -113,30 +112,12 @@ export default function CourseTable({ data, isFetching }: CourseTableProps) {
   );
 }
 
-const TableSkeleton = () => {
-  return (
-    <TableRow>
-      <TableCell>
-        <Skeleton variant="rectangular" />
+const TableSkeleton = () => (
+  <TableRow>
+    {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+      <TableCell key={i}>
+        <Skeleton variant="text" width="80%" />
       </TableCell>
-      <TableCell>
-        <Skeleton variant="rectangular" />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="rectangular" />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="rectangular" />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="rectangular" />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="rectangular" />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="rectangular" />
-      </TableCell>
-    </TableRow>
-  );
-};
+    ))}
+  </TableRow>
+);

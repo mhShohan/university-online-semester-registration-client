@@ -1,8 +1,9 @@
 import { FieldValues } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 
-// mui
-import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Grid, Paper, Stack, Typography } from '@mui/material';
+
+import { PageSection } from '../../components/ui';
 import { DataGrid } from '@mui/x-data-grid';
 
 // project import
@@ -47,23 +48,15 @@ const StudentDetails = () => {
   return (
     <Box>
       {/* Profile Info */}
-      <Grid container>
+      <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
-          <Box
-            sx={{
-              padding: '1.5rem',
-              width: '100%',
-              height: '400px',
-              border: '1px solid gray',
-              borderRadius: 4
-            }}
-          >
+          <Paper variant="outlined" sx={{ p: 2, height: 320, overflow: 'hidden' }}>
             <img
               src={data.avatar || blankProPic}
               alt="profile"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 4 }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }}
             />
-          </Box>
+          </Paper>
         </Grid>
         <Grid item xs={12} md={8}>
           <Stack direction="column" height="100%" justifyContent="center" ml={2}>
@@ -84,23 +77,8 @@ const StudentDetails = () => {
         </Grid>
       </Grid>
 
-      {/* Personal Details */}
-      <Stack my={2}>
-        <Typography
-          variant="h5"
-          sx={{
-            padding: '.2rem 1rem',
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            borderBottom: '1px solid',
-            borderColor: 'divider',
-            textAlign: 'center',
-            marginBottom: '.3rem'
-          }}
-        >
-          Personal Details
-        </Typography>
-        <Grid container>
+      <PageSection title="Personal Details" withDivider={false}>
+        <Grid container spacing={2}>
           <SingleItem md={4} name="Father Name" value={data?.fatherName} />
           <SingleItem md={4} name="Mother Name" value={data?.motherName} />
           <SingleItem md={4} name="Contact Number" value={data?.phone} />
@@ -109,78 +87,33 @@ const StudentDetails = () => {
             name="Date of Birth"
             value={dateFormatter.stringToMonth(data?.dateOfBirth)}
           />
-          <SingleItem md={4} name="nationality" value={data?.nationality} />
-          <SingleItem md={4} name="religion" value={data?.religion} />
+          <SingleItem md={4} name="Nationality" value={data?.nationality} />
+          <SingleItem md={4} name="Religion" value={data?.religion} />
         </Grid>
-      </Stack>
+      </PageSection>
 
-      {/* Present Address Details */}
-      <Stack my={2}>
-        <Typography
-          variant="h5"
-          sx={{
-            padding: '.2rem 1rem',
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            borderBottom: '1px solid',
-            borderColor: 'divider',
-            textAlign: 'center',
-            marginBottom: '.3rem'
-          }}
-        >
-          Present Address
-        </Typography>
-        <Grid container>
+      <PageSection title="Present Address" withDivider={false}>
+        <Grid container spacing={2}>
           <SingleItem md={4} name="village" value={data?.presentAddress?.village} />
           <SingleItem md={4} name="sub District" value={data?.presentAddress?.subDistrict} />
           <SingleItem md={4} name="post Office" value={data?.presentAddress?.postOffice} />
           <SingleItem md={4} name="district" value={data?.presentAddress?.district} />
-          <SingleItem md={4} name="zip Code" value={data?.presentAddress?.zipCode} />
+          <SingleItem md={4} name="Zip Code" value={data?.presentAddress?.zipCode} />
         </Grid>
-      </Stack>
+      </PageSection>
 
-      {/* permanentAddress Details */}
-      <Stack my={2}>
-        <Typography
-          variant="h5"
-          sx={{
-            padding: '.2rem 1rem',
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            borderBottom: '1px solid',
-            borderColor: 'divider',
-            textAlign: 'center',
-            marginBottom: '.3rem'
-          }}
-        >
-          Permanent Address
-        </Typography>
-        <Grid container>
+      <PageSection title="Permanent Address" withDivider={false}>
+        <Grid container spacing={2}>
           <SingleItem md={4} name="village" value={data?.permanentAddress?.village} />
           <SingleItem md={4} name="sub District" value={data?.permanentAddress?.subDistrict} />
           <SingleItem md={4} name="post Office" value={data?.permanentAddress?.postOffice} />
           <SingleItem md={4} name="district" value={data?.permanentAddress?.district} />
-          <SingleItem md={4} name="zip Code" value={data?.permanentAddress?.zipCode} />
+          <SingleItem md={4} name="Zip Code" value={data?.permanentAddress?.zipCode} />
         </Grid>
-      </Stack>
+      </PageSection>
 
-      <Stack my={2}>
-        <Typography
-          variant="h5"
-          sx={{
-            padding: '.2rem 1rem',
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            borderBottom: '1px solid',
-            borderColor: 'divider',
-            textAlign: 'center',
-            marginBottom: '.3rem'
-          }}
-        >
-          Educational Qualifications
-        </Typography>
-
-        <Box my={1}>
+      <PageSection title="Educational Qualifications" withDivider={false}>
+        <Paper sx={{ overflow: 'hidden', mt: 1 }}>
           <DataGrid
             autoHeight
             columns={[
@@ -192,12 +125,12 @@ const StudentDetails = () => {
               { field: 'GPA', headerName: 'GPA', flex: 1 }
             ]}
             rows={
-              data?.educationalQualifications.map((item: any, i: any) => ({ id: i, ...item })) || []
+              data?.educationalQualifications?.map((item: any, i: number) => ({ id: i, ...item })) ?? []
             }
-            hideFooterPagination={true}
+            hideFooter
           />
-        </Box>
-      </Stack>
+        </Paper>
+      </PageSection>
 
       {user?.role === 'DEPARTMENT_OPERATOR' && (
         <Stack p={3}>

@@ -1,21 +1,28 @@
-// mui
-import { Box, Button } from '@mui/material';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { Box, Button, Paper } from '@mui/material';
+import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
+import { Link } from 'react-router-dom';
 
-// project import
+import { EmptyState, PageSection } from '../../components/ui';
 import Loader from '../../components/Loader';
 import { useGetAllStudentsQuery } from '../../store/features/operator/operator.api';
-import { Link } from 'react-router-dom';
 
 const AllStudentOfHall = () => {
   const { data, isLoading } = useGetAllStudentsQuery(undefined);
 
-  if (isLoading) return <Loader fullPage={true} />;
+  if (isLoading) return <Loader fullPage />;
+
+  const rows = data?.data?.map((student: any) => ({ ...student, id: student._id })) ?? [];
 
   return (
-    <Box>
-      <Table rows={data.data.map((student: any) => ({ ...student, id: student._id }))} />
-    </Box>
+    <PageSection title="Students">
+      {rows.length === 0 ? (
+        <EmptyState message="No students found" />
+      ) : (
+        <Paper sx={{ overflow: 'hidden' }}>
+          <Table rows={rows} />
+        </Paper>
+      )}
+    </PageSection>
   );
 };
 
@@ -45,7 +52,7 @@ const columns: GridColDef[] = [
 
 function Table({ rows }: { rows: GridRowsProp[] }) {
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', minHeight: 400 }}>
       <DataGrid rows={rows} columns={columns} rowSelection={false} />
     </Box>
   );

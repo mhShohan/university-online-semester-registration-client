@@ -1,43 +1,36 @@
-import { Box, Divider, Stack, Typography } from '@mui/material';
+import { Box, Paper, Stack } from '@mui/material';
 import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
+
+import { EmptyState, PageSection } from '../../components/ui';
 import Loader from '../../components/Loader';
 import { useGetAllApplicationPaymentQuery } from '../../store/features/student/student.api';
 
 const AllPaymentPage = () => {
   const { data, isLoading } = useGetAllApplicationPaymentQuery(undefined);
 
-  if (isLoading) return <Loader fullPage={true} />;
-
-  console.log(data);
+  if (isLoading) return <Loader fullPage />;
 
   const payments =
-    data?.data?.map((form: any) => {
-      return {
-        id: form._id,
-        studentId: form.studentId.studentId,
-        studentName: form.studentId.name,
-        department: form.departmentId.name,
-        amount: form.amount + ' BDT'
-      };
-    }) || [];
+    data?.data?.map((form: any) => ({
+      id: form._id,
+      studentId: form.studentId.studentId,
+      studentName: form.studentId.name,
+      department: form.departmentId.name,
+      amount: form.amount + ' BDT'
+    })) ?? [];
 
   return (
-    <Stack>
-      <Divider />
-      <Typography variant="h4" textAlign="center">
-        Application Payments
-      </Typography>
-      <Divider />
-      <Stack mt={4}>
-        {payments.length <= 0 ? (
-          <Typography variant="h6" textAlign="center">
-            No Payment Found
-          </Typography>
+    <PageSection title="Application Payments">
+      <Stack mt={2}>
+        {payments.length === 0 ? (
+          <EmptyState message="No payments found" />
         ) : (
-          <Table rows={payments}></Table>
+          <Paper sx={{ overflow: 'hidden' }}>
+            <Table rows={payments} />
+          </Paper>
         )}
       </Stack>
-    </Stack>
+    </PageSection>
   );
 };
 
@@ -52,8 +45,8 @@ const columns: GridColDef[] = [
 
 function Table({ rows }: { rows: GridRowsProp[] }) {
   return (
-    <Box sx={{ width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} rowSelection={false} hideFooter={true} />
+    <Box sx={{ width: '100%', minHeight: 400 }}>
+      <DataGrid rows={rows} columns={columns} rowSelection={false} hideFooter />
     </Box>
   );
 }
